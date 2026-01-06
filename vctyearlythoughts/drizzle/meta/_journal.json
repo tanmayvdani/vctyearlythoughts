@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1767546247601,
+      "tag": "0000_chubby_stark_industries",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1767548598383,
+      "tag": "0001_romantic_vargas",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1767716861398,
+      "tag": "0002_productive_hex",
+      "breakpoints": true
+    }
+  ]
+}
