@@ -13,6 +13,7 @@ import { submitPrediction, getTeamData } from "@/app/actions"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { toast } from "sonner"
 
 interface PredictionModalProps {
   team: Team | null
@@ -40,6 +41,7 @@ export function PredictionModal({ team, isOpen, onClose }: PredictionModalProps)
   const [roster, setRoster] = useState<any[]>([])
   const [transactions, setTransactions] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const placementOptionsKickoff = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-10th", "11th-12th"]
   const placementOptionsStages = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-12th"]
@@ -153,41 +155,38 @@ export function PredictionModal({ team, isOpen, onClose }: PredictionModalProps)
   }
 
   const executeSubmission = async () => {
-     const formData = new FormData()
-    formData.append("teamId", team!.id)
-    formData.append("teamName", team!.name)
-    formData.append("teamTag", team!.tag)
-    formData.append("thought", thought)
-    formData.append("isPublic", String(isPublic))
-    formData.append("identity", identity)
-    
-    // New fields
-    formData.append("kickoffPlacement", kickoffPlacement)
-    formData.append("stage1Placement", stage1Placement)
-    formData.append("stage2Placement", stage2Placement)
-    formData.append("masters1Placement", masters1Placement)
-    formData.append("masters2Placement", masters2Placement)
-    formData.append("championsPlacement", championsPlacement)
-    formData.append("rosterMoves", rosterMoves)
+    setIsSubmitting(true)
+    try {
+      const formData = new FormData()
+      formData.append("teamId", team!.id)
+      formData.append("teamName", team!.name)
+      formData.append("teamTag", team!.tag)
+      formData.append("thought", thought)
+      formData.append("isPublic", String(isPublic))
+      formData.append("identity", identity)
+      
+      // New fields
+      formData.append("kickoffPlacement", kickoffPlacement)
+      formData.append("stage1Placement", stage1Placement)
+      formData.append("stage2Placement", stage2Placement)
+      formData.append("masters1Placement", masters1Placement)
+      formData.append("masters2Placement", masters2Placement)
+      formData.append("championsPlacement", championsPlacement)
+      formData.append("rosterMoves", rosterMoves)
 
-    await submitPrediction(formData)
-    
-    // Clear draft after successful submission
-    const draftData = JSON.stringify({ 
-      thought, 
-      kickoffPlacement, 
-      stage1Placement, 
-      stage2Placement, 
-      masters1Placement,
-      masters2Placement,
-      championsPlacement,
-      rosterMoves 
-    })
-    localStorage.removeItem(`draft_${team!.id}`)
-    
-    // In a real app, we might show a toast here
-    console.log("Prediction saved")
-    onClose()
+      await submitPrediction(formData)
+      
+      // Clear draft after successful submission
+      localStorage.removeItem(`draft_${team!.id}`)
+      
+      toast.success("Prediction saved to capsule!")
+      onClose()
+    } catch (error: any) {
+      console.error("Submission error:", error)
+      toast.error(error.message || "Failed to save prediction")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleAnonymousSubmit = async () => {
@@ -308,7 +307,7 @@ export function PredictionModal({ team, isOpen, onClose }: PredictionModalProps)
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form id="prediction-form" onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-3 gap-2">
                  <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase text-muted-foreground">Kickoff</label>
@@ -479,10 +478,20 @@ export function PredictionModal({ team, isOpen, onClose }: PredictionModalProps)
             <button 
               type="submit" 
               form="prediction-form"
-              className="w-full h-10 bg-primary text-white hover:bg-primary/90 border border-transparent font-bold text-[11px] uppercase transition-colors flex items-center justify-center gap-2"
+              disabled={isSubmitting}
+              className="w-full h-10 bg-primary text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed border border-transparent font-bold text-[11px] uppercase transition-colors flex items-center justify-center gap-2"
             >
-              <Send className="w-3.5 h-3.5" />
-              SAVE TO CAPSULE
+              {isSubmitting ? (
+                <>
+                  <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  SAVING...
+                </>
+              ) : (
+                <>
+                  <Send className="w-3.5 h-3.5" />
+                  SAVE TO CAPSULE
+                </>
+              )}
             </button>
 
             <p className="text-[9px] text-center text-muted-foreground font-medium uppercase tracking-tight mt-2">
