@@ -19,7 +19,7 @@ interface TeamCardProps {
 }
 
 export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) {
-  const { isUnlocked } = getUnlockStatus(team)
+  const { isUnlocked, unlockDate } = getUnlockStatus(team)
   const { user } = useAuth()
   const router = useRouter()
   
@@ -27,6 +27,8 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSubscribeModal, setShowSubscribeModal] = useState(false)
   const [showUnsubscribeModal, setShowUnsubscribeModal] = useState(false)
+
+  const formattedUnlockDate = unlockDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 
   const handleActionClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -59,6 +61,7 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
       <div
         role="button"
         onClick={() => isUnlocked && onClick(team)}
+        title={!isUnlocked ? `Unlocks ${formattedUnlockDate}` : undefined}
         className={cn(
           "zebra-row flex items-center justify-between w-full h-9 px-3 transition-colors text-left border-b border-border/50 last:border-0 group",
           isUnlocked ? "hover:bg-primary/5 cursor-pointer" : "bg-black/10 cursor-default",

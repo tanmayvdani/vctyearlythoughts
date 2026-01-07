@@ -8,8 +8,10 @@ interface ConfirmDialogProps {
   description: string
   confirmText?: string
   cancelText?: string
+  alternativeText?: string
   onConfirm: () => void
   onCancel: () => void
+  onAlternative?: () => void
   variant?: "default" | "destructive"
 }
 
@@ -19,8 +21,10 @@ export function ConfirmDialog({
   description,
   confirmText = "Confirm",
   cancelText = "Cancel",
+  alternativeText,
   onConfirm,
   onCancel,
+  onAlternative,
   variant = "default",
 }: ConfirmDialogProps) {
   if (!isOpen) return null
@@ -43,21 +47,31 @@ export function ConfirmDialog({
             {description}
           </p>
 
-          <div className="flex gap-3">
-            <button
-              onClick={onCancel}
-              className="flex-1 h-10 bg-muted text-white hover:bg-muted/80 border border-border font-bold text-[11px] uppercase transition-colors"
-            >
-              {cancelText}
-            </button>
-            <button
-              onClick={onConfirm}
-              className={`flex-1 h-10 ${
-                variant === "destructive" ? "bg-destructive hover:bg-destructive/90" : "bg-primary hover:bg-primary/90"
-              } text-white font-bold text-[11px] uppercase transition-colors`}
-            >
-              {confirmText}
-            </button>
+          <div className="flex flex-col gap-3">
+             <div className="flex gap-3">
+              <button
+                onClick={onCancel}
+                className="flex-1 h-10 bg-muted text-white hover:bg-muted/80 border border-border font-bold text-[11px] uppercase transition-colors"
+              >
+                {cancelText}
+              </button>
+              <button
+                onClick={onConfirm}
+                className={`flex-1 h-10 ${
+                  variant === "destructive" ? "bg-destructive hover:bg-destructive/90" : "bg-primary hover:bg-primary/90"
+                } text-white font-bold text-[11px] uppercase transition-colors`}
+              >
+                {confirmText}
+              </button>
+            </div>
+            {onAlternative && alternativeText && (
+               <button
+                  onClick={onAlternative}
+                  className="w-full h-10 bg-transparent text-muted-foreground hover:text-white border border-dashed border-border hover:border-white/50 font-bold text-[10px] uppercase transition-colors"
+               >
+                  {alternativeText}
+               </button>
+            )}
           </div>
         </div>
       </div>

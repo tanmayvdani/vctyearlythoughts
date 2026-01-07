@@ -22,6 +22,27 @@
       "when": 1767716861398,
       "tag": "0002_productive_hex",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1767726721787,
+      "tag": "0003_aromatic_psylocke",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1767729143892,
+      "tag": "0004_aromatic_stranger",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1767758143493,
+      "tag": "0005_needy_typhoid_mary",
+      "breakpoints": true
     }
   ]
 }

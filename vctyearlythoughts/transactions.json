@@ -1,0 +1,672 @@
+{
+  "americas": {
+    "sentinels": {
+      "name": "Sentinels",
+      "roster": [
+        { "alias": "johnqt", "name": "Mohamed Amine Ouarid", "role": "Player" },
+        { "alias": "N4RRATE", "name": "Marshall Massey", "role": "Player" },
+        { "alias": "Reduxx", "name": "Yassin Aboulalazm", "role": "Player" },
+        { "alias": "Kyu", "name": "Mirel Braco Hrustemovic", "role": "Player" },
+        { "alias": "cortezia", "name": "Gabriel Cortez", "role": "Player" },
+        { "alias": "kaplan", "name": "Adam Kaplan", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/02", "action": "join", "player": "cortezia" },
+        { "date": "2025/11/02", "action": "join", "player": "Kyu" }
+      ]
+    },
+    "cloud9": {
+      "name": "Cloud9",
+      "roster": [
+        { "alias": "Xeppaa", "name": "Erick Bach", "role": "Player" },
+        { "alias": "v1c", "name": "Victor Truong", "role": "Player" },
+        { "alias": "Zellsis", "name": "Jordan Montemurro", "role": "Player" },
+        { "alias": "penny", "name": "Erik Penny", "role": "Player" },
+        { "alias": "OXY", "name": "Francis Hoang", "role": "Player" },
+        { "alias": "Immi", "name": "Ian Harding", "role": "coach" }
+      ],
+      "transactions": [
+        { "date": "2025/10/31", "action": "join", "player": "penny" },
+        { "date": "2025/10/31", "action": "join", "player": "Zellsis" }
+      ]
+    },
+    "nrg": {
+      "name": "NRG",
+      "roster": [
+        { "alias": "Ethan", "name": "Ethan Arnold", "role": "Player" },
+        { "alias": "keiko", "name": "Georgio Sanassy", "role": "Player" },
+        { "alias": "brawk", "name": "Brock Somerhalder", "role": "Player" },
+        { "alias": "mada", "name": "Adam Pampuch", "role": "Player" },
+        { "alias": "skuba", "name": "Logan Jenkins", "role": "Player" },
+        { "alias": "bonkar", "name": "Malkolm Rench", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/13", "action": "join", "player": "keiko" }
+      ]
+    },
+    "loud": {
+      "name": "LOUD",
+      "roster": [
+        { "alias": "lukxo", "name": "Lucca Travaioli", "role": "Player" },
+        { "alias": "Darker", "name": "Sebastián Castro Cicuamia", "role": "Player" },
+        { "alias": "Virtyy", "name": "Leandro Moreno", "role": "Player" },
+        { "alias": "pANcada", "name": "Bryan Luna", "role": "Player" },
+        { "alias": "cauanzin", "name": "Cauan Pereira", "role": "Player" },
+        { "alias": "Romanilly", "name": "Gonzalo Manzano", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/06", "action": "join", "player": "Darker" }
+      ]
+    },
+    "mibr": {
+      "name": "MIBR",
+      "roster": [
+        { "alias": "zekken", "name": "Zachary Patrone", "role": "Player" },
+        { "alias": "tex", "name": "Ian Botsch", "role": "Player" },
+        { "alias": "Mazino", "name": "Roberto Rivas", "role": "Player" },
+        { "alias": "Verno", "name": "Andrew Maust", "role": "Player" },
+        { "alias": "aspas", "name": "Erick Santos", "role": "Player" },
+        { "alias": "fRoD", "name": "Daniel Montaner", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/19", "action": "join", "player": "Mazino" },
+        { "date": "2025/12/19", "action": "join", "player": "tex" },
+        { "date": "2025/12/19", "action": "join", "player": "zekken" }
+      ]
+    },
+    "leviat-n": {
+      "name": "Leviatán",
+      "roster": [
+        { "alias": "kiNgg", "name": "Francisco Aravena", "role": "Player" },
+        { "alias": "spike", "name": "Rodrigo Lombardi", "role": "Player" },
+        { "alias": "blowz", "name": "Guilherme Oliviera", "role": "Player" },
+        { "alias": "Neon", "name": "Bruno Rodríguez", "role": "Player" },
+        { "alias": "Sato", "name": "Eduardo Kenzo Nagahama Sato", "role": "Player" },
+        { "alias": "Onur", "name": "Rodrigo Dalmagro", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/22", "action": "join", "player": "Neon" },
+        { "date": "2025/11/22", "action": "join", "player": "spike" }
+      ]
+    },
+    "100-thieves": {
+      "name": "100 Thieves",
+      "roster": [
+        { "alias": "vora", "name": "Jordan Pulwer", "role": "Player" },
+        { "alias": "Cryocells", "name": "Matthew Panganiban", "role": "Player" },
+        { "alias": "Asuna", "name": "Peter Mazuryk", "role": "Player" },
+        { "alias": "Timotino", "name": "Timothée Lavigne Dupont", "role": "Player" },
+        { "alias": "bang", "name": "Sean Bezerra", "role": "Player" },
+        { "alias": "Nbs", "name": "Laurynas Kisielius", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/08", "action": "join", "player": "bang" }
+      ]
+    },
+    "g2-esports": {
+      "name": "G2 Esports",
+      "roster": [
+        { "alias": "valyn", "name": "Jacob Batio", "role": "Player" },
+        { "alias": "jawgemo", "name": "Alexander Mor", "role": "Player" },
+        { "alias": "BABYBAY", "name": "Andrej Francisty", "role": "Player" },
+        { "alias": "trent", "name": "Trent Cairns", "role": "Player" },
+        { "alias": "leaf", "name": "Nathan Orf", "role": "Player" },
+        { "alias": "JoshRT", "name": "Josh Lee", "role": "head coach" }
+      ],
+      "transactions": []
+    },
+    "kr-esports": {
+      "name": "KRÜ Esports",
+      "roster": [
+        { "alias": "saadhak", "name": "Matias Delipetro", "role": "Player" },
+        { "alias": "mwzera", "name": "Leonardo Serrati", "role": "Player" },
+        { "alias": "silentzz", "name": "Caio Morita", "role": "Player" },
+        { "alias": "Less", "name": "Felipe de Loyola Basso", "role": "Player" },
+        { "alias": "Dantedeu5", "name": "Jesús Federico Larrosa", "role": "Player" },
+        { "alias": "ZONYK", "name": "Nicolas Carboni", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/13", "action": "join", "player": "Less" },
+        { "date": "2025/12/13", "action": "join", "player": "saadhak" }
+      ]
+    },
+    "furia": {
+      "name": "FURIA",
+      "roster": [
+        { "alias": "nerve", "name": "Michael Yerrow", "role": "Player" },
+        { "alias": "artzin", "name": "Arthur Araujo", "role": "Player" },
+        { "alias": "eeiu", "name": "Daniel Vucenovic", "role": "Player" },
+        { "alias": "koalanoob", "name": "Gianfranco Potestio", "role": "Player" },
+        { "alias": "alym", "name": "Torogul Baidyldaev", "role": "Player" },
+        { "alias": "shaW", "name": "Ian Jardim", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/02", "action": "join", "player": "eeiu" },
+        { "date": "2025/12/02", "action": "join", "player": "koalanoob" }
+      ]
+    },
+    "evil-geniuses": {
+      "name": "Evil Geniuses",
+      "roster": [
+        { "alias": "C0M", "name": "Corbin Lee", "role": "Player" },
+        { "alias": "supamen", "name": "Phat Le", "role": "Player" },
+        { "alias": "bao", "name": "Bao Nguyen", "role": "Player" },
+        { "alias": "Okeanos", "name": "Anthony Nguyen", "role": "Player" },
+        { "alias": "dgzin", "name": "Douglas Silva", "role": "Player" },
+        { "alias": "potter", "name": "Christine Chi", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/22", "action": "join", "player": "C0M" },
+        { "date": "2025/11/22", "action": "join", "player": "dgzin" }
+      ]
+    },
+    "envy": {
+      "name": "Envy",
+      "roster": [
+        { "alias": "P0PPIN", "name": "Matteo Weber", "role": "Player" },
+        { "alias": "canezerra", "name": "Alex Banyasz", "role": "Player" },
+        { "alias": "Eggsterr", "role": "Player" },
+        { "alias": "Inspire", "name": "Hunter Schline", "role": "Player" },
+        { "alias": "ion2x", "name": "Ayan Rastogi", "role": "Player" },
+        { "alias": "Stunner", "name": "Dakota MacLeod", "role": "coach" }
+      ],
+      "transactions": []
+    }
+  },
+  "emea": {
+    "fnatic": {
+      "name": "Fnatic",
+      "roster": [
+        { "alias": "Boaster", "name": "Jake Howlett", "role": "Player" },
+        { "alias": "crashies", "name": "Austin Roberts", "role": "Player" },
+        { "alias": "kaajak", "name": "Kajetan Haremski", "role": "Player" },
+        { "alias": "Veqaj", "name": "Sylvain Pattyn", "role": "Player" },
+        { "alias": "Alfajer", "name": "Emir Ali Beder", "role": "Player" },
+        { "alias": "Milan", "name": "Milan de Meij", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/09", "action": "join", "player": "Veqaj" }
+      ]
+    },
+    "natus-vincere": {
+      "name": "Natus Vincere",
+      "roster": [
+        { "alias": "sociablEE", "name": "Volkan Yonal", "role": "Player" },
+        { "alias": "Filu", "name": "Dawid Czarnecki", "role": "Player" },
+        { "alias": "Shao", "name": "Andrey Kiprsky", "role": "Player" },
+        { "alias": "Ruxic", "name": "Uğur Güç", "role": "Player" },
+        { "alias": "hiro", "name": "Emirhan Kat", "role": "Player" },
+        { "alias": "ANGE1", "name": "Kyrylo Karasov", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/03", "action": "join", "player": "sociablEE" },
+        { "date": "2025/12/03", "action": "join", "player": "ANGE1" }
+      ]
+    },
+    "team-liquid": {
+      "name": "Team Liquid",
+      "roster": [
+        { "alias": "nAts", "name": "Ayaz Akhmetshin", "role": "Player" },
+        { "alias": "purp0", "name": "Semyon Borchev", "role": "Player" },
+        { "alias": "wayne", "name": "Wayne Chang", "role": "Player" },
+        { "alias": "MiniBoo", "name": "Dominykas Lukaševičius", "role": "Player" },
+        { "alias": "kamo", "name": "Kamil Frąckowiak", "role": "Player" },
+        { "alias": "LohaN", "name": "Ivo Albino", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/12", "action": "join", "player": "MiniBoo" },
+        { "date": "2025/12/12", "action": "join", "player": "purp0" }
+      ]
+    },
+    "team-vitality": {
+      "name": "Team Vitality",
+      "roster": [
+        { "alias": "Jamppi", "name": "Elias Olkkonen", "role": "Player" },
+        { "alias": "PROFEK", "name": "Dawid Święć", "role": "Player" },
+        { "alias": "Derke", "name": "Nikita Sirmitev", "role": "Player" },
+        { "alias": "Chronicle", "name": "Timofey Khromov", "role": "Player" },
+        { "alias": "Sayonara", "name": "Ștefan Mîtcu", "role": "Player" },
+        { "alias": "Faded", "name": "Daniel Hwang", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/23", "action": "join", "player": "Jamppi" },
+        { "date": "2025/10/25", "action": "join", "player": "Chronicle" }
+      ]
+    },
+    "karmine-corp": {
+      "name": "Karmine Corp",
+      "roster": [
+        { "alias": "Avez", "name": "Hazem Khaled", "role": "Player" },
+        { "alias": "SUYGETSU", "name": "Dmitry Ilyushin", "role": "Player" },
+        { "alias": "ENGH", "name": "Andrey Sholokhov", "role": "head coach" }
+      ],
+      "transactions": []
+    },
+    "team-heretics": {
+      "name": "Team Heretics",
+      "roster": [
+        { "alias": "Boo", "name": "Ričardas Lukaševičius", "role": "Player" },
+        { "alias": "Wo0t", "name": "Mert Alkan", "role": "Player" },
+        { "alias": "RieNs", "name": "Enes Ecirli", "role": "Player" },
+        { "alias": "benjyfishy", "name": "Benjamin David Fish", "role": "Player" },
+        { "alias": "ComeBack", "name": "Berkcan Şentürk", "role": "Player" },
+        { "alias": "neilzinho", "name": "Neil Finlay", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/10/24", "action": "join", "player": "ComeBack" }
+      ]
+    },
+    "giantx": {
+      "name": "GIANTX",
+      "roster": [
+        { "alias": "Cloud", "name": "Kirill Nehozhin", "role": "Player" },
+        { "alias": "grubinho", "name": "Grzegorz Ryczko", "role": "Player" },
+        { "alias": "westside", "name": "Miłosz Duda", "role": "Player" },
+        { "alias": "Flickless", "name": "Karel Maeckelbergh", "role": "Player" },
+        { "alias": "ara", "name": "Hanceriuc Eduard-George", "role": "Player" },
+        { "alias": "pipsoN", "name": "Daniil Mesheryakov", "role": "head coach" }
+      ],
+      "transactions": []
+    },
+    "fut-esports": {
+      "name": "FUT Esports",
+      "roster": [
+        { "alias": "MrFaliN", "name": "Furkan Yeğen", "role": "Player" },
+        { "alias": "xeus", "name": "Doğan Gözgen", "role": "Player" },
+        { "alias": "yetujey", "name": "Eray Budak", "role": "Player" },
+        { "alias": "KROSTALY", "name": "Okan Alaçam", "role": "Player" },
+        { "alias": "baha", "name": "Baha Gözmen", "role": "Player" },
+        { "alias": "Gais", "name": "Eray Sarikaya", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/19", "action": "join", "player": "baha" },
+        { "date": "2025/11/18", "action": "join", "player": "KROSTALY" }
+      ]
+    },
+    "bbl-esports": {
+      "name": "BBL Esports",
+      "roster": [
+        { "alias": "Crewen", "name": "Ali Eren Sargin", "role": "Player" },
+        { "alias": "Lar0k", "name": "Yusuf Kaan Kanber", "role": "Player" },
+        { "alias": "Loita", "name": "Utku Kart", "role": "Player" },
+        { "alias": "Rosé", "name": "Eren Erzan", "role": "Player" },
+        { "alias": "lovers rock", "name": "Umut Pekdoğan", "role": "Player" },
+        { "alias": "KEY", "name": "Mert Çelebi", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/27", "action": "join", "player": "Crewen" },
+        { "date": "2025/11/27", "action": "join", "player": "Lar0k" }
+      ]
+    },
+    "ulf-esports": {
+      "name": "ULF Esports",
+      "roster": [
+        { "alias": "nekky", "name": "Anıl Dağdeviren", "role": "Player" },
+        { "alias": "audaz", "name": "Soner Ekiz", "role": "Player" },
+        { "alias": "s0pp", "name": "Efe Tur", "role": "Player" },
+        { "alias": "echo", "name": "Ömür Serkan Şenol", "role": "Player" },
+        { "alias": "Favian", "name": "Enes Yiğiter", "role": "Player" }
+      ],
+      "transactions": []
+    },
+    "gentle-mates": {
+      "name": "Gentle Mates",
+      "roster": [
+        { "alias": "starxo", "name": "Patryk Kopczynski", "role": "Player" },
+        { "alias": "bipo", "name": "Taranvir Singh", "role": "Player" },
+        { "alias": "marteen", "name": "Martin Pátek", "role": "Player" },
+        { "alias": "GLYPH", "name": "Conner Garcia", "role": "Player" },
+        { "alias": "Minny", "name": "Patrik Hušek", "role": "Player" },
+        { "alias": "pakko", "name": "Pavle Kostic", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/20", "action": "join", "player": "marteen" },
+        { "date": "2025/11/20", "action": "join", "player": "starxo" }
+      ]
+    },
+    "pcific-esports": {
+      "name": "PCIFIC Esports",
+      "roster": [
+        { "alias": "Leader", "name": "Kaan Taşpınar", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/28", "action": "join", "player": "Leader" }
+      ]
+    }
+  },
+  "pacific": {
+    "paper-rex": {
+      "name": "Paper Rex",
+      "roster": [
+        { "alias": "invy", "name": "Adrian Jiggs Reyes", "role": "Player" },
+        { "alias": "Jinggg", "name": "Wang Jing Jie", "role": "Player" },
+        { "alias": "f0rsakeN", "name": "Jason Susanto", "role": "Player" },
+        { "alias": "d4v41", "name": "Khalish Rusyaidee", "role": "Player" },
+        { "alias": "something", "name": "Ilya Petrov", "role": "Player" },
+        { "alias": "alecks", "name": "Alexandre Sallé", "role": "coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/16", "action": "join", "player": "invy" }
+      ]
+    },
+    "drx": {
+      "name": "DRX",
+      "roster": [
+        { "alias": "MaKo", "name": "Kim Myeong-gwan (김명관)", "role": "Player" },
+        { "alias": "Flicker", "name": "Kim Tae-hee (김태희)", "role": "Player" },
+        { "alias": "Flashback", "name": "Cho Min-hyuk (조민혁)", "role": "Player" },
+        { "alias": "free1ng", "name": "No Ha-jun (노하준)", "role": "Player" },
+        { "alias": "HYUNMIN", "name": "Song Hyun-min (송현민)", "role": "Player" },
+        { "alias": "BeYN", "name": "Kang Ha-bin (강하빈)", "role": "Player" },
+        { "alias": "termi", "name": "Pyeon Seon-ho (편선호)", "role": "head coach" }
+      ],
+      "transactions": []
+    },
+    "gen-g": {
+      "name": "Gen.G",
+      "roster": [
+        { "alias": "Lakia", "name": "Kim Jong-min (김종민)", "role": "Player" },
+        { "alias": "Ash", "name": "Ha Hyun-cheol (하현철)", "role": "Player" },
+        { "alias": "Karon", "name": "Kim Won-tae (김원태)", "role": "Player" },
+        { "alias": "t3xture", "name": "Kim Na-ra (김나라)", "role": "Player" },
+        { "alias": "ZynX", "name": "Kim Dong-ha (김동하)", "role": "stand-in" },
+        { "alias": "solo", "name": "Kang Geun-chul (강근철)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/02", "action": "join", "player": "Lakia" }
+      ]
+    },
+    "t1": {
+      "name": "T1",
+      "roster": [
+        { "alias": "Munchkin", "name": "Byeon Sang-beom (변상범)", "role": "Player" },
+        { "alias": "stax", "name": "Kim Gu-taek (김구택)", "role": "Player" },
+        { "alias": "Meteor", "name": "Kim Tae-oh (김태오)", "role": "Player" },
+        { "alias": "BuZz", "name": "Yu Byeong-cheol (유병철)", "role": "Player" },
+        { "alias": "iZu", "name": "Ham Woo-ju (함우주)", "role": "Player" },
+        { "alias": "KDG", "name": "Kim Dong-gun (김동건)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/28", "action": "join", "player": "Munchkin" }
+      ]
+    },
+    "zeta-division": {
+      "name": "ZETA DIVISION",
+      "roster": [
+        { "alias": "Absol", "name": "Kazuki Fujinoki", "role": "Player" },
+        { "alias": "SyouTa", "name": "Shota Aoki", "role": "Player" },
+        { "alias": "SugarZ3ro", "name": "Shota Watanabe", "role": "Player" },
+        { "alias": "eKo", "name": "Yeom Wang-ryong (염왕룡)", "role": "Player" },
+        { "alias": "Xdll", "name": "Yuto Mizomori", "role": "Player" },
+        { "alias": "XQQ", "name": "Motoyama Hibiki", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/16", "action": "join", "player": "SyouTa" }
+      ]
+    },
+    "detonation-focusme": {
+      "name": "DetonatioN FocusMe",
+      "roster": [
+        { "alias": "Meiy", "name": "Ibuki Seki", "role": "Player" },
+        { "alias": "SSeeS", "name": "Tomonori Okimura", "role": "Player" },
+        { "alias": "Caedye", "name": "Amon Mateus Okakura", "role": "Player" },
+        { "alias": "Akame", "name": "Yu Gwang-hui (유광희)", "role": "Player" },
+        { "alias": "Vorz", "name": "Kakeru Ikarashi", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2026/01/01", "action": "join", "player": "Caedye" }
+      ]
+    },
+    "full-sense": {
+      "name": "FULL SENSE",
+      "roster": [
+        { "alias": "Leviathan", "name": "Thanyathon Nakmee", "role": "Player" },
+        { "alias": "Killua", "name": "Tanate Teerasawad", "role": "Player" },
+        { "alias": "thyy", "name": "Anupong Preamsak", "role": "Player" },
+        { "alias": "primmie", "name": "Papaphat Sriprapha", "role": "Player" },
+        { "alias": "JitBoyS", "name": "Jittana Nokngam", "role": "Player" },
+        { "alias": "Crws", "name": "Thanamethk Mahatthananuyut", "role": "coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/08", "action": "join", "player": "primmie" }
+      ]
+    },
+    "team-secret": {
+      "name": "Team Secret",
+      "roster": [
+        { "alias": "JessieVash", "name": "Jessie Cuyco", "role": "Player" },
+        { "alias": "kellyS", "name": "Kelly Sedillo", "role": "Player" },
+        { "alias": "TenTen", "name": "Kim Tae-young (김태영)", "role": "Player" },
+        { "alias": "Sylvan", "name": "Go Young-sup (고영섭)", "role": "Player" },
+        { "alias": "BerserX", "name": "Rizkie Adla Kusuma", "role": "Player" },
+        { "alias": "Rbtx", "name": "Jose Carlo Jamir", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/24", "action": "join", "player": "Rbtx" }
+      ]
+    },
+    "rex-regum-qeon": {
+      "name": "Rex Regum Qeon",
+      "roster": [
+        { "alias": "crazyguy", "name": "Ngô Công Anh", "role": "Player" },
+        { "alias": "Monyet", "name": "Cahya Nugraha", "role": "Player" },
+        { "alias": "xffero", "name": "David Monangin", "role": "Player" },
+        { "alias": "Jemkin", "name": "Maksim Batorov", "role": "Player" },
+        { "alias": "Kushy", "name": "Bryan Carlos Setiawan", "role": "Player" },
+        { "alias": "Jovi", "name": "Jovanni Vera", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/28", "action": "join", "player": "Jovi" }
+      ]
+    },
+    "global-esports": {
+      "name": "Global Esports",
+      "roster": [
+        { "alias": "PatMen", "name": "Patrick Mendoza", "role": "Player" },
+        { "alias": "UdoTan", "name": "Go Kyung-won (고경원)", "role": "Player" },
+        { "alias": "Kr1stal", "name": "Savva Fedorov", "role": "Player" },
+        { "alias": "xavi8k", "name": "Xavier Juan", "role": "Player" },
+        { "alias": "Autumn", "name": "Kale Dunne", "role": "Player" },
+        { "alias": "FrosT", "name": "Hector Rosario", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/15", "action": "join", "player": "PatMen" }
+      ]
+    },
+    "varrel": {
+      "name": "VARREL",
+      "roster": [
+        { "alias": "C1ndeR", "name": "Ko Jae-hyuk (고재혁)", "role": "Player" },
+        { "alias": "Klaus", "name": "Kim Min-hyuk (김민혁)", "role": "Player" },
+        { "alias": "XuNa", "name": "Kim Tae-geon (김태건)", "role": "Player" },
+        { "alias": "oonzmlp", "name": "Shin Sang-beom (신상범)", "role": "Player" },
+        { "alias": "Zexy", "name": "Jang Suk-hyun (장석현)", "role": "Player" },
+        { "alias": "TK9", "name": "Goo Tae-kyun (구태균)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/12", "action": "join", "player": "Zexy" }
+      ]
+    },
+    "nongshim-redforce": {
+      "name": "Nongshim RedForce",
+      "roster": [
+        { "alias": "Francis", "name": "Kim Mu-bin (김무빈)", "role": "Player" },
+        { "alias": "Xross", "name": "Jeonghwan (정환)", "role": "Player" },
+        { "alias": "Rb", "name": "Goo Sang-min (구상민)", "role": "Player" },
+        { "alias": "Dambi", "name": "Lee Hyuk-kyu (이혁규)", "role": "Player" },
+        { "alias": "Ivy", "name": "Park Sung-hyeon (박성현)", "role": "Player" },
+        { "alias": "SilKanoN", "name": "Kim Gyeong-min (김경민)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2026/01/05", "action": "join", "player": "yoman" }
+      ]
+    }
+  },
+  "china": {
+    "edward-gaming": {
+      "name": "EDward Gaming",
+      "roster": [
+        { "alias": "nobody", "name": "Wang Senxu (王森旭)", "role": "Player" },
+        { "alias": "ZmjjKK", "name": "Zheng Yongkang (郑永康)", "role": "Player" },
+        { "alias": "CHICHOO", "name": "Wan Shunzhi (万顺治)", "role": "Player" },
+        { "alias": "cb", "name": "Wang Qingchuan (王庆川)", "role": "Player" },
+        { "alias": "Smoggy", "name": "Zhang Zhao (张钊)", "role": "Player" },
+        { "alias": "Autumn", "name": "Yoon Eu-teum (윤으뜸)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/26", "action": "join", "player": "Autumn" }
+      ]
+    },
+    "funplus-phoenix": {
+      "name": "FunPlus Phoenix",
+      "roster": [
+        { "alias": "BerLIN", "name": "Zhang Bolin (張柏霖)", "role": "Player" },
+        { "alias": "Life", "name": "Qu Donghao (瞿东豪)", "role": "Player" },
+        { "alias": "AAAAY", "name": "Zhang Yang (张杨)", "role": "Player" },
+        { "alias": "sScary", "name": "Nutchapon Matarat", "role": "Player" },
+        { "alias": "Setrod", "name": "Ou Taigeng (欧泰_)", "role": "Player" },
+        { "alias": "LEGIJA", "name": "Nikola Ninić", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/09", "action": "join", "player": "sScary" }
+      ]
+    },
+    "trace-esports": {
+      "name": "Trace Esports",
+      "roster": [
+        { "alias": "LuoK1ng", "name": "Zhang Zhanpeng (张展鹏)", "role": "Player" },
+        { "alias": "Kai", "name": "Lu Zhinan (卢智楠)", "role": "Player" },
+        { "alias": "FengF", "name": "Song Xuefeng (宋学锋)", "role": "Player" },
+        { "alias": "Viva", "name": "Lifan Ran (冉立凡)", "role": "Player" },
+        { "alias": "deLb", "name": "Delbert Tanoto", "role": "Player" },
+        { "alias": "destroyeR", "name": "Gu Jiaming (顾佳鸣)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/10", "action": "join", "player": "Viva" }
+      ]
+    },
+    "bilibili-gaming": {
+      "name": "Bilibili Gaming",
+      "roster": [
+        { "alias": "whzy", "name": "Wang Haozhe (王昊哲)", "role": "Player" },
+        { "alias": "Levius", "name": "Lu Yinzhong (卢胤中)", "role": "Player" },
+        { "alias": "rushia", "name": "Wang Xiaojie (王晓杰)", "role": "Player" },
+        { "alias": "nephh", "name": "Marcus Tan", "role": "Player" },
+        { "alias": "Knight", "name": "Liu Yuxiang (刘宇翔)", "role": "Player" },
+        { "alias": "bud", "name": "Yang Renyu (杨韧予)", "role": "Player" },
+        { "alias": "Muggle", "name": "Tang Shijun (唐时俊)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2026/01/06", "action": "join", "player": "bud" }
+      ]
+    },
+    "jdg-esports": {
+      "name": "JD Gaming",
+      "roster": [
+        { "alias": "kklin", "name": "Zhang Ziling (张梓凌)", "role": "Player" },
+        { "alias": "stew", "name": "Park Young-chan (박영찬)", "role": "Player" },
+        { "alias": "jkuro", "name": "Yong Haochong (杨浩聪)", "role": "Player" },
+        { "alias": "zhe", "name": "Niu Zhe (牛哲)", "role": "Player" },
+        { "alias": "Yuicaw", "name": "Huang Yung-chieh (黃湧傑)", "role": "Player" },
+        { "alias": "bail", "name": "Lee Sung-jae (이성재)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/07", "action": "join", "player": "bail" }
+      ]
+    },
+    "wolves-esports": {
+      "name": "Wolves Esports",
+      "roster": [
+        { "alias": "SiuFatBB", "name": "Pong Gaa Hei (庞加曦)", "role": "Player" },
+        { "alias": "Satoshi", "name": "Fei Zhixian (费在这个)", "role": "Player" },
+        { "alias": "jowa", "name": "Jordan Wang", "role": "Player" },
+        { "alias": "yosemite", "name": "Wang Lei (王磊)", "role": "Player" },
+        { "alias": "Spring", "name": "Liu Jiunting (刘俊霆)", "role": "Player" },
+        { "alias": "Fayde", "name": "Chong Hoc Wah", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/07", "action": "join", "player": "yosemite" }
+      ]
+    },
+    "titan-esports-club": {
+      "name": "Titan Esports Club",
+      "roster": [
+        { "alias": "Haodong", "name": "Guo Haodong (郭浩东)", "role": "Player" },
+        { "alias": "lucas", "name": "Yunkun Lu (路韫昆)", "role": "Player" },
+        { "alias": "Abo", "name": "Han Bohao (韩博皓)", "role": "Player" },
+        { "alias": "TvirusLuke", "name": "Chen Cheng-ching (陈振庆)", "role": "Player" },
+        { "alias": "Coco", "name": "Ding Dajian (丁达建)", "role": "Player" },
+        { "alias": "AfteR", "name": "Lo Wen-Hsin (罗文信)", "role": "head coach" }
+      ],
+      "transactions": []
+    },
+    "tyloo": {
+      "name": "TYLOO",
+      "roster": [
+        { "alias": "slowly", "name": "Kelun Sun (孙科伦)", "role": "Player" },
+        { "alias": "splash", "name": "Moses Christophe Jonathan", "role": "Player" },
+        { "alias": "Scales", "name": "Zhang Zhen (张震)", "role": "Player" },
+        { "alias": "Erv", "name": "Shen Zhiwei", "role": "Player" },
+        { "alias": "sword9", "name": "Li Wei (李卫)", "role": "Player" },
+        { "alias": "hypnotizing", "name": "Xie Haozhi (谢昊志)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/28", "action": "join", "player": "Erv" }
+      ]
+    },
+    "dragon-ranger-gaming": {
+      "name": "Dragon Ranger Gaming",
+      "roster": [
+        { "alias": "Nicc", "name": "Shao Yi-qun (邵逸群)", "role": "Player" },
+        { "alias": "Flex1n", "name": "Lo Rui (罗瑞)", "role": "Player" },
+        { "alias": "vo0kashu", "name": "Ilya Ushakov", "role": "Player" },
+        { "alias": "Akeman", "name": "Zhang Haoran (张浩然)", "role": "Player" },
+        { "alias": "SpiritZ1", "name": "Lin Dingyu (林定宇)", "role": "Player" },
+        { "alias": "NaThanD", "name": "Deng Senqiao (邓森侨)", "role": "head coach" }
+      ],
+      "transactions": []
+    },
+    "nova-esports": {
+      "name": "Nova Esports",
+      "roster": [
+        { "alias": "OBONE", "name": "Chen Yijie (陈怡洁)", "role": "Player" },
+        { "alias": "Ezeir", "name": "Zhao Zejun (赵泽骏)", "role": "Player" },
+        { "alias": "GREEN", "name": "Qiu Jianzhi (邱建智)", "role": "Player" },
+        { "alias": "heybay", "name": "Ho Shun Hei", "role": "Player" },
+        { "alias": "GuanG", "name": "Guang Honglin (光洪霖)", "role": "Player" },
+        { "alias": "fore", "name": "Han Qibing (韩其兵)", "role": "assistant coach" }
+      ],
+      "transactions": [
+        { "date": "2025/11/09", "action": "join", "player": "heybay" }
+      ]
+    },
+    "all-gamers": {
+      "name": "All Gamers",
+      "roster": [
+        { "alias": "Shr1mp", "name": "Yang Yong (杨勇)", "role": "Player" },
+        { "alias": "Spitfires", "name": "Xin Mingyan (辛明阳)", "role": "Player" },
+        { "alias": "K1ra", "name": "Huang Zhihao (黄志豪)", "role": "Player" },
+        { "alias": "Au1", "name": "Zhu Yihao (朱逸豪)", "role": "Player" },
+        { "alias": "f4ngeer", "name": "Roman Smirnov", "role": "Player" },
+        { "alias": "ED101", "name": "Han Tianqi (韩天奇)", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/27", "action": "join", "player": "f4ngeer" }
+      ]
+    },
+    "xi-lai-gaming": {
+      "name": "Xi Lai Gaming",
+      "roster": [
+        { "alias": "WsLeo", "name": "Huang Pinwei (黄品维)", "role": "Player" },
+        { "alias": "Lysoar", "name": "Liang Youhao (梁优好)", "role": "Player" },
+        { "alias": "NoMan", "name": "James Man", "role": "Player" },
+        { "alias": "Rarga", "name": "Arthur Churyumov", "role": "Player" },
+        { "alias": "happywei", "name": "Deng Minwei (邓闽维)", "role": "Player" },
+        { "alias": "hvoya", "name": "Aleksandr Eremin", "role": "head coach" }
+      ],
+      "transactions": [
+        { "date": "2025/12/03", "action": "join", "player": "WsLeo" }
+      ]
+    }
+  }
+}

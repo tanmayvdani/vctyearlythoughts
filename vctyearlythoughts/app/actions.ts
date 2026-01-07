@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth"
 import { db } from "@/lib/db"
-import { predictions, users, teamNotifications, regionNotifications, allowedTesters } from "@/lib/schema"
+import { predictions, users, teamNotifications, regionNotifications, allowedTesters, teams } from "@/lib/schema"
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { eq, and } from "drizzle-orm"
@@ -17,6 +17,13 @@ const predictionSchema = z.object({
   teamTag: z.string().optional(),
   isPublic: z.boolean().optional(),
   identity: z.string().optional(),
+  kickoffPlacement: z.string().optional(),
+  stage1Placement: z.string().optional(),
+  stage2Placement: z.string().optional(),
+  masters1Placement: z.string().optional(),
+  masters2Placement: z.string().optional(),
+  championsPlacement: z.string().optional(),
+  rosterMoves: z.string().optional(),
 })
 
 const usernameSchema = z.string()
@@ -185,6 +192,13 @@ export async function submitPrediction(formData: FormData) {
     thought: formData.get("thought"),
     isPublic: formData.get("isPublic") === "true",
     identity: formData.get("identity"),
+    kickoffPlacement: formData.get("kickoffPlacement"),
+    stage1Placement: formData.get("stage1Placement"),
+    stage2Placement: formData.get("stage2Placement"),
+    masters1Placement: formData.get("masters1Placement"),
+    masters2Placement: formData.get("masters2Placement"),
+    championsPlacement: formData.get("championsPlacement"),
+    rosterMoves: formData.get("rosterMoves"),
   }
 
   const validatedFields = predictionSchema.safeParse(rawData)
@@ -194,7 +208,7 @@ export async function submitPrediction(formData: FormData) {
     throw new Error(validatedFields.error.issues[0].message)
   }
 
-  const { teamId, teamName, teamTag, thought, isPublic, identity } = validatedFields.data
+  const { teamId, teamName, teamTag, thought, isPublic, identity, kickoffPlacement, stage1Placement, stage2Placement, masters1Placement, masters2Placement, championsPlacement, rosterMoves } = validatedFields.data
 
   // 1. Server-Side Unlock Check
   const team = TEAMS.find(t => t.id === teamId)
@@ -241,6 +255,13 @@ export async function submitPrediction(formData: FormData) {
     userName,
     timestamp: new Date().toISOString(),
     isPublic,
+    kickoffPlacement: kickoffPlacement || null,
+    stage1Placement: stage1Placement || null,
+    stage2Placement: stage2Placement || null,
+    masters1Placement: masters1Placement || null,
+    masters2Placement: masters2Placement || null,
+    championsPlacement: championsPlacement || null,
+    rosterMoves: rosterMoves || null,
   })
 
   revalidatePath("/feed")
@@ -301,4 +322,16 @@ export async function deletePrediction(predictionId: string) {
   revalidatePath("/my-feed")
   revalidatePath("/feed")
   return { success: true }
+}
+
+export async function getTeamData(teamId: string) {
+  const result = await db.select().from(teams).where(eq(teams.id, teamId)).limit(1)
+  if (result.length === 0) return null
+  
+  const team = result[0]
+  return {
+    ...team,
+    roster: team.roster ? JSON.parse(team.roster) : [],
+    transactions: team.transactions ? JSON.parse(team.transactions) : []
+  }
 }

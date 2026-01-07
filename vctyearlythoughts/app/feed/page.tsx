@@ -88,15 +88,7 @@ export default async function FeedPage({
   nextPageSearch.set("page", String(page + 1))
 
   const feedItems = dbPredictions.map(p => ({
-    id: p.id,
-    teamId: p.teamId,
-    teamTag: p.teamTag,
-    teamName: p.teamName,
-    userName: p.userName,
-    thought: p.thought,
-    timestamp: p.timestamp,
-    userId: p.userId, // Needed to identify own posts
-    isPublic: p.isPublic,
+    ...p
   }))
 
   return (

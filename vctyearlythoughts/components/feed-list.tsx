@@ -223,6 +223,28 @@ export function FeedList({ items, currentUserId }: { items: Prediction[], curren
                   )}>
                     &quot;{post.thought}&quot;
                   </p>
+                  
+                  <div className={cn("grid grid-cols-2 gap-x-4 gap-y-2 text-[10px] font-mono text-muted-foreground border-t border-white/5 pt-3 transition-all duration-300", isHidden && "blur-sm select-none opacity-50")}>
+                    {(post.kickoffPlacement || post.stage1Placement || post.stage2Placement) && (
+                        <div className="col-span-2 flex flex-wrap gap-x-4 gap-y-1">
+                            {post.kickoffPlacement && <div><span className="text-primary/70 font-bold">KICKOFF:</span> {post.kickoffPlacement}</div>}
+                            {post.stage1Placement && <div><span className="text-primary/70 font-bold">STAGE 1:</span> {post.stage1Placement}</div>}
+                            {post.stage2Placement && <div><span className="text-primary/70 font-bold">STAGE 2:</span> {post.stage2Placement}</div>}
+                        </div>
+                    )}
+                    {(post.masters1Placement || post.masters2Placement || post.championsPlacement) && (
+                        <div className="col-span-2 flex flex-wrap gap-x-4 gap-y-1 border-t border-white/5 pt-1">
+                            {post.masters1Placement && <div><span className="text-red-500/80 font-bold">BANGKOK:</span> {post.masters1Placement}</div>}
+                            {post.masters2Placement && <div><span className="text-red-500/80 font-bold">TORONTO:</span> {post.masters2Placement}</div>}
+                            {post.championsPlacement && <div><span className="text-red-500/80 font-bold">CHAMPIONS:</span> {post.championsPlacement}</div>}
+                        </div>
+                    )}
+                    {post.rosterMoves && (
+                        <div className="col-span-2 border-t border-white/5 pt-1">
+                             <span className="text-primary/70 font-bold">ROSTER:</span> {post.rosterMoves}
+                        </div>
+                    )}
+                  </div>
 
                   {isHidden && (
                     <div className="absolute inset-0 flex items-center justify-center">

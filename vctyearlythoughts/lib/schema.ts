@@ -69,6 +69,13 @@ export const predictions = sqliteTable("prediction", {
   userName: text("userName").notNull(),
   timestamp: text("timestamp").notNull(),
   isPublic: integer("isPublic", { mode: "boolean" }).notNull().default(false),
+  kickoffPlacement: text("kickoffPlacement"),
+  stage1Placement: text("stage1Placement"),
+  stage2Placement: text("stage2Placement"),
+  masters1Placement: text("masters1Placement"),
+  masters2Placement: text("masters2Placement"),
+  championsPlacement: text("championsPlacement"),
+  rosterMoves: text("rosterMoves"),
 }, (table) => ({
   userIdIdx: index("user_id_idx").on(table.userId),
   teamIdIdx: index("team_id_idx").on(table.teamId),
@@ -96,6 +103,16 @@ export const teamNotifications = sqliteTable("team_notification", {
   userTeamUnique: uniqueIndex("user_team_unique").on(table.userId, table.teamId),
 }))
 
+export const teams = sqliteTable("team", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  tag: text("tag").notNull(),
+  region: text("region").notNull(),
+  index: integer("index").notNull(),
+  roster: text("roster"), // JSON string
+  transactions: text("transactions"), // JSON string
+})
+
 export const regionNotifications = sqliteTable("region_notification", {
   id: text("id")
     .primaryKey()
@@ -114,3 +131,29 @@ export const allowedTesters = sqliteTable("allowed_tester", {
     .$defaultFn(() => crypto.randomUUID()),
   email: text("email").notNull().unique(),
 })
+
+// Roster and Transaction Data
+export const players = sqliteTable("player", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  teamId: text("teamId").notNull(),
+  name: text("name"),
+  alias: text("alias").notNull(),
+  role: text("role"),
+}, (table) => ({
+  teamIdIdx: index("player_team_id_idx").on(table.teamId),
+}))
+
+export const teamTransactions = sqliteTable("team_transaction", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  teamId: text("teamId").notNull(),
+  date: text("date").notNull(),
+  action: text("action").notNull(),
+  playerAlias: text("playerAlias").notNull(),
+}, (table) => ({
+  teamIdIdx: index("transaction_team_id_idx").on(table.teamId),
+  dateIdx: index("transaction_date_idx").on(table.date),
+}))

@@ -18,6 +18,7 @@ interface RegionColumnProps {
   onTeamClick: (team: Team) => void
   subscribedTeams: string[]
   initialIsRegionSubscribed: boolean
+  startDate: string
 }
 
 const REGION_LOGOS: Record<Region, string> = {
@@ -27,7 +28,7 @@ const REGION_LOGOS: Record<Region, string> = {
   China: "/logos/cn.png",
 }
 
-export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, initialIsRegionSubscribed }: RegionColumnProps) {
+export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, initialIsRegionSubscribed, startDate }: RegionColumnProps) {
   const unlockedCount = getRegionUnlockCount(region, teams)
   const { user } = useAuth()
   const router = useRouter()
@@ -36,6 +37,8 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSubscribeModal, setShowSubscribeModal] = useState(false)
   const [showUnsubscribeModal, setShowUnsubscribeModal] = useState(false)
+
+  const formattedDate = new Date(startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 
   const handleActionClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -76,7 +79,10 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
                       className="object-contain"
                   />
               </div>
-              <h2 className="text-sm font-black text-white uppercase tracking-wider">{region}</h2>
+              <div className="flex flex-col">
+                  <h2 className="text-sm font-black text-white uppercase tracking-wider leading-none">{region}</h2>
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase mt-0.5">Starts {formattedDate}</span>
+              </div>
           </div>
           <div className="flex items-center gap-3">
               <button 

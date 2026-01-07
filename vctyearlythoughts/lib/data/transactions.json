@@ -1,0 +1,4351 @@
+{
+  "americas": {
+    "mibr": {
+      "name": "MIBR",
+      "roster": [
+        {
+          "alias": "zekken",
+          "name": "Zachary Patrone",
+          "role": "Player"
+        },
+        {
+          "alias": "tex",
+          "name": "Ian Botsch",
+          "role": "Player"
+        },
+        {
+          "alias": "Mazino",
+          "name": "Roberto Rivas",
+          "role": "Player"
+        },
+        {
+          "alias": "Verno",
+          "name": "Andrew Maust",
+          "role": "Player"
+        },
+        {
+          "alias": "aspas",
+          "name": "Erick Santos",
+          "role": "Player"
+        },
+        {
+          "alias": "nzr",
+          "name": "Agustin Ibarra",
+          "role": "Inactive"
+        },
+        {
+          "alias": "chivitz",
+          "name": "Felipe Chivitz",
+          "role": "manager"
+        },
+        {
+          "alias": "fRoD",
+          "name": "Daniel Montaner",
+          "role": "head coach"
+        },
+        {
+          "alias": "Happy",
+          "name": "Vincent Schopenhauer",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/19",
+          "action": "join",
+          "player": "Happy",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/12/19",
+          "action": "join",
+          "player": "Mazino",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/19",
+          "action": "join",
+          "player": "tex",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/19",
+          "action": "join",
+          "player": "zekken",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/13",
+          "action": "leave",
+          "player": "Iara",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "leave",
+          "player": "xenom",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/02",
+          "action": "leave",
+          "player": "cortezia",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/10",
+          "action": "inactive",
+          "player": "cortezia",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/09",
+          "action": "leave",
+          "player": "artzin",
+          "designation": "Player"
+        }
+      ]
+    },
+    "loud": {
+      "name": "LOUD",
+      "roster": [
+        {
+          "alias": "lukxo",
+          "name": "Lucca Travaioli",
+          "role": "Player"
+        },
+        {
+          "alias": "Darker",
+          "name": "Sebastián Castro Cicuamia",
+          "role": "Player"
+        },
+        {
+          "alias": "Virtyy",
+          "name": "Leandro Moreno",
+          "role": "Player"
+        },
+        {
+          "alias": "pANcada",
+          "name": "Bryan Luna",
+          "role": "Player"
+        },
+        {
+          "alias": "cauanzin",
+          "name": "Cauan Pereira",
+          "role": "Player"
+        },
+        {
+          "alias": "Wenty",
+          "name": "Carlos Lira Portela",
+          "role": "manager"
+        },
+        {
+          "alias": "Romanilly",
+          "name": "Gonzalo Manzano",
+          "role": "head coach"
+        },
+        {
+          "alias": "bajerski",
+          "name": "Lucas Bajerski Pereira",
+          "role": "performance coach"
+        },
+        {
+          "alias": "Tigas",
+          "name": "Tiago Táparo",
+          "role": "analyst"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/19",
+          "action": "leave",
+          "player": "RobbieBk",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/06",
+          "action": "join",
+          "player": "Romanilly",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/06",
+          "action": "join",
+          "player": "Darker",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "leave",
+          "player": "Leader",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/30",
+          "action": "inactive",
+          "player": "Leader",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/11",
+          "action": "leave",
+          "player": "mat",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/09",
+          "action": "inactive",
+          "player": "RobbieBk",
+          "designation": "Player"
+        }
+      ]
+    },
+    "nrg": {
+      "name": "NRG",
+      "roster": [
+        {
+          "alias": "Ethan",
+          "name": "Ethan Arnold",
+          "role": "Player"
+        },
+        {
+          "alias": "keiko",
+          "name": "Georgio Sanassy",
+          "role": "Player"
+        },
+        {
+          "alias": "brawk",
+          "name": "Brock Somerhalder",
+          "role": "Player"
+        },
+        {
+          "alias": "mada",
+          "name": "Adam Pampuch",
+          "role": "Player"
+        },
+        {
+          "alias": "skuba",
+          "name": "Logan Jenkins",
+          "role": "Player"
+        },
+        {
+          "alias": "Ry",
+          "name": "Zachary Parr",
+          "role": "manager"
+        },
+        {
+          "alias": "bonkar",
+          "name": "Malkolm Rench",
+          "role": "head coach"
+        },
+        {
+          "alias": "Strong",
+          "name": "Joseph Edwards",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/13",
+          "action": "join",
+          "player": "keiko",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/22",
+          "action": "leave",
+          "player": "s0m",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/03",
+          "action": "leave",
+          "player": "FiNESSE",
+          "designation": "Player"
+        }
+      ]
+    },
+    "lev": {
+      "name": "Leviatán",
+      "roster": [
+        {
+          "alias": "kiNgg",
+          "name": "Francisco Aravena",
+          "role": "Player"
+        },
+        {
+          "alias": "spike",
+          "name": "Rodrigo Lombardi",
+          "role": "Player"
+        },
+        {
+          "alias": "blowz",
+          "name": "Guilherme Oliviera",
+          "role": "Player"
+        },
+        {
+          "alias": "Neon",
+          "name": "Bruno Rodríguez",
+          "role": "Player"
+        },
+        {
+          "alias": "Sato",
+          "name": "Eduardo Kenzo Nagahama Sato",
+          "role": "Player"
+        },
+        {
+          "alias": "Onur",
+          "name": "Rodrigo Dalmagro",
+          "role": "head coach"
+        },
+        {
+          "alias": "Jhein",
+          "name": "Cristian Camaño",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "Jhein",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "Onur",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "Neon",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "blowz",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "spike",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "leave",
+          "player": "tex",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "leave",
+          "player": "C0M",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "leave",
+          "player": "Desmo",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "leave",
+          "player": "Okeanos",
+          "designation": "Player"
+        }
+      ]
+    },
+    "envy": {
+      "name": "Envy",
+      "roster": [
+        {
+          "alias": "P0PPIN",
+          "name": "Matteo Weber",
+          "role": "Player"
+        },
+        {
+          "alias": "canezerra",
+          "name": "Alex Banyasz",
+          "role": "Player"
+        },
+        {
+          "alias": "Eggsterr",
+          "role": "Player"
+        },
+        {
+          "alias": "Inspire",
+          "name": "Hunter Schline",
+          "role": "Player"
+        },
+        {
+          "alias": "ion2x",
+          "name": "Ayan Rastogi",
+          "role": "Player"
+        },
+        {
+          "alias": "Stunner",
+          "name": "Dakota MacLeod",
+          "role": "coach"
+        }
+      ],
+      "transactions": []
+    },
+    "100t": {
+      "name": "100 Thieves",
+      "roster": [
+        {
+          "alias": "vora",
+          "name": "Jordan Pulwer",
+          "role": "Player"
+        },
+        {
+          "alias": "Cryocells",
+          "name": "Matthew Panganiban",
+          "role": "Player"
+        },
+        {
+          "alias": "Asuna",
+          "name": "Peter Mazuryk",
+          "role": "Player"
+        },
+        {
+          "alias": "Timotino",
+          "name": "Timothée Lavigne Dupont",
+          "role": "Player"
+        },
+        {
+          "alias": "bang",
+          "name": "Sean Bezerra",
+          "role": "Player"
+        },
+        {
+          "alias": "Nbs",
+          "name": "Laurynas Kisielius",
+          "role": "head coach"
+        },
+        {
+          "alias": "d00mbr0s",
+          "name": "Carl Erik Victor William Sandgren",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/08",
+          "action": "join",
+          "player": "bang",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "join",
+          "player": "d00mbr0s",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "join",
+          "player": "Timotino",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "join",
+          "player": "vora",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "join",
+          "player": "Nbs",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "join",
+          "player": "Asuna",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "join",
+          "player": "Cryocells",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "leave",
+          "player": "Asuna",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "leave",
+          "player": "Cryocells",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/05",
+          "action": "leave",
+          "player": "zander",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/01",
+          "action": "leave",
+          "player": "eeiu",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "leave",
+          "player": "Boostio",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/22",
+          "action": "leave",
+          "player": "Kess",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/22",
+          "action": "leave",
+          "player": "Zikz",
+          "designation": "Head coach"
+        }
+      ]
+    },
+    "g2": {
+      "name": "G2 Esports",
+      "roster": [
+        {
+          "alias": "valyn",
+          "name": "Jacob Batio",
+          "role": "Player"
+        },
+        {
+          "alias": "jawgemo",
+          "name": "Alexander Mor",
+          "role": "Player"
+        },
+        {
+          "alias": "BABYBAY",
+          "name": "Andrej Francisty",
+          "role": "Player"
+        },
+        {
+          "alias": "trent",
+          "name": "Trent Cairns",
+          "role": "Player"
+        },
+        {
+          "alias": "leaf",
+          "name": "Nathan Orf",
+          "role": "Player"
+        },
+        {
+          "alias": "JonahP",
+          "name": "Jonah Pulice",
+          "role": "Inactive"
+        },
+        {
+          "alias": "Seowulf",
+          "name": "Myungjun Seo",
+          "role": "manager"
+        },
+        {
+          "alias": "JoshRT",
+          "name": "Josh Lee",
+          "role": "head coach"
+        },
+        {
+          "alias": "shhhack",
+          "name": "Peter Belej",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/12",
+          "action": "inactive",
+          "player": "JonahP",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/15",
+          "action": "leave",
+          "player": "Anderzz",
+          "designation": "Coach"
+        }
+      ]
+    },
+    "kru": {
+      "name": "KRÜ Esports",
+      "roster": [
+        {
+          "alias": "saadhak",
+          "name": "Matias Delipetro",
+          "role": "Player"
+        },
+        {
+          "alias": "mwzera",
+          "name": "Leonardo Serrati",
+          "role": "Player"
+        },
+        {
+          "alias": "silentzz",
+          "name": "Caio Morita",
+          "role": "Player"
+        },
+        {
+          "alias": "Less",
+          "name": "Felipe de Loyola Basso",
+          "role": "Player"
+        },
+        {
+          "alias": "Dantedeu5",
+          "name": "Jesús Federico Larrosa",
+          "role": "Player"
+        },
+        {
+          "alias": "torito",
+          "name": "Cristobal Quintana",
+          "role": "manager"
+        },
+        {
+          "alias": "ZONYK",
+          "name": "Nicolas Carboni",
+          "role": "head coach"
+        },
+        {
+          "alias": "Fadeout",
+          "name": "Alex Argüello",
+          "role": "analyst"
+        },
+        {
+          "alias": "Nyogen",
+          "name": "Tomás Castiglione",
+          "role": "staff"
+        },
+        {
+          "alias": "Psiarthurleon",
+          "name": "Arthur Leon",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "Less",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "silentzz",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "mwzera",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "saadhak",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "Psiarthurleon",
+          "designation": "Staff"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "torito",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "Fadeout",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/11/23",
+          "action": "leave",
+          "player": "Mazino",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/30",
+          "action": "leave",
+          "player": "keznit",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "leave",
+          "player": "Melser",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "leave",
+          "player": "ddx",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "leave",
+          "player": "Atom",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "leave",
+          "player": "Shyy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/02",
+          "action": "inactive",
+          "player": "Mazino",
+          "designation": "Player"
+        }
+      ]
+    },
+    "fur": {
+      "name": "FURIA",
+      "roster": [
+        {
+          "alias": "nerve",
+          "name": "Michael Yerrow",
+          "role": "Player"
+        },
+        {
+          "alias": "artzin",
+          "name": "Arthur Araujo",
+          "role": "Player"
+        },
+        {
+          "alias": "eeiu",
+          "name": "Daniel Vucenovic",
+          "role": "Player"
+        },
+        {
+          "alias": "koalanoob",
+          "name": "Gianfranco Potestio",
+          "role": "Player"
+        },
+        {
+          "alias": "alym",
+          "name": "Torogul Baidyldaev",
+          "role": "Player"
+        },
+        {
+          "alias": "basic",
+          "name": "Luis Henrique Ferlin Tessaro",
+          "role": "Sub"
+        },
+        {
+          "alias": "shaW",
+          "name": "Ian Jardim",
+          "role": "head coach"
+        },
+        {
+          "alias": "Kamino",
+          "name": "Lucas Kamino",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/02",
+          "action": "join",
+          "player": "alym",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/02",
+          "action": "join",
+          "player": "koalanoob",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/02",
+          "action": "join",
+          "player": "artzin",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/02",
+          "action": "join",
+          "player": "eeiu",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/02",
+          "action": "join",
+          "player": "nerve",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "leave",
+          "player": "Urango",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/30",
+          "action": "leave",
+          "player": "Palla",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/27",
+          "action": "leave",
+          "player": "tuyz",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/07",
+          "action": "inactive",
+          "player": "Urango",
+          "designation": "Player"
+        }
+      ]
+    },
+    "c9": {
+      "name": "Cloud9",
+      "roster": [
+        {
+          "alias": "Xeppaa",
+          "name": "Erick Bach",
+          "role": "Player"
+        },
+        {
+          "alias": "v1c",
+          "name": "Victor Truong",
+          "role": "Player"
+        },
+        {
+          "alias": "Zellsis",
+          "name": "Jordan Montemurro",
+          "role": "Player"
+        },
+        {
+          "alias": "penny",
+          "name": "Erik Penny",
+          "role": "Player"
+        },
+        {
+          "alias": "OXY",
+          "name": "Francis Hoang",
+          "role": "Player"
+        },
+        {
+          "alias": "Immi",
+          "name": "Ian Harding",
+          "role": "coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/10/31",
+          "action": "join",
+          "player": "penny",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/31",
+          "action": "join",
+          "player": "Zellsis",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "leave",
+          "player": "neT",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/28",
+          "action": "leave",
+          "player": "mitch",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/08",
+          "action": "inactive",
+          "player": "neT",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/03",
+          "action": "leave",
+          "player": "GUGLi",
+          "designation": "Assistant coach"
+        }
+      ]
+    },
+    "sen": {
+      "name": "Sentinels",
+      "roster": [
+        {
+          "alias": "johnqt",
+          "name": "Mohamed Amine Ouarid",
+          "role": "Player"
+        },
+        {
+          "alias": "N4RRATE",
+          "name": "Marshall Massey",
+          "role": "Player"
+        },
+        {
+          "alias": "Reduxx",
+          "name": "Yassin Aboulalazm",
+          "role": "Player"
+        },
+        {
+          "alias": "Kyu",
+          "name": "Mirel Braco Hrustemovic",
+          "role": "Player"
+        },
+        {
+          "alias": "cortezia",
+          "name": "Gabriel Cortez",
+          "role": "Player"
+        },
+        {
+          "alias": "SicK",
+          "name": "Hunter Mims",
+          "role": "Inactive"
+        },
+        {
+          "alias": "Zyto",
+          "name": "Bryan Ybanez",
+          "role": "manager"
+        },
+        {
+          "alias": "kaplan",
+          "name": "Adam Kaplan",
+          "role": "head coach"
+        },
+        {
+          "alias": "GUNTER",
+          "name": "Luke Clives",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/23",
+          "action": "leave",
+          "player": "Kez",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/11/02",
+          "action": "join",
+          "player": "cortezia",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/02",
+          "action": "join",
+          "player": "Kyu",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/01",
+          "action": "leave",
+          "player": "zekken",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/28",
+          "action": "leave",
+          "player": "Zellsis",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "leave",
+          "player": "bang",
+          "designation": "Player"
+        }
+      ]
+    },
+    "eg": {
+      "name": "Evil Geniuses",
+      "roster": [
+        {
+          "alias": "C0M",
+          "name": "Corbin Lee",
+          "role": "Player"
+        },
+        {
+          "alias": "supamen",
+          "name": "Phat Le",
+          "role": "Player"
+        },
+        {
+          "alias": "bao",
+          "name": "Bao Nguyen",
+          "role": "Player"
+        },
+        {
+          "alias": "Okeanos",
+          "name": "Anthony Nguyen",
+          "role": "Player"
+        },
+        {
+          "alias": "dgzin",
+          "name": "Douglas Silva",
+          "role": "Player"
+        },
+        {
+          "alias": "potter",
+          "name": "Christine Chi",
+          "role": "head coach"
+        },
+        {
+          "alias": "pho",
+          "name": "Mike Panza",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "meco1e",
+          "name": "Cole Lewis",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/09",
+          "action": "leave",
+          "player": "NaturE",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/07",
+          "action": "join",
+          "player": "meco1e",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "C0M",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "dgzin",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "Okeanos",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "bao",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/21",
+          "action": "inactive",
+          "player": "NaturE",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/15",
+          "action": "leave",
+          "player": "Derrek",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/14",
+          "action": "leave",
+          "player": "icy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "leave",
+          "player": "yay",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "inactive",
+          "player": "icy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/07",
+          "action": "inactive",
+          "player": "Derrek",
+          "designation": "Player"
+        }
+      ]
+    }
+  },
+  "emea": {
+    "fut": {
+      "name": "FUT Esports",
+      "roster": [
+        {
+          "alias": "MrFaliN",
+          "name": "Furkan Yeğen",
+          "role": "Player"
+        },
+        {
+          "alias": "xeus",
+          "name": "Doğan Gözgen",
+          "role": "Player"
+        },
+        {
+          "alias": "yetujey",
+          "name": "Eray Budak",
+          "role": "Player"
+        },
+        {
+          "alias": "KROSTALY",
+          "name": "Okan Alaçam",
+          "role": "Player"
+        },
+        {
+          "alias": "baha",
+          "name": "Baha Gözmen",
+          "role": "Player"
+        },
+        {
+          "alias": "AtaKaptan",
+          "name": "Ata Tan",
+          "role": "Player"
+        },
+        {
+          "alias": "qRaxs",
+          "name": "Doğukan Balaban",
+          "role": "Inactive"
+        },
+        {
+          "alias": "Gais",
+          "name": "Eray Sarikaya",
+          "role": "head coach"
+        },
+        {
+          "alias": "Bambino",
+          "name": "Tyler Jay",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/06",
+          "action": "inactive",
+          "player": "qRaxs",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/03",
+          "action": "leave",
+          "player": "Mol",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/11/19",
+          "action": "join",
+          "player": "baha",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/18",
+          "action": "join",
+          "player": "KROSTALY",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/17",
+          "action": "join",
+          "player": "Bambino",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/30",
+          "action": "leave",
+          "player": "sw4y",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/27",
+          "action": "leave",
+          "player": "cNed",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/12",
+          "action": "leave",
+          "player": "Anima",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/10/10",
+          "action": "inactive",
+          "player": "sw4y",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/04",
+          "action": "join",
+          "player": "Anima",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/10/02",
+          "action": "leave",
+          "player": "Johnta",
+          "designation": "Head coach"
+        }
+      ]
+    },
+    "tl": {
+      "name": "Team Liquid",
+      "roster": [
+        {
+          "alias": "nAts",
+          "name": "Ayaz Akhmetshin",
+          "role": "Player"
+        },
+        {
+          "alias": "purp0",
+          "name": "Semyon Borchev",
+          "role": "Player"
+        },
+        {
+          "alias": "wayne",
+          "name": "Wayne Chang",
+          "role": "Player"
+        },
+        {
+          "alias": "MiniBoo",
+          "name": "Dominykas Lukaševičius",
+          "role": "Player"
+        },
+        {
+          "alias": "kamo",
+          "name": "Kamil Frąckowiak",
+          "role": "Player"
+        },
+        {
+          "alias": "Harmii",
+          "name": "Nico Harms",
+          "role": "Sub"
+        },
+        {
+          "alias": "cauzed",
+          "name": "Eamon Drea",
+          "role": "manager"
+        },
+        {
+          "alias": "Mol",
+          "name": "Berke Mol",
+          "role": "manager"
+        },
+        {
+          "alias": "LohaN",
+          "name": "Ivo Albino",
+          "role": "head coach"
+        },
+        {
+          "alias": "yaotziN.",
+          "name": "Daniel Roczniak",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Bacon9",
+          "name": "Jake Lloyd",
+          "role": "analyst"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "Mol",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "MiniBoo",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "wayne",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "purp0",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/11",
+          "action": "leave",
+          "player": "keiko",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/01",
+          "action": "leave",
+          "player": "trexx",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/30",
+          "action": "leave",
+          "player": "paTiTek",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/24",
+          "action": "inactive",
+          "player": "trexx",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/17",
+          "action": "inactive",
+          "player": "paTiTek",
+          "designation": "Player"
+        }
+      ]
+    },
+    "ulf": {
+      "name": "ULF Esports",
+      "roster": [
+        {
+          "alias": "nekky",
+          "name": "Anıl Dağdeviren",
+          "role": "Player"
+        },
+        {
+          "alias": "audaz",
+          "name": "Soner Ekiz",
+          "role": "Player"
+        },
+        {
+          "alias": "s0pp",
+          "name": "Efe Tur",
+          "role": "Player"
+        },
+        {
+          "alias": "echo",
+          "name": "Ömür Serkan Şenol",
+          "role": "Player"
+        },
+        {
+          "alias": "Favian",
+          "name": "Enes Yiğiter",
+          "role": "Player"
+        },
+        {
+          "alias": "Draen",
+          "name": "Kaan Özgen",
+          "role": "manager"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/03",
+          "action": "leave",
+          "player": "Vlad",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/29",
+          "action": "leave",
+          "player": "sh0ut",
+          "designation": "Player"
+        }
+      ]
+    },
+    "navi": {
+      "name": "Natus Vincere",
+      "roster": [
+        {
+          "alias": "sociablEE",
+          "name": "Volkan Yonal",
+          "role": "Player"
+        },
+        {
+          "alias": "Filu",
+          "name": "Dawid Czarnecki",
+          "role": "Player"
+        },
+        {
+          "alias": "Shao",
+          "name": "Andrey Kiprsky",
+          "role": "Player"
+        },
+        {
+          "alias": "Ruxic",
+          "name": "Uğur Güç",
+          "role": "Player"
+        },
+        {
+          "alias": "hiro",
+          "name": "Emirhan Kat",
+          "role": "Player"
+        },
+        {
+          "alias": "ANGE1",
+          "name": "Kyrylo Karasov",
+          "role": "head coach"
+        },
+        {
+          "alias": "chippy",
+          "name": "Dmytro Bychenko",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Zuzanna",
+          "name": "Zuzanna Hejduk-Mostowy",
+          "role": "performance coach"
+        },
+        {
+          "alias": "Xirreth",
+          "name": "Urszula Klimczak",
+          "role": "performance coach"
+        },
+        {
+          "alias": "Flynn",
+          "name": "Alaa Nasrallah",
+          "role": "analyst"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/19",
+          "action": "leave",
+          "player": "Happy",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/03",
+          "action": "inactive",
+          "player": "Happy",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/03",
+          "action": "join",
+          "player": "sociablEE",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/03",
+          "action": "join",
+          "player": "Flynn",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/12/03",
+          "action": "join",
+          "player": "ANGE1",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/03",
+          "action": "join",
+          "player": "Filu",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/03",
+          "action": "leave",
+          "player": "alexiiik",
+          "designation": "Player"
+        }
+      ]
+    },
+    "pcf": {
+      "name": "PCIFIC Esports",
+      "roster": [
+        {
+          "alias": "Leader",
+          "name": "Kaan Taşpınar",
+          "role": "head coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/28",
+          "action": "join",
+          "player": "Leader",
+          "designation": "Head coach"
+        }
+      ]
+    },
+    "gia": {
+      "name": "GIANTX",
+      "roster": [
+        {
+          "alias": "Cloud",
+          "name": "Kirill Nehozhin",
+          "role": "Player"
+        },
+        {
+          "alias": "grubinho",
+          "name": "Grzegorz Ryczko",
+          "role": "Player"
+        },
+        {
+          "alias": "westside",
+          "name": "Miłosz Duda",
+          "role": "Player"
+        },
+        {
+          "alias": "Flickless",
+          "name": "Karel Maeckelbergh",
+          "role": "Player"
+        },
+        {
+          "alias": "ara",
+          "name": "Hanceriuc Eduard-George",
+          "role": "Player"
+        },
+        {
+          "alias": "tomaszy",
+          "name": "Tomás Machado",
+          "role": "Inactive"
+        },
+        {
+          "alias": "Hehnal",
+          "name": "Alexandra Hehn",
+          "role": "manager"
+        },
+        {
+          "alias": "pipsoN",
+          "name": "Daniil Mesheryakov",
+          "role": "head coach"
+        },
+        {
+          "alias": "wayLander",
+          "name": "Jan Rahkonen",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Mew",
+          "name": "Théo Ponzoni",
+          "role": "performance coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/01",
+          "action": "leave",
+          "player": "runneR",
+          "designation": "Player"
+        }
+      ]
+    },
+    "kc": {
+      "name": "Karmine Corp",
+      "roster": [
+        {
+          "alias": "Avez",
+          "name": "Hazem Khaled",
+          "role": "Player"
+        },
+        {
+          "alias": "SUYGETSU",
+          "name": "Dmitry Ilyushin",
+          "role": "Player"
+        },
+        {
+          "alias": "Elite",
+          "name": "Efe Teber",
+          "role": "Inactive"
+        },
+        {
+          "alias": "pyrolll",
+          "name": "Artur Minin",
+          "role": "Inactive"
+        },
+        {
+          "alias": "ENGH",
+          "name": "Andrey Sholokhov",
+          "role": "head coach"
+        },
+        {
+          "alias": "ZE1SH",
+          "name": "Ahmed El Sheikh",
+          "role": "coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/17",
+          "action": "leave",
+          "player": "marteen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/17",
+          "action": "leave",
+          "player": "saadhak",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/27",
+          "action": "leave",
+          "player": "fistie",
+          "designation": "Coach"
+        }
+      ]
+    },
+    "fnc": {
+      "name": "Fnatic",
+      "roster": [
+        {
+          "alias": "Boaster",
+          "name": "Jake Howlett",
+          "role": "Player"
+        },
+        {
+          "alias": "crashies",
+          "name": "Austin Roberts",
+          "role": "Player"
+        },
+        {
+          "alias": "kaajak",
+          "name": "Kajetan Haremski",
+          "role": "Player"
+        },
+        {
+          "alias": "Veqaj",
+          "name": "Sylvain Pattyn",
+          "role": "Player"
+        },
+        {
+          "alias": "Alfajer",
+          "name": "Emir Ali Beder",
+          "role": "Player"
+        },
+        {
+          "alias": "CoJo",
+          "name": "Colin Johnson",
+          "role": "manager"
+        },
+        {
+          "alias": "Milan",
+          "name": "Milan de Meij",
+          "role": "head coach"
+        },
+        {
+          "alias": "Desmo",
+          "name": "Casper Rasmussen",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Szed",
+          "name": "Philipp Schickor",
+          "role": "performance coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/01",
+          "action": "join",
+          "player": "Desmo",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/14",
+          "action": "leave",
+          "player": "Scuttt",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "Veqaj",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "leave",
+          "player": "d00mbr0s",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/01",
+          "action": "leave",
+          "player": "temoc",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/10/25",
+          "action": "leave",
+          "player": "Chronicle",
+          "designation": "Player"
+        }
+      ]
+    },
+    "th": {
+      "name": "Team Heretics",
+      "roster": [
+        {
+          "alias": "Boo",
+          "name": "Ričardas Lukaševičius",
+          "role": "Player"
+        },
+        {
+          "alias": "Wo0t",
+          "name": "Mert Alkan",
+          "role": "Player"
+        },
+        {
+          "alias": "RieNs",
+          "name": "Enes Ecirli",
+          "role": "Player"
+        },
+        {
+          "alias": "benjyfishy",
+          "name": "Benjamin David Fish",
+          "role": "Player"
+        },
+        {
+          "alias": "ComeBack",
+          "name": "Berkcan Şentürk",
+          "role": "Player"
+        },
+        {
+          "alias": "Niklas",
+          "name": "Niklas Geiss",
+          "role": "manager"
+        },
+        {
+          "alias": "neilzinho",
+          "name": "Neil Finlay",
+          "role": "head coach"
+        },
+        {
+          "alias": "weber",
+          "name": "Brandon Weber",
+          "role": "coach"
+        },
+        {
+          "alias": "EsportsRyan",
+          "name": "Ryan Scollan",
+          "role": "performance coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/10/24",
+          "action": "join",
+          "player": "ComeBack",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/11",
+          "action": "leave",
+          "player": "Pablo",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/10/09",
+          "action": "leave",
+          "player": "MiniBoo",
+          "designation": "Player"
+        }
+      ]
+    },
+    "vit": {
+      "name": "Team Vitality",
+      "roster": [
+        {
+          "alias": "Jamppi",
+          "name": "Elias Olkkonen",
+          "role": "Player"
+        },
+        {
+          "alias": "PROFEK",
+          "name": "Dawid Święć",
+          "role": "Player"
+        },
+        {
+          "alias": "Derke",
+          "name": "Nikita Sirmitev",
+          "role": "Player"
+        },
+        {
+          "alias": "Chronicle",
+          "name": "Timofey Khromov",
+          "role": "Player"
+        },
+        {
+          "alias": "Sayonara",
+          "name": "Ștefan Mîtcu",
+          "role": "Player"
+        },
+        {
+          "alias": "UNFAKE",
+          "name": "Bartosz Bernacki",
+          "role": "Inactive"
+        },
+        {
+          "alias": "CyvOph",
+          "name": "Clement Millard",
+          "role": "Inactive"
+        },
+        {
+          "alias": "Bangovic",
+          "name": "Andy Zajimovic",
+          "role": "manager"
+        },
+        {
+          "alias": "PAL",
+          "name": "Gregor Morton",
+          "role": "coach"
+        },
+        {
+          "alias": "Scuttt",
+          "name": "Benjamin Hutchinson",
+          "role": "coach"
+        },
+        {
+          "alias": "slk",
+          "name": "Aleksey Lynksov",
+          "role": "analyst"
+        },
+        {
+          "alias": "Faded",
+          "name": "Daniel Hwang",
+          "role": "head coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/20",
+          "action": "leave",
+          "player": "Mulgan95",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/11/24",
+          "action": "join",
+          "player": "slk",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/11/24",
+          "action": "join",
+          "player": "Scuttt",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/11/24",
+          "action": "join",
+          "player": "PAL",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/11/24",
+          "action": "leave",
+          "player": "slk",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/23",
+          "action": "join",
+          "player": "PROFEK",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/23",
+          "action": "join",
+          "player": "Jamppi",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/15",
+          "action": "leave",
+          "player": "Less",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/10",
+          "action": "inactive",
+          "player": "Faded",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "leave",
+          "player": "Kicks",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/25",
+          "action": "join",
+          "player": "Chronicle",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/07",
+          "action": "leave",
+          "player": "psych_chek",
+          "designation": "Performance coach"
+        },
+        {
+          "date": "2025/10/07",
+          "action": "leave",
+          "player": "KovaQ",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/01",
+          "action": "inactive",
+          "player": "CyvOph",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/01",
+          "action": "inactive",
+          "player": "KovaQ",
+          "designation": "Player"
+        }
+      ]
+    },
+    "m8": {
+      "name": "Gentle Mates",
+      "roster": [
+        {
+          "alias": "starxo",
+          "name": "Patryk Kopczynski",
+          "role": "Player"
+        },
+        {
+          "alias": "bipo",
+          "name": "Taranvir Singh",
+          "role": "Player"
+        },
+        {
+          "alias": "marteen",
+          "name": "Martin Pátek",
+          "role": "Player"
+        },
+        {
+          "alias": "GLYPH",
+          "name": "Conner Garcia",
+          "role": "Player"
+        },
+        {
+          "alias": "Minny",
+          "name": "Patrik Hušek",
+          "role": "Player"
+        },
+        {
+          "alias": "Click",
+          "name": "Haydem Ali",
+          "role": "Inactive"
+        },
+        {
+          "alias": "ManyFender",
+          "name": "Marc Kowolik",
+          "role": "manager"
+        },
+        {
+          "alias": "pakko",
+          "name": "Pavle Kostic",
+          "role": "head coach"
+        },
+        {
+          "alias": "KUNDIKUNDI",
+          "name": "Jiri Honkala",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Luinwess",
+          "name": "Sinan Koyuncu",
+          "role": "staff"
+        },
+        {
+          "alias": "Placido",
+          "name": "Marceau Lambert",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/20",
+          "action": "join",
+          "player": "ManyFender",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/11/20",
+          "action": "join",
+          "player": "KUNDIKUNDI",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/20",
+          "action": "join",
+          "player": "pakko",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/20",
+          "action": "join",
+          "player": "GLYPH",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/20",
+          "action": "join",
+          "player": "marteen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/20",
+          "action": "join",
+          "player": "bipo",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/20",
+          "action": "join",
+          "player": "starxo",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/24",
+          "action": "leave",
+          "player": "goked",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/24",
+          "action": "leave",
+          "player": "Eternity",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/10/24",
+          "action": "leave",
+          "player": "Veqaj",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/24",
+          "action": "leave",
+          "player": "ComeBack",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/22",
+          "action": "leave",
+          "player": "McJuankar",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/22",
+          "action": "leave",
+          "player": "Proxh",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "kamyk",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "join",
+          "player": "Luinwess",
+          "designation": "Staff"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "leave",
+          "player": "jtay",
+          "designation": "Analyst"
+        }
+      ]
+    },
+    "bbl": {
+      "name": "BBL Esports",
+      "roster": [
+        {
+          "alias": "Crewen",
+          "name": "Ali Eren Sargin",
+          "role": "Player"
+        },
+        {
+          "alias": "Lar0k",
+          "name": "Yusuf Kaan Kanber",
+          "role": "Player"
+        },
+        {
+          "alias": "Loita",
+          "name": "Utku Kart",
+          "role": "Player"
+        },
+        {
+          "alias": "Rosé",
+          "name": "Eren Erzan",
+          "role": "Player"
+        },
+        {
+          "alias": "lovers rock",
+          "name": "Umut Pekdoğan",
+          "role": "Player"
+        },
+        {
+          "alias": "KEY",
+          "name": "Mert Çelebi",
+          "role": "head coach"
+        },
+        {
+          "alias": "Viento",
+          "name": "Göktuğ Alp Çebi",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2026/01/06",
+          "action": "leave",
+          "player": "LewN",
+          "designation": "Player"
+        },
+        {
+          "date": "2026/01/05",
+          "action": "leave",
+          "player": "thinkii",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/12/19",
+          "action": "join",
+          "player": "Viento",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/12/02",
+          "action": "leave",
+          "player": "sociablEE",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "inactive",
+          "player": "LewN",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "inactive",
+          "player": "sociablEE",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "KEY",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "lovers rock",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "Rosé",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "Loita",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "Lar0k",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/27",
+          "action": "join",
+          "player": "Crewen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/24",
+          "action": "leave",
+          "player": "PAL",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "leave",
+          "player": "PROFEK",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "leave",
+          "player": "Jamppi",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/10",
+          "action": "leave",
+          "player": "MAGNUM",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "leave",
+          "player": "chiwa",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/14",
+          "action": "inactive",
+          "player": "thinkii",
+          "designation": "Assistant coach"
+        }
+      ]
+    }
+  },
+  "pacific": {
+    "gen": {
+      "name": "Gen.G",
+      "roster": [
+        {
+          "alias": "Lakia",
+          "name": "Kim Jong-min (김종민)",
+          "role": "Player"
+        },
+        {
+          "alias": "Ash",
+          "name": "Ha Hyun-cheol (하현철)",
+          "role": "Player"
+        },
+        {
+          "alias": "Karon",
+          "name": "Kim Won-tae (김원태)",
+          "role": "Player"
+        },
+        {
+          "alias": "t3xture",
+          "name": "Kim Na-ra (김나라)",
+          "role": "Player"
+        },
+        {
+          "alias": "ZynX",
+          "name": "Kim Dong-ha (김동하)",
+          "role": "stand-in"
+        },
+        {
+          "alias": "Foxy9",
+          "name": "Jung Jae-sung (정재성)",
+          "role": "Inactive"
+        },
+        {
+          "alias": "solo",
+          "name": "Kang Geun-chul (강근철)",
+          "role": "head coach"
+        },
+        {
+          "alias": "HSK",
+          "name": "Kim Hae-seong (김해성)",
+          "role": "coach"
+        },
+        {
+          "alias": "peri",
+          "name": "Jung Bum-ki (정범기)",
+          "role": "coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/03",
+          "action": "join",
+          "player": "ZynX",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/12/02",
+          "action": "join",
+          "player": "Lakia",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/28",
+          "action": "join",
+          "player": "peri",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "inactive",
+          "player": "Foxy9",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/25",
+          "action": "join",
+          "player": "t3xture",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/24",
+          "action": "join",
+          "player": "Karon",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "join",
+          "player": "solo",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/23",
+          "action": "join",
+          "player": "HSK",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "peri",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "t3xture",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "HSK",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "Karon",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "solo",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "Munchkin",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "Lakia",
+          "designation": "Player"
+        }
+      ]
+    },
+    "ts": {
+      "name": "Team Secret",
+      "roster": [
+        {
+          "alias": "JessieVash",
+          "name": "Jessie Cuyco",
+          "role": "Player"
+        },
+        {
+          "alias": "kellyS",
+          "name": "Kelly Sedillo",
+          "role": "Player"
+        },
+        {
+          "alias": "TenTen",
+          "name": "Kim Tae-young (김태영)",
+          "role": "Player"
+        },
+        {
+          "alias": "Sylvan",
+          "name": "Go Young-sup (고영섭)",
+          "role": "Player"
+        },
+        {
+          "alias": "BerserX",
+          "name": "Rizkie Adla Kusuma",
+          "role": "Player"
+        },
+        {
+          "alias": "yamyam yui",
+          "name": "Yamyam Villanueva Yui",
+          "role": "manager"
+        },
+        {
+          "alias": "Rbtx",
+          "name": "Jose Carlo Jamir",
+          "role": "head coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/24",
+          "action": "join",
+          "player": "Rbtx",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/24",
+          "action": "leave",
+          "player": "Rbtx",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/12/24",
+          "action": "join",
+          "player": "BerserX",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/23",
+          "action": "join",
+          "player": "TenTen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/16",
+          "action": "leave",
+          "player": "Meow",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/15",
+          "action": "leave",
+          "player": "invy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/28",
+          "action": "join",
+          "player": "Sylvan",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/22",
+          "action": "leave",
+          "player": "n1zzy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/22",
+          "action": "leave",
+          "player": "Wild0reoo",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/15",
+          "action": "leave",
+          "player": "ZesBeeW",
+          "designation": "Player"
+        }
+      ]
+    },
+    "ns": {
+      "name": "Nongshim Redforce",
+      "roster": [
+        {
+          "alias": "Francis",
+          "name": "Kim Mu-bin (김무빈)",
+          "role": "Player"
+        },
+        {
+          "alias": "Xross",
+          "name": "Jeonghwan (정환)",
+          "role": "Player"
+        },
+        {
+          "alias": "Rb",
+          "name": "Goo Sang-min (구상민)",
+          "role": "Player"
+        },
+        {
+          "alias": "Dambi",
+          "name": "Lee Hyuk-kyu (이혁규)",
+          "role": "Player"
+        },
+        {
+          "alias": "Ivy",
+          "name": "Park Sung-hyeon (박성현)",
+          "role": "Player"
+        },
+        {
+          "alias": "SilKanoN",
+          "name": "Kim Gyeong-min (김경민)",
+          "role": "head coach"
+        },
+        {
+          "alias": "yoman",
+          "name": "Chae Young-moon (채영문)",
+          "role": "coach"
+        },
+        {
+          "alias": "Sungmin",
+          "name": "So Seong-min (소성민)",
+          "role": "coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2026/01/05",
+          "action": "join",
+          "player": "yoman",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/10/31",
+          "action": "leave",
+          "player": "Persia",
+          "designation": "Player"
+        }
+      ]
+    },
+    "zeta": {
+      "name": "ZETA DIVISION",
+      "roster": [
+        {
+          "alias": "Absol",
+          "name": "Kazuki Fujinoki",
+          "role": "Player"
+        },
+        {
+          "alias": "SyouTa",
+          "name": "Shota Aoki",
+          "role": "Player"
+        },
+        {
+          "alias": "SugarZ3ro",
+          "name": "Shota Watanabe",
+          "role": "Player"
+        },
+        {
+          "alias": "eKo",
+          "name": "Yeom Wang-ryong (염왕룡)",
+          "role": "Player"
+        },
+        {
+          "alias": "Xdll",
+          "name": "Yuto Mizomori",
+          "role": "Player"
+        },
+        {
+          "alias": "XQQ",
+          "name": "Motoyama Hibiki",
+          "role": "head coach"
+        },
+        {
+          "alias": "ryota-",
+          "name": "Ryota Okayama",
+          "role": "coach"
+        },
+        {
+          "alias": "gya9",
+          "role": "analyst"
+        },
+        {
+          "alias": "Mini",
+          "name": "Jacob Harris",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/16",
+          "action": "join",
+          "player": "SyouTa",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/16",
+          "action": "join",
+          "player": "Absol",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/16",
+          "action": "leave",
+          "player": "Absol",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/12/15",
+          "action": "join",
+          "player": "Mini",
+          "designation": "Staff"
+        },
+        {
+          "date": "2025/12/14",
+          "action": "leave",
+          "player": "Dep",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/04",
+          "action": "leave",
+          "player": "HoneyBunny",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/11/28",
+          "action": "join",
+          "player": "ryota-",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/11/28",
+          "action": "join",
+          "player": "eKo",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/28",
+          "action": "leave",
+          "player": "eKo",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/11/12",
+          "action": "join",
+          "player": "HoneyBunny",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/11/12",
+          "action": "join",
+          "player": "Absol",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/11/12",
+          "action": "join",
+          "player": "eKo",
+          "designation": "Stand-in"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "leave",
+          "player": "TenTen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "leave",
+          "player": "CLZ",
+          "designation": "Player"
+        }
+      ]
+    },
+    "ge": {
+      "name": "Global Esports",
+      "roster": [
+        {
+          "alias": "PatMen",
+          "name": "Patrick Mendoza",
+          "role": "Player"
+        },
+        {
+          "alias": "UdoTan",
+          "name": "Go Kyung-won (고경원)",
+          "role": "Player"
+        },
+        {
+          "alias": "Kr1stal",
+          "name": "Savva Fedorov",
+          "role": "Player"
+        },
+        {
+          "alias": "xavi8k",
+          "name": "Xavier Juan",
+          "role": "Player"
+        },
+        {
+          "alias": "Autumn",
+          "name": "Kale Dunne",
+          "role": "Player"
+        },
+        {
+          "alias": "Deryeon",
+          "name": "Derrick Yee",
+          "role": "Sub"
+        },
+        {
+          "alias": "Vatsal",
+          "name": "Vatsal Uniyal",
+          "role": "manager"
+        },
+        {
+          "alias": "FrosT",
+          "name": "Hector Rosario",
+          "role": "head coach"
+        },
+        {
+          "alias": "balax",
+          "name": "Thong Chern Kwi",
+          "role": "coach"
+        },
+        {
+          "alias": "vladk0r",
+          "name": "Vladimir Kornev",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Platoon",
+          "name": "Daniel Zhou",
+          "role": "analyst"
+        },
+        {
+          "alias": "taeri",
+          "name": "Hose Son (손호세)",
+          "role": "staff"
+        },
+        {
+          "alias": "UnknowN",
+          "name": "Minseong Kim",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/15",
+          "action": "join",
+          "player": "PatMen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "balax",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "vladk0r",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/12/13",
+          "action": "join",
+          "player": "Platoon",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/12/05",
+          "action": "leave",
+          "player": "Papi",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/21",
+          "action": "leave",
+          "player": "yoman",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/19",
+          "action": "leave",
+          "player": "ban",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "FrosT",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "Autumn",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "xavi8k",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "Platoon",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/30",
+          "action": "leave",
+          "player": "Elevated",
+          "designation": "Head coach"
+        }
+      ]
+    },
+    "fs": {
+      "name": "FULL SENSE",
+      "roster": [
+        {
+          "alias": "Leviathan",
+          "name": "Thanyathon Nakmee",
+          "role": "Player"
+        },
+        {
+          "alias": "Killua",
+          "name": "Tanate Teerasawad",
+          "role": "Player"
+        },
+        {
+          "alias": "thyy",
+          "name": "Anupong Preamsak",
+          "role": "Player"
+        },
+        {
+          "alias": "primmie",
+          "name": "Papaphat Sriprapha",
+          "role": "Player"
+        },
+        {
+          "alias": "JitBoyS",
+          "name": "Jittana Nokngam",
+          "role": "Player"
+        },
+        {
+          "alias": "Crws",
+          "name": "Thanamethk Mahatthananuyut",
+          "role": "coach"
+        },
+        {
+          "alias": "THEELOVEFAMILY",
+          "name": "Thanaphat Limpaphan",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/08",
+          "action": "join",
+          "player": "Crws",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "join",
+          "player": "JitBoyS",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "join",
+          "player": "primmie",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "join",
+          "player": "thyy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "join",
+          "player": "Killua",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "leave",
+          "player": "Leaf",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "leave",
+          "player": "qqGOD",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "leave",
+          "player": "MYM",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "leave",
+          "player": "Potter",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "leave",
+          "player": "Apinya",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "leave",
+          "player": "Laz",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/08",
+          "action": "leave",
+          "player": "seph1roth",
+          "designation": "Player"
+        }
+      ]
+    },
+    "rrq": {
+      "name": "Rex Regum Qeon",
+      "roster": [
+        {
+          "alias": "crazyguy",
+          "name": "Ngô Công Anh",
+          "role": "Player"
+        },
+        {
+          "alias": "Monyet",
+          "name": "Cahya Nugraha",
+          "role": "Player"
+        },
+        {
+          "alias": "xffero",
+          "name": "David Monangin",
+          "role": "Player"
+        },
+        {
+          "alias": "Jemkin",
+          "name": "Maksim Batorov",
+          "role": "Player"
+        },
+        {
+          "alias": "Kushy",
+          "name": "Bryan Carlos Setiawan",
+          "role": "Player"
+        },
+        {
+          "alias": "Kiyawnz",
+          "name": "Benny Lai",
+          "role": "manager"
+        },
+        {
+          "alias": "Jovi",
+          "name": "Jovanni Vera",
+          "role": "head coach"
+        },
+        {
+          "alias": "Warbirds",
+          "name": "Evan Olzem",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Rebecca",
+          "name": "Rebecca Wong",
+          "role": "performance coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/28",
+          "action": "join",
+          "player": "Jovi",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/16",
+          "action": "leave",
+          "player": "Ewok",
+          "designation": "Head coach"
+        }
+      ]
+    },
+    "t1": {
+      "name": "T1",
+      "roster": [
+        {
+          "alias": "Munchkin",
+          "name": "Byeon Sang-beom (변상범)",
+          "role": "Player"
+        },
+        {
+          "alias": "stax",
+          "name": "Kim Gu-taek (김구택)",
+          "role": "Player"
+        },
+        {
+          "alias": "Meteor",
+          "name": "Kim Tae-oh (김태오)",
+          "role": "Player"
+        },
+        {
+          "alias": "BuZz",
+          "name": "Yu Byeong-cheol (유병철)",
+          "role": "Player"
+        },
+        {
+          "alias": "iZu",
+          "name": "Ham Woo-ju (함우주)",
+          "role": "Player"
+        },
+        {
+          "alias": "carpe",
+          "name": "Lee Jae-hyeok (이재혁)",
+          "role": "Sub"
+        },
+        {
+          "alias": "Norman",
+          "name": "Shin Jun-ho",
+          "role": "manager"
+        },
+        {
+          "alias": "KDG",
+          "name": "Kim Dong-gun (김동건)",
+          "role": "head coach"
+        },
+        {
+          "alias": "CheongGak",
+          "name": "Lee Il-ho (이일호)",
+          "role": "coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/28",
+          "action": "join",
+          "player": "Munchkin",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/28",
+          "action": "leave",
+          "player": "DH",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "join",
+          "player": "KDG",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "Indigo",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "Autumn",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/08",
+          "action": "leave",
+          "player": "Sylvan",
+          "designation": "Player"
+        }
+      ]
+    },
+    "prx": {
+      "name": "Paper Rex",
+      "roster": [
+        {
+          "alias": "invy",
+          "name": "Adrian Jiggs Reyes",
+          "role": "Player"
+        },
+        {
+          "alias": "Jinggg",
+          "name": "Wang Jing Jie",
+          "role": "Player"
+        },
+        {
+          "alias": "f0rsakeN",
+          "name": "Jason Susanto",
+          "role": "Player"
+        },
+        {
+          "alias": "d4v41",
+          "name": "Khalish Rusyaidee",
+          "role": "Player"
+        },
+        {
+          "alias": "something",
+          "name": "Ilya Petrov",
+          "role": "Player"
+        },
+        {
+          "alias": "Tommy",
+          "name": "Kumaresan Ramani",
+          "role": "manager"
+        },
+        {
+          "alias": "alecks",
+          "name": "Alexandre Sallé",
+          "role": "coach"
+        },
+        {
+          "alias": "Wendler",
+          "name": "Ashton Wendler",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Panda",
+          "name": "Laijhun Cheng",
+          "role": "performance coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/16",
+          "action": "join",
+          "player": "invy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/15",
+          "action": "leave",
+          "player": "PatMen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/13",
+          "action": "leave",
+          "player": "Mini",
+          "designation": "Staff"
+        },
+        {
+          "date": "2025/11/13",
+          "action": "join",
+          "player": "Wendler",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "leave",
+          "player": "mindfreak",
+          "designation": "Player"
+        }
+      ]
+    },
+    "var": {
+      "name": "Varrel",
+      "roster": [
+        {
+          "alias": "C1ndeR",
+          "name": "Ko Jae-hyuk (고재혁)",
+          "role": "Player"
+        },
+        {
+          "alias": "Klaus",
+          "name": "Kim Min-hyuk (김민혁)",
+          "role": "Player"
+        },
+        {
+          "alias": "XuNa",
+          "name": "Kim Tae-geon (김태건)",
+          "role": "Player"
+        },
+        {
+          "alias": "oonzmlp",
+          "name": "Shin Sang-beom (신상범)",
+          "role": "Player"
+        },
+        {
+          "alias": "Zexy",
+          "name": "Jang Suk-hyun (장석현)",
+          "role": "Player"
+        },
+        {
+          "alias": "nnimu",
+          "name": "Sarah Suzuki",
+          "role": "manager"
+        },
+        {
+          "alias": "TK9",
+          "name": "Goo Tae-kyun (구태균)",
+          "role": "head coach"
+        },
+        {
+          "alias": "Rain",
+          "name": "Seo Hong-seung (서홍승)",
+          "role": "coach"
+        },
+        {
+          "alias": "R3THME",
+          "name": "Kim Ki-woon (김기운)",
+          "role": "analyst"
+        },
+        {
+          "alias": "Howard",
+          "name": "Jeong Hyun-woo (정현우)",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "Rain",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "R3THME",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "TK9",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "Zexy",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "oonzmlp",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "XuNa",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "C1ndeR",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/12",
+          "action": "join",
+          "player": "Klaus",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/10",
+          "action": "join",
+          "player": "nnimu",
+          "designation": "Manager"
+        }
+      ]
+    },
+    "drx": {
+      "name": "DRX",
+      "roster": [
+        {
+          "alias": "MaKo",
+          "name": "Kim Myeong-gwan (김명관)",
+          "role": "Player"
+        },
+        {
+          "alias": "Flicker",
+          "name": "Kim Tae-hee (김태희)",
+          "role": "Player"
+        },
+        {
+          "alias": "Flashback",
+          "name": "Cho Min-hyuk (조민혁)",
+          "role": "Player"
+        },
+        {
+          "alias": "free1ng",
+          "name": "No Ha-jun (노하준)",
+          "role": "Player"
+        },
+        {
+          "alias": "HYUNMIN",
+          "name": "Song Hyun-min (송현민)",
+          "role": "Player"
+        },
+        {
+          "alias": "BeYN",
+          "name": "Kang Ha-bin (강하빈)",
+          "role": "Player"
+        },
+        {
+          "alias": "termi",
+          "name": "Pyeon Seon-ho (편선호)",
+          "role": "head coach"
+        },
+        {
+          "alias": "glow",
+          "name": "Kim Min-soo (김민수)",
+          "role": "coach"
+        },
+        {
+          "alias": "Argency",
+          "name": "Kwon Soon-woo (권순우)",
+          "role": "coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/10/21",
+          "action": "leave",
+          "player": "Estrella",
+          "designation": "Player"
+        }
+      ]
+    },
+    "dfm": {
+      "name": "DetonatioN FocusMe",
+      "roster": [
+        {
+          "alias": "Meiy",
+          "name": "Ibuki Seki",
+          "role": "Player"
+        },
+        {
+          "alias": "SSeeS",
+          "name": "Tomonori Okimura",
+          "role": "Player"
+        },
+        {
+          "alias": "yatsuka",
+          "role": "Player"
+        },
+        {
+          "alias": "Caedye",
+          "name": "Amon Mateus Okakura",
+          "role": "Player"
+        },
+        {
+          "alias": "Akame",
+          "name": "Yu Gwang-hui (유광희)",
+          "role": "Player"
+        },
+        {
+          "alias": "Vorz",
+          "name": "Kakeru Ikarashi",
+          "role": "head coach"
+        },
+        {
+          "alias": "Melofovia",
+          "name": "Hirotaka Okazaki",
+          "role": "coach"
+        },
+        {
+          "alias": "NorthernLights",
+          "name": "Tsubasa Ando",
+          "role": "coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2026/01/01",
+          "action": "join",
+          "player": "Vorz",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2026/01/01",
+          "action": "join",
+          "player": "Caedye",
+          "designation": "Player"
+        },
+        {
+          "date": "2026/01/01",
+          "action": "join",
+          "player": "yatsuka",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/31",
+          "action": "leave",
+          "player": "gyen",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "leave",
+          "player": "Jinboong",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "inactive",
+          "player": "Jinboong",
+          "designation": "Player"
+        }
+      ]
+    }
+  },
+  "china": {
+    "te": {
+      "name": "Trace Esports",
+      "roster": [
+        {
+          "alias": "LuoK1ng",
+          "name": "Zhang Zhanpeng (张展鹏)",
+          "role": "Player"
+        },
+        {
+          "alias": "Kai",
+          "name": "Lu Zhinan (卢智楠)",
+          "role": "Player"
+        },
+        {
+          "alias": "FengF",
+          "name": "Song Xuefeng (宋学锋)",
+          "role": "Player"
+        },
+        {
+          "alias": "Viva",
+          "name": "Lifan Ran (冉立凡)",
+          "role": "Player"
+        },
+        {
+          "alias": "deLb",
+          "name": "Delbert Tanoto",
+          "role": "Player"
+        },
+        {
+          "alias": "KaKa",
+          "name": "Zhou Wenxing (周文兴)",
+          "role": "manager"
+        },
+        {
+          "alias": "destroyeR",
+          "name": "Gu Jiaming (顾佳鸣)",
+          "role": "head coach"
+        },
+        {
+          "alias": "Yiyee",
+          "name": "Zhang Tianyuan (张天元)",
+          "role": "coach"
+        },
+        {
+          "alias": "Draven",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/30",
+          "action": "leave",
+          "player": "MarT1n",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/30",
+          "action": "leave",
+          "player": "Biank",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/11",
+          "action": "join",
+          "player": "deLb",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/10",
+          "action": "join",
+          "player": "Viva",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "leave",
+          "player": "heybay",
+          "designation": "Player"
+        }
+      ]
+    },
+    "nova": {
+      "name": "Nova Esports",
+      "roster": [
+        {
+          "alias": "OBONE",
+          "name": "Chen Yijie (陈怡洁)",
+          "role": "Player"
+        },
+        {
+          "alias": "Ezeir",
+          "name": "Zhao Zejun (赵泽骏)",
+          "role": "Player"
+        },
+        {
+          "alias": "GREEN",
+          "name": "Qiu Jianzhi (邱建智)",
+          "role": "Player"
+        },
+        {
+          "alias": "heybay",
+          "name": "Ho Shun Hei",
+          "role": "Player"
+        },
+        {
+          "alias": "GuanG",
+          "name": "Guang Honglin (光洪霖)",
+          "role": "Player"
+        },
+        {
+          "alias": "monk",
+          "name": "Wang Haoyu (王浩宇)",
+          "role": "Sub"
+        },
+        {
+          "alias": "fore",
+          "name": "Han Qibing (韩其兵)",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/09",
+          "action": "leave",
+          "player": "24K",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "heybay",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "GREEN",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "leave",
+          "player": "o0o0o",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "leave",
+          "player": "cb",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/14",
+          "action": "leave",
+          "player": "SWERL",
+          "designation": "Player"
+        }
+      ]
+    },
+    "ag": {
+      "name": "All Gamers",
+      "roster": [
+        {
+          "alias": "Shr1mp",
+          "name": "Yang Yong (杨勇)",
+          "role": "Player"
+        },
+        {
+          "alias": "Spitfires",
+          "name": "Xin Mingyan (辛明阳)",
+          "role": "Player"
+        },
+        {
+          "alias": "K1ra",
+          "name": "Huang Zhihao (黄志豪)",
+          "role": "Player"
+        },
+        {
+          "alias": "Au1",
+          "name": "Zhu Yihao (朱逸豪)",
+          "role": "Player"
+        },
+        {
+          "alias": "f4ngeer",
+          "name": "Roman Smirnov",
+          "role": "Player"
+        },
+        {
+          "alias": "iamgrq",
+          "name": "Gao Ruiqi (高锐琦)",
+          "role": "Player"
+        },
+        {
+          "alias": "AaRon0",
+          "name": "Xu Maoxiao (徐茂蕭)",
+          "role": "manager"
+        },
+        {
+          "alias": "ED101",
+          "name": "Han Tianqi (韩天奇)",
+          "role": "head coach"
+        },
+        {
+          "alias": "Septem7",
+          "name": "Liu Zhening (刘哲宁)",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Master",
+          "name": "Cheng Zihan (程子晗)",
+          "role": "staff"
+        },
+        {
+          "alias": "happy",
+          "name": "Ma Tianle (马天乐)",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/27",
+          "action": "join",
+          "player": "f4ngeer",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/27",
+          "action": "join",
+          "player": "Au1",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/26",
+          "action": "join",
+          "player": "iamgrq",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/11",
+          "action": "leave",
+          "player": "deLb",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/06",
+          "action": "inactive",
+          "player": "deLb",
+          "designation": "Player"
+        }
+      ]
+    },
+    "drg": {
+      "name": "Dragon Ranger Gaming",
+      "roster": [
+        {
+          "alias": "Nicc",
+          "name": "Shao Yi-qun (邵逸群)",
+          "role": "Player"
+        },
+        {
+          "alias": "Flex1n",
+          "name": "Lo Rui (罗瑞)",
+          "role": "Player"
+        },
+        {
+          "alias": "vo0kashu",
+          "name": "Ilya Ushakov",
+          "role": "Player"
+        },
+        {
+          "alias": "Akeman",
+          "name": "Zhang Haoran (张浩然)",
+          "role": "Player"
+        },
+        {
+          "alias": "SpiritZ1",
+          "name": "Lin Dingyu (林定宇)",
+          "role": "Player"
+        },
+        {
+          "alias": "Cangshu",
+          "name": "Zheng Yujun (手郑宇峻)",
+          "role": "Sub"
+        },
+        {
+          "alias": "Ying",
+          "name": "Wang Chenxu (王晨旭)",
+          "role": "Sub"
+        },
+        {
+          "alias": "NaThanD",
+          "name": "Deng Senqiao (邓森侨)",
+          "role": "head coach"
+        },
+        {
+          "alias": "JKH",
+          "name": "Fei Han",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "1t",
+          "name": "Huang Biaohong (黄彪宏)",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": []
+    },
+    "blg": {
+      "name": "Bilibili Gaming",
+      "roster": [
+        {
+          "alias": "whzy",
+          "name": "Wang Haozhe (王昊哲)",
+          "role": "Player"
+        },
+        {
+          "alias": "Levius",
+          "name": "Lu Yinzhong (卢胤中)",
+          "role": "Player"
+        },
+        {
+          "alias": "rushia",
+          "name": "Wang Xiaojie (王晓杰)",
+          "role": "Player"
+        },
+        {
+          "alias": "nephh",
+          "name": "Marcus Tan",
+          "role": "Player"
+        },
+        {
+          "alias": "Knight",
+          "name": "Liu Yuxiang (刘宇翔)",
+          "role": "Player"
+        },
+        {
+          "alias": "bud",
+          "name": "Yang Renyu (杨韧余)",
+          "role": "Player"
+        },
+        {
+          "alias": "Gandolf",
+          "name": "Jiang Hao (蒋浩)",
+          "role": "manager"
+        },
+        {
+          "alias": "Muggle",
+          "name": "Tang Shijun (唐时俊)",
+          "role": "head coach"
+        },
+        {
+          "alias": "YaoXie",
+          "name": "Zhang Jihang (張繼航)",
+          "role": "coach"
+        },
+        {
+          "alias": "Jexen",
+          "name": "Wang Lin Xiao (王林骁)",
+          "role": "coach"
+        },
+        {
+          "alias": "Rain",
+          "name": "Deng Shiyao (邓诗耀)",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2026/01/06",
+          "action": "join",
+          "player": "bud",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/28",
+          "action": "join",
+          "player": "Muggle",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "leave",
+          "player": "bail",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/10/09",
+          "action": "inactive",
+          "player": "bail",
+          "designation": "Head coach"
+        }
+      ]
+    },
+    "xlg": {
+      "name": "Xi Lai Gaming",
+      "roster": [
+        {
+          "alias": "WsLeo",
+          "name": "Huang Pinwei (黄品维)",
+          "role": "Player"
+        },
+        {
+          "alias": "Lysoar",
+          "name": "Liang Youhao (梁优好)",
+          "role": "Player"
+        },
+        {
+          "alias": "NoMan",
+          "name": "James Man",
+          "role": "Player"
+        },
+        {
+          "alias": "Rarga",
+          "name": "Arthur Churyumov",
+          "role": "Player"
+        },
+        {
+          "alias": "happywei",
+          "name": "Deng Minwei (邓闵维)",
+          "role": "Player"
+        },
+        {
+          "alias": "coconut",
+          "name": "Colin Patrick Chung (钟弘祖)",
+          "role": "Player"
+        },
+        {
+          "alias": "Arty",
+          "name": "Yang Zhe (杨喆)",
+          "role": "manager"
+        },
+        {
+          "alias": "hvoya",
+          "name": "Aleksandr Eremin",
+          "role": "head coach"
+        },
+        {
+          "alias": "Coffin0",
+          "name": "Tao Yumeng (陶禹萌)",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/03",
+          "action": "join",
+          "player": "WsLeo",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/12/01",
+          "action": "join",
+          "player": "hvoya",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/12/01",
+          "action": "leave",
+          "player": "hvoya",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/25",
+          "action": "join",
+          "player": "Lysoar",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/24",
+          "action": "leave",
+          "player": "balax",
+          "designation": "Analyst"
+        },
+        {
+          "date": "2025/11/10",
+          "action": "leave",
+          "player": "Viva",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/07",
+          "action": "inactive",
+          "player": "hvoya",
+          "designation": "Head coach"
+        }
+      ]
+    },
+    "wol": {
+      "name": "Wolves Esports",
+      "roster": [
+        {
+          "alias": "SiuFatBB",
+          "name": "Pong Gaa Hei (庞加曦)",
+          "role": "Player"
+        },
+        {
+          "alias": "Satoshi",
+          "name": "Fei Zhixian (费郅贤)",
+          "role": "Player"
+        },
+        {
+          "alias": "jowa",
+          "name": "Jordan Wang",
+          "role": "Player"
+        },
+        {
+          "alias": "yosemite",
+          "name": "Wang Lei (王磊)",
+          "role": "Player"
+        },
+        {
+          "alias": "Spring",
+          "name": "Liu Jiunting (刘俊霆)",
+          "role": "Player"
+        },
+        {
+          "alias": "V1yA",
+          "name": "Chang Rui-min (张睿珉)",
+          "role": "Sub"
+        },
+        {
+          "alias": "Juicy",
+          "name": "Tyler James Aeria",
+          "role": "Inactive"
+        },
+        {
+          "alias": "Fayde",
+          "name": "Chong Hoc Wah",
+          "role": "head coach"
+        },
+        {
+          "alias": "Maark",
+          "name": "Chelceed Viernes",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Ominous",
+          "name": "Sushant Jha",
+          "role": "analyst"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/25",
+          "action": "leave",
+          "player": "Lysoar",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "join",
+          "player": "yosemite",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "join",
+          "player": "jowa",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "leave",
+          "player": "Yuicaw",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/06",
+          "action": "join",
+          "player": "Satoshi",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/20",
+          "action": "inactive",
+          "player": "Lysoar",
+          "designation": "Player"
+        }
+      ]
+    },
+    "fpx": {
+      "name": "FunPlus Phoenix",
+      "roster": [
+        {
+          "alias": "BerLIN",
+          "name": "Zhang Bolin (張柏霖)",
+          "role": "Player"
+        },
+        {
+          "alias": "Life",
+          "name": "Qu Donghao (瞿东豪)",
+          "role": "Player"
+        },
+        {
+          "alias": "AAAAY",
+          "name": "Zhang Yang (张杨)",
+          "role": "Player"
+        },
+        {
+          "alias": "sScary",
+          "name": "Nutchapon Matarat",
+          "role": "Player"
+        },
+        {
+          "alias": "Setrod",
+          "name": "Ou Taigeng (欧泰赓)",
+          "role": "Player"
+        },
+        {
+          "alias": "XII",
+          "name": "Chen Yen-hsiang (陈筵翔)",
+          "role": "Sub"
+        },
+        {
+          "alias": "9hr",
+          "name": "Guan Haoran (管豪然)",
+          "role": "manager"
+        },
+        {
+          "alias": "LEGIJA",
+          "name": "Nikola Ninić",
+          "role": "head coach"
+        },
+        {
+          "alias": "York",
+          "name": "Yao Kun (姚堃)",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "PHO",
+          "name": "Zhang Shicheng (张世成)",
+          "role": "staff"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/11/11",
+          "action": "join",
+          "player": "Setrod",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "leave",
+          "player": "Autumn",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/09",
+          "action": "join",
+          "player": "sScary",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/07",
+          "action": "leave",
+          "player": "yosemite",
+          "designation": "Player"
+        }
+      ]
+    },
+    "tec": {
+      "name": "Titan Esports Club",
+      "roster": [
+        {
+          "alias": "Haodong",
+          "name": "Guo Haodong (郭浩东)",
+          "role": "Player"
+        },
+        {
+          "alias": "lucas",
+          "name": "Yunkun Lu (路昀昆)",
+          "role": "Player"
+        },
+        {
+          "alias": "Abo",
+          "name": "Han Bohao (韩博皓)",
+          "role": "Player"
+        },
+        {
+          "alias": "TvirusLuke",
+          "name": "Chen Cheng-ching (陈振庆)",
+          "role": "Player"
+        },
+        {
+          "alias": "Coco",
+          "name": "Ding Dajian (丁达建)",
+          "role": "Player"
+        },
+        {
+          "alias": "Dynamite",
+          "name": "Zhao Zihao (赵梓浩)",
+          "role": "Sub"
+        },
+        {
+          "alias": "kawaii",
+          "name": "Piao Min (朴民)",
+          "role": "Sub"
+        },
+        {
+          "alias": "Gazero",
+          "name": "Li Zhe (李哲)",
+          "role": "manager"
+        },
+        {
+          "alias": "AfteR",
+          "name": "Lo Wen-Hsin (罗文信)",
+          "role": "head coach"
+        },
+        {
+          "alias": "3water",
+          "name": "Liu Miao (刘淼)",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "sora",
+          "name": "Hao Jinyu (郝金淼)",
+          "role": "analyst"
+        },
+        {
+          "alias": "xiaobei",
+          "name": "Guo Shicheng (郭士成)",
+          "role": "staff"
+        }
+      ],
+      "transactions": []
+    },
+    "tyl": {
+      "name": "TYLOO",
+      "roster": [
+        {
+          "alias": "slowly",
+          "name": "Kelun Sun (孙科伦)",
+          "role": "Player"
+        },
+        {
+          "alias": "splash",
+          "name": "Moses Christophe Jonathan",
+          "role": "Player"
+        },
+        {
+          "alias": "Scales",
+          "name": "Zhang Zhen (张震)",
+          "role": "Player"
+        },
+        {
+          "alias": "Erv",
+          "name": "Shen Zhiwei",
+          "role": "Player"
+        },
+        {
+          "alias": "sword9",
+          "name": "Li Wei (李卫)",
+          "role": "Player"
+        },
+        {
+          "alias": "Yoyo",
+          "name": "Xu Youxiang (徐佑翔)",
+          "role": "Player"
+        },
+        {
+          "alias": "fc4t",
+          "name": "Yang Jiawei (杨家玮)",
+          "role": "manager"
+        },
+        {
+          "alias": "hypnotizing",
+          "name": "Xie Haozhi (谢昊志)",
+          "role": "head coach"
+        },
+        {
+          "alias": "Billyo",
+          "name": "Li Xinyu (李新宇)",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/28",
+          "action": "join",
+          "player": "Erv",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/11/04",
+          "action": "leave",
+          "player": "waituu",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/17",
+          "action": "leave",
+          "player": "Ninebody",
+          "designation": "Player"
+        }
+      ]
+    },
+    "edg": {
+      "name": "EDward Gaming",
+      "roster": [
+        {
+          "alias": "nobody",
+          "name": "Wang Senxu (王森旭)",
+          "role": "Player"
+        },
+        {
+          "alias": "ZmjjKK",
+          "name": "Zheng Yongkang (郑永康)",
+          "role": "Player"
+        },
+        {
+          "alias": "CHICHOO",
+          "name": "Wan Shunzhi (万顺治)",
+          "role": "Player"
+        },
+        {
+          "alias": "cb",
+          "name": "Wang Qingchuan (王庆川)",
+          "role": "Player"
+        },
+        {
+          "alias": "Smoggy",
+          "name": "Zhang Zhao (张钊)",
+          "role": "Player"
+        },
+        {
+          "alias": "Jieni7",
+          "name": "Zhang Juntai (张君泰)",
+          "role": "Player"
+        },
+        {
+          "alias": "zjc",
+          "name": "Zhang Juncheng (张峻程)",
+          "role": "Sub"
+        },
+        {
+          "alias": "Hibari",
+          "name": "Jin Xingyu (金星宇)",
+          "role": "manager"
+        },
+        {
+          "alias": "Autumn",
+          "name": "Yoon Eu-teum (윤으뜸)",
+          "role": "head coach"
+        },
+        {
+          "alias": "24K",
+          "name": "Shao Yubo (邵玉波)",
+          "role": "coach"
+        },
+        {
+          "alias": "heav1n",
+          "name": "Chen Wang",
+          "role": "assistant coach"
+        },
+        {
+          "alias": "Indigo",
+          "name": "Seol Do-hoon (설도훈)",
+          "role": "assistant coach"
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2025/12/31",
+          "action": "join",
+          "player": "Indigo",
+          "designation": "Assistant coach"
+        },
+        {
+          "date": "2025/11/26",
+          "action": "join",
+          "player": "24K",
+          "designation": "Coach"
+        },
+        {
+          "date": "2025/11/26",
+          "action": "join",
+          "player": "Autumn",
+          "designation": "Head coach"
+        },
+        {
+          "date": "2025/11/22",
+          "action": "join",
+          "player": "cb",
+          "designation": "Player"
+        },
+        {
+          "date": "2025/10/29",
+          "action": "join",
+          "player": "Hibari",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/10/15",
+          "action": "leave",
+          "player": "Aqua",
+          "designation": "Manager"
+        },
+        {
+          "date": "2025/10/15",
+          "action": "leave",
+          "player": "JuiceFlip",
+          "designation": "Staff"
+        }
+      ]
+    },
+    "jdg": {
+      "name": "JD Gaming",
+      "roster": [],
+      "transactions": []
+    }
+  }
+}

@@ -1,19 +1,22 @@
 "use client"
 
 import { useState } from "react"
-import { TEAMS, type Team } from "@/lib/teams"
+import { TEAMS, type Team, KICKOFF_DATES } from "@/lib/teams"
 import { RegionColumn } from "@/components/region-column"
 import { PredictionModal } from "@/components/prediction-modal"
 import { Navbar } from "@/components/navbar"
 import { FeaturedTeamCard } from "@/components/featured-team-card"
+import { TeaserCard } from "@/components/teaser-card"
 
 interface HomeClientProps {
   initialSubscriptions: string[]
   initialRegionSubscriptions: string[]
   todaysTeams: Team[]
+  tomorrowTeams: Team[]
+  daysUntilStart: number
 }
 
-export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, todaysTeams }: HomeClientProps) {
+export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, todaysTeams, tomorrowTeams, daysUntilStart }: HomeClientProps) {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [subscribedTeams, setSubscribedTeams] = useState<string[]>(initialSubscriptions)
@@ -54,18 +57,17 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
         <div className="w-full max-w-[1200px] px-4 py-6 space-y-6">
           <header className="flex flex-col md:flex-row md:items-end justify-between border-b border-border pb-4 gap-4">
             <div className="space-y-1">
-              <h1 className="text-2xl font-black leading-none">12 DAYS TO VCT</h1>
+              <h1 className="text-2xl font-black leading-none">{daysUntilStart > 0 ? `${daysUntilStart} DAYS TO VCT` : "VCT IS HERE"}</h1>
               <p className="text-muted-foreground text-[12px] max-w-xl">
                 The 2026 season is approaching. Record your thoughts on each team as they unlock.
               </p>
             </div>
             <div className="flex items-center gap-4 text-[11px] font-bold text-muted-foreground uppercase">
-              <span>Season Start: Feb 15, 2026</span>
               <span className="text-primary animate-pulse">Live Tracking</span>
             </div>
           </header>
 
-          {todaysTeams.length > 0 && (
+          {(todaysTeams.length > 0 || tomorrowTeams.length > 0) && (
             <section className="space-y-3 animate-in fade-in slide-in-from-top-4">
               <div className="h-8 px-3 flex items-center bg-primary/10 border-l-2 border-primary">
                 <h2 className="text-xs font-black text-primary uppercase tracking-tight">Predict Today&apos;s Teams</h2>
@@ -78,6 +80,12 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
                     onClick={handleTeamClick} 
                   />
                 ))}
+                {tomorrowTeams.length > 0 && (
+                  <TeaserCard 
+                    team={tomorrowTeams[0]} 
+                    initialIsSubscribed={subscribedTeams.includes(tomorrowTeams[0].id)} 
+                  />
+                )}
               </div>
             </section>
           )}
@@ -87,10 +95,38 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
               <h2 className="text-xs font-black text-muted-foreground uppercase tracking-tight">Predict All Teams</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-border border border-border">
-              <RegionColumn region="Americas" teams={TEAMS} onTeamClick={handleTeamClick} subscribedTeams={subscribedTeams} initialIsRegionSubscribed={subscribedRegions.includes("Americas")} />
-              <RegionColumn region="EMEA" teams={TEAMS} onTeamClick={handleTeamClick} subscribedTeams={subscribedTeams} initialIsRegionSubscribed={subscribedRegions.includes("EMEA")} />
-              <RegionColumn region="Pacific" teams={TEAMS} onTeamClick={handleTeamClick} subscribedTeams={subscribedTeams} initialIsRegionSubscribed={subscribedRegions.includes("Pacific")} />
-              <RegionColumn region="China" teams={TEAMS} onTeamClick={handleTeamClick} subscribedTeams={subscribedTeams} initialIsRegionSubscribed={subscribedRegions.includes("China")} />
+              <RegionColumn 
+                region="Americas" 
+                teams={TEAMS} 
+                onTeamClick={handleTeamClick} 
+                subscribedTeams={subscribedTeams} 
+                initialIsRegionSubscribed={subscribedRegions.includes("Americas")} 
+                startDate={KICKOFF_DATES["Americas"]}
+              />
+              <RegionColumn 
+                region="EMEA" 
+                teams={TEAMS} 
+                onTeamClick={handleTeamClick} 
+                subscribedTeams={subscribedTeams} 
+                initialIsRegionSubscribed={subscribedRegions.includes("EMEA")}
+                startDate={KICKOFF_DATES["EMEA"]}
+              />
+              <RegionColumn 
+                region="Pacific" 
+                teams={TEAMS} 
+                onTeamClick={handleTeamClick} 
+                subscribedTeams={subscribedTeams} 
+                initialIsRegionSubscribed={subscribedRegions.includes("Pacific")}
+                startDate={KICKOFF_DATES["Pacific"]}
+              />
+              <RegionColumn 
+                region="China" 
+                teams={TEAMS} 
+                onTeamClick={handleTeamClick} 
+                subscribedTeams={subscribedTeams} 
+                initialIsRegionSubscribed={subscribedRegions.includes("China")}
+                startDate={KICKOFF_DATES["China"]}
+              />
             </div>
           </section>
         </div>

@@ -64,13 +64,7 @@ export default async function MyFeedPage({
     .orderBy(desc(predictions.timestamp))
 
   const feedItems = myPredictions.map(p => ({
-    id: p.id,
-    teamId: p.teamId,
-    teamTag: p.teamTag,
-    teamName: p.teamName,
-    userName: p.userName,
-    thought: p.thought,
-    timestamp: p.timestamp,
+    ...p,
     isPublic: p.isPublic || false
   }))
 

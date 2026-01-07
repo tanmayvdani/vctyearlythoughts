@@ -155,4 +155,14 @@
   .btn-vlr {
     @apply px-3 py-1 bg-secondary hover:bg-muted border border-border font-bold text-[11px] uppercase transition-colors;
   }
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border/50 rounded-full hover:bg-primary/50;
+  }
 }
