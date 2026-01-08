@@ -1,14 +1,15 @@
 "use server"
 
 import { auth } from "@/auth"
-import { db } from "@/lib/db"
-import { predictions, users, teamNotifications, regionNotifications, allowedTesters, teams } from "@/lib/schema"
+import { getDb } from "@/lib/db"
+import { predictions, users, teamNotifications, regionNotifications, teams, emailChangeRequests } from "@/lib/schema"
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { eq, and } from "drizzle-orm"
 import { z } from "zod"
 import { TEAMS } from "@/lib/teams"
 import { getUnlockStatus } from "@/lib/vct-utils"
+import { Resend as ResendClient } from "resend"
 
 const predictionSchema = z.object({
   thought: z.string().min(1, "Thought cannot be empty").max(280, "Thought is too long (max 280 chars)"),
@@ -31,6 +32,8 @@ const usernameSchema = z.string()
   .max(32, "Username cannot exceed 32 characters")
   .regex(/^[a-zA-Z0-9_]+$/, "Username must be alphanumeric (letters, numbers, underscore only)");
 
+const emailSchema = z.string().email("Invalid email address");
+
 const updatePredictionThoughtSchema = z.string()
   .min(1, "Thought cannot be empty")
   .max(280, "Thought is too long (max 280 chars)");
@@ -40,12 +43,116 @@ export async function updateUsername(username: string) {
   if (!session?.user?.id) throw new Error("Unauthorized")
 
   const validatedName = usernameSchema.parse(username)
+  const userId = session.user.id
 
-  await db.update(users)
-    .set({ name: validatedName })
-    .where(eq(users.id, session.user.id))
+  const db = getDb()
+  await db.transaction(async (tx) => {
+    await tx.update(users)
+      .set({ name: validatedName })
+      .where(eq(users.id, userId))
+
+    await tx.update(predictions)
+      .set({ userName: validatedName })
+      .where(eq(predictions.userId, userId))
+  })
 
   revalidatePath("/")
+  revalidatePath("/my-feed")
+  revalidatePath("/feed")
+  return { success: true }
+}
+
+export async function requestEmailChange(newEmail: string) {
+  const session = await auth()
+  if (!session?.user?.id) throw new Error("Unauthorized")
+
+  const validatedEmail = emailSchema.parse(newEmail)
+
+  const db = getDb()
+
+  // Check if new email is already taken
+  const existingUser = await db.select().from(users).where(eq(users.email, validatedEmail)).limit(1)
+  if (existingUser.length > 0) {
+    return { error: "This email is already in use" }
+  }
+
+  // Generate token
+  const token = crypto.randomUUID()
+  const expiresAt = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+
+  // Store email change request
+  await db.insert(emailChangeRequests).values({
+    userId: session.user.id,
+    newEmail: validatedEmail,
+    token,
+    expiresAt,
+  })
+
+  // Send magic link email
+  const resend = new ResendClient(process.env.RESEND_API_KEY)
+  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000"
+  const confirmUrl = `${baseUrl}/api/confirm-email-change?token=${token}`
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Email Change</title>
+</head>
+<body style="background: #0f1923; margin: 0; padding: 20px; font-family: Helvetica, Arial, sans-serif;">
+  <table width="100%" border="0" cellspacing="20" cellpadding="0" style="background: #0f1923; max-width: 600px; margin: auto; border-radius: 10px;">
+    <tr>
+      <td align="center" style="padding: 10px 0px; font-size: 22px; color: #ece8e1;">
+        <strong>VCT Time Capsule</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 20px 0; color: #ece8e1; font-size: 16px;">
+        Please confirm your email change by clicking the button below:
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 20px 0;">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="center" style="border-radius: 5px;" bgcolor="#ff4655">
+              <a href="${confirmUrl}" target="_blank" style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; padding: 10px 20px; border: 1px solid #ff4655; display: inline-block; font-weight: bold;">
+                Confirm Email Change
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; color: #ece8e1;">
+        This link will expire in 1 hour.
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; color: #ece8e1;">
+        If you did not request this change, you can safely ignore this email.
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`
+
+  try {
+    await resend.emails.send({
+      from: process.env.EMAIL_FROM || "onboarding@resend.dev",
+      to: validatedEmail,
+      subject: "Confirm Email Change - VCT Time Capsule",
+      html,
+    })
+  } catch (error) {
+    console.error("Failed to send email change confirmation", error)
+    return { error: "Failed to send confirmation email" }
+  }
+
   return { success: true }
 }
 
@@ -56,12 +163,13 @@ export async function subscribeToTeam(teamId: string) {
   }
 
   // Check existing
+  const db = getDb()
   const existing = await db.select().from(teamNotifications).where(
     and(
       eq(teamNotifications.userId, session.user.id),
       eq(teamNotifications.teamId, teamId)
     )
-  )
+  ).limit(1)
 
   if (existing.length === 0) {
     await db.insert(teamNotifications).values({
@@ -79,6 +187,7 @@ export async function unsubscribeFromTeam(teamId: string) {
     return { error: "Unauthorized" }
   }
 
+  const db = getDb()
   await db.delete(teamNotifications).where(
     and(
       eq(teamNotifications.userId, session.user.id),
@@ -95,12 +204,13 @@ export async function checkSubscription(teamId: string) {
     return false
   }
 
+  const db = getDb()
   const existing = await db.select().from(teamNotifications).where(
     and(
       eq(teamNotifications.userId, session.user.id),
       eq(teamNotifications.teamId, teamId)
     )
-  )
+  ).limit(1)
 
   return existing.length > 0
 }
@@ -111,6 +221,7 @@ export async function getUserSubscriptions() {
     return []
   }
 
+  const db = getDb()
   const results = await db.select({ teamId: teamNotifications.teamId })
     .from(teamNotifications)
     .where(eq(teamNotifications.userId, session.user.id))
@@ -125,12 +236,13 @@ export async function subscribeToRegion(regionName: string) {
     return { error: "Unauthorized" }
   }
 
+  const db = getDb()
   const existing = await db.select().from(regionNotifications).where(
     and(
       eq(regionNotifications.userId, session.user.id),
       eq(regionNotifications.regionName, regionName)
     )
-  )
+  ).limit(1)
 
   if (existing.length === 0) {
     await db.insert(regionNotifications).values({
@@ -148,6 +260,7 @@ export async function unsubscribeFromRegion(regionName: string) {
     return { error: "Unauthorized" }
   }
 
+  const db = getDb()
   await db.delete(regionNotifications).where(
     and(
       eq(regionNotifications.userId, session.user.id),
@@ -164,6 +277,7 @@ export async function getUserRegionSubscriptions() {
     return []
   }
 
+  const db = getDb()
   const results = await db.select({ regionName: regionNotifications.regionName })
     .from(regionNotifications)
     .where(eq(regionNotifications.userId, session.user.id))
@@ -171,15 +285,7 @@ export async function getUserRegionSubscriptions() {
   return results.map(r => r.regionName)
 }
 
-export async function checkIfTester(email: string) {
-  const tester = await db
-    .select()
-    .from(allowedTesters)
-    .where(eq(allowedTesters.email, email))
-    .get()
-  
-  return !!tester
-}
+
 
 export async function submitPrediction(formData: FormData) {
   const session = await auth()
@@ -236,7 +342,7 @@ export async function submitPrediction(formData: FormData) {
     if (existingGuestId) {
       userId = existingGuestId.value
     } else {
-      userId = "guest_" + Math.random().toString(36).substring(7)
+      userId = "guest_" + crypto.randomUUID()
       cookieStore.set("vct_guest_id", userId, { 
         maxAge: 60 * 60 * 24 * 365, // 1 year
         httpOnly: true,
@@ -246,6 +352,7 @@ export async function submitPrediction(formData: FormData) {
     userName = "Guest"
   }
 
+  const db = getDb()
   await db.insert(predictions).values({
     teamId,
     teamName,
@@ -277,6 +384,7 @@ export async function updatePrediction(predictionId: string, thought: string, is
   const validatedThought = updatePredictionThoughtSchema.parse(thought)
 
   // Verify ownership
+  const db = getDb()
   const [prediction] = await db.select()
     .from(predictions)
     .where(and(
@@ -290,14 +398,66 @@ export async function updatePrediction(predictionId: string, thought: string, is
   }
 
   await db.update(predictions)
-    .set({ 
-      thought: validatedThought, 
+    .set({
+      thought: validatedThought,
       isPublic,
-      // optionally update timestamp? maybe add an updatedAt column later. 
-      // For now let's keep original timestamp or update it. 
-      // Let's NOT update timestamp to preserve "time capsule" feel, 
-      // but maybe we should mark it as edited? 
+      // optionally update timestamp? maybe add an updatedAt column later.
+      // For now let's keep original timestamp or update it.
+      // Let's NOT update timestamp to preserve "time capsule" feel,
+      // but maybe we should mark it as edited?
       // For simplicity in this task, just update thought/visibility.
+    })
+    .where(eq(predictions.id, predictionId))
+
+  revalidatePath("/my-feed")
+  revalidatePath("/feed")
+  return { success: true }
+}
+
+export async function updatePredictionFull(
+  predictionId: string,
+  thought: string,
+  isPublic: boolean,
+  kickoffPlacement?: string,
+  stage1Placement?: string,
+  stage2Placement?: string,
+  masters1Placement?: string,
+  masters2Placement?: string,
+  championsPlacement?: string,
+  rosterMoves?: string
+) {
+  const session = await auth()
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized")
+  }
+
+  const validatedThought = updatePredictionThoughtSchema.parse(thought)
+
+  // Verify ownership
+  const db = getDb()
+  const [prediction] = await db.select()
+    .from(predictions)
+    .where(and(
+      eq(predictions.id, predictionId),
+      eq(predictions.userId, session.user.id)
+    ))
+    .limit(1)
+
+  if (!prediction) {
+    throw new Error("Prediction not found or unauthorized")
+  }
+
+  await db.update(predictions)
+    .set({
+      thought: validatedThought,
+      isPublic,
+      kickoffPlacement: kickoffPlacement || null,
+      stage1Placement: stage1Placement || null,
+      stage2Placement: stage2Placement || null,
+      masters1Placement: masters1Placement || null,
+      masters2Placement: masters2Placement || null,
+      championsPlacement: championsPlacement || null,
+      rosterMoves: rosterMoves || null,
     })
     .where(eq(predictions.id, predictionId))
 
@@ -313,6 +473,7 @@ export async function deletePrediction(predictionId: string) {
   }
 
   // Verify ownership and delete
+  const db = getDb()
   await db.delete(predictions)
     .where(and(
       eq(predictions.id, predictionId),
@@ -325,6 +486,7 @@ export async function deletePrediction(predictionId: string) {
 }
 
 export async function getTeamData(teamId: string) {
+  const db = getDb()
   const result = await db.select().from(teams).where(eq(teams.id, teamId)).limit(1)
   if (result.length === 0) return null
   

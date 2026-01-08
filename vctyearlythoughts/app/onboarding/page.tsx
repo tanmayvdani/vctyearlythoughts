@@ -30,20 +30,20 @@ export default function OnboardingPage() {
         <div className="w-full max-w-md bg-card border border-white/10 p-8 space-y-8 animate-in zoom-in-95 duration-300">
           <div className="text-center space-y-2">
             <h1 className="text-2xl font-bold tracking-tighter uppercase">IDENTITY PROTOCOL</h1>
-            <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest">
+            <p className="text-[10pt] text-muted-foreground font-mono uppercase tracking-widest">
               Establish your handle for the time capsule
             </p>
           </div>
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-[10px] font-mono uppercase text-muted-foreground tracking-widest">
+              <label className="text-[10pt] font-mono uppercase text-muted-foreground tracking-widest">
                 Choose Username
               </label>
               <Input
                 type="text"
                 placeholder="VALORANT_FAN_2026"
-                className="bg-input border-white/10 rounded-none font-mono text-sm h-12 uppercase"
+                className="bg-input border-white/10 rounded-none font-mono text-[10pt] h-12 uppercase"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}

@@ -103,7 +103,7 @@ export function FeedFilters() {
       
       {/* Regions Multi-Select */}
       <div className="flex-1 space-y-2 w-full">
-        <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Region</label>
+        <label className="text-[10pt] font-mono font-bold uppercase text-muted-foreground">Region</label>
         <Popover open={openRegion} onOpenChange={setOpenRegion}>
           <PopoverTrigger asChild>
             <Button
@@ -159,7 +159,7 @@ export function FeedFilters() {
         {selectedRegions.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">
             {selectedRegions.map(region => (
-              <div key={region} className="flex items-center gap-2 bg-card border border-white/10 px-2 py-1 rounded text-xs font-medium text-foreground">
+              <div key={region} className="flex items-center gap-2 bg-card border border-white/10 px-2 py-1 rounded text-[10pt] font-medium text-foreground">
                 <Image 
                   src={REGION_IMAGES[region]} 
                   alt={region} 
@@ -179,7 +179,7 @@ export function FeedFilters() {
 
       {/* Teams Multi-Select */}
       <div className="flex-1 space-y-2 w-full">
-        <label className="text-xs font-mono font-bold uppercase text-muted-foreground">Team</label>
+        <label className="text-[10pt] font-mono font-bold uppercase text-muted-foreground">Team</label>
         <Popover open={openTeam} onOpenChange={setOpenTeam}>
           <PopoverTrigger asChild>
             <Button
@@ -238,7 +238,7 @@ export function FeedFilters() {
               const team = TEAMS.find(t => t.id === teamId)
               if (!team) return null
               return (
-                <div key={team.id} className="flex items-center gap-2 bg-card border border-white/10 px-2 py-1 rounded text-xs font-medium text-foreground">
+                <div key={team.id} className="flex items-center gap-2 bg-card border border-white/10 px-2 py-1 rounded text-[10pt] font-medium text-foreground">
                   <Image 
                     src={`/logos/${team.id}.png`}
                     alt={team.name} 
@@ -261,7 +261,7 @@ export function FeedFilters() {
         <Button 
           onClick={applyFilters}
           size="sm"
-          className="bg-primary text-white hover:bg-primary/90 font-bold uppercase tracking-wider flex-1 sm:flex-none text-[11px]"
+          className="bg-primary text-white hover:bg-primary/90 font-bold uppercase tracking-wider flex-1 sm:flex-none text-[10pt]"
         >
           Apply Filter
         </Button>

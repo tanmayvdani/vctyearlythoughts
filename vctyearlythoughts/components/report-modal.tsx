@@ -45,7 +45,7 @@ export function ReportModal({ isOpen, username, postId, onClose }: ReportModalPr
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-md bg-card border border-border shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between px-4 h-10 bg-muted border-b border-border">
-          <h3 className="text-xs font-black text-white uppercase tracking-tight flex items-center gap-2">
+          <h3 className="text-[10pt] font-black text-white uppercase tracking-tight flex items-center gap-2">
             <Shield className="w-3.5 h-3.5 text-destructive" />
             Report {username}
           </h3>
@@ -56,7 +56,7 @@ export function ReportModal({ isOpen, username, postId, onClose }: ReportModalPr
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="space-y-2">
-            <label className="text-xs font-bold uppercase text-muted-foreground">Reason</label>
+            <label className="text-[10pt] font-bold uppercase text-muted-foreground">Reason</label>
             <Select value={reason} onValueChange={setReason} required>
               <SelectTrigger className="bg-background/50">
                 <SelectValue placeholder="Select a reason" />
@@ -72,7 +72,7 @@ export function ReportModal({ isOpen, username, postId, onClose }: ReportModalPr
           </div>
 
           <div className="space-y-2">
-            <label className="text-xs font-bold uppercase text-muted-foreground">Details</label>
+            <label className="text-[10pt] font-bold uppercase text-muted-foreground">Details</label>
             <Textarea
               value={details}
               onChange={(e) => setDetails(e.target.value)}

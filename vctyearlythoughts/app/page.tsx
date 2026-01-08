@@ -2,8 +2,17 @@ import { HomeClient } from "@/components/home-client"
 import { getUserSubscriptions, getUserRegionSubscriptions } from "@/app/actions"
 import { TEAMS, KICKOFF_DATES } from "@/lib/teams"
 import { isUnlockedToday } from "@/lib/vct-utils"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
 export default async function Home() {
+  const session = await auth()
+  
+  // If user is logged in but hasn't set a name, redirect to onboarding
+  if (session?.user && !session.user.name) {
+    redirect("/onboarding")
+  }
+
   // Fetch data on the server
   const subscriptions = await getUserSubscriptions()
   const regionSubscriptions = await getUserRegionSubscriptions()

@@ -125,12 +125,7 @@ export const regionNotifications = sqliteTable("region_notification", {
   userRegionUnique: uniqueIndex("user_region_unique").on(table.userId, table.regionName),
 }))
 
-export const allowedTesters = sqliteTable("allowed_tester", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  email: text("email").notNull().unique(),
-})
+
 
 // Roster and Transaction Data
 export const players = sqliteTable("player", {
@@ -156,4 +151,37 @@ export const teamTransactions = sqliteTable("team_transaction", {
 }, (table) => ({
   teamIdIdx: index("transaction_team_id_idx").on(table.teamId),
   dateIdx: index("transaction_date_idx").on(table.date),
+}))
+
+// Email Outbox Table
+export const emailOutbox = sqliteTable("email_outbox", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  type: text("type").notNull(), // e.g. 'team_notification'
+  payload: text("payload").notNull(), // JSON payload
+  status: text("status").notNull().default("pending"), // pending | sent | failed
+  attempts: integer("attempts").notNull().default(0),
+  lastError: text("lastError"),
+  nextRetryAt: integer("nextRetryAt", { mode: "timestamp_ms" }),
+  sentAt: integer("sentAt", { mode: "timestamp_ms" }),
+  createdAt: integer("createdAt", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
+  updatedAt: integer("updatedAt", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
+}, (table) => ({
+  statusCreatedAtIdx: index("status_created_at_idx").on(table.status, table.createdAt),
+}))
+
+export const emailChangeRequests = sqliteTable("email_change_request", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId").notNull(),
+  newEmail: text("newEmail").notNull(),
+  token: text("token").notNull(),
+  expiresAt: integer("expiresAt", { mode: "timestamp_ms" }).notNull(),
+  used: integer("used", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("createdAt", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
+}, (table) => ({
+  userIdIdx: index("email_change_user_idx").on(table.userId),
+  tokenIdx: index("email_change_token_idx").on(table.token),
 }))

@@ -5,7 +5,8 @@ dotenv.config({ path: ".env.local" })
 const normalize = (s: string) => s.toLowerCase().trim()
 
 async function main() {
-  const { db } = await import("../lib/db")
+  const { getDb } = await import("../lib/db")
+  const db = getDb()
   const { players, teamTransactions } = await import("../lib/schema")
   const { TEAMS } = await import("../lib/teams")
   const transactionsData = (await import("../lib/data/transactions.json")).default

@@ -3,6 +3,16 @@ node_modules
 .pnp
 .pnp.js
 
+# Temporary data files
+*.json
+!vctyearlythoughts/lib/data/*.json
+# Temporary test files
+*.txt
+# Temporary scripts
+scripts/
+vlr*.py
+GEMINI.md
+
 # Testing
 coverage
 

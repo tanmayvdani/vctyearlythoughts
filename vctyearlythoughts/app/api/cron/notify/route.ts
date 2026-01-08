@@ -1,28 +1,56 @@
-import { db } from "@/lib/db"
-import { teamNotifications, users } from "@/lib/schema"
+import { getDb } from "@/lib/db"
+import { teamNotifications, users, emailOutbox } from "@/lib/schema"
 import { TEAMS } from "@/lib/teams"
 import { getUnlockStatus } from "@/lib/vct-utils"
-import { eq, and, inArray } from "drizzle-orm"
+import { getBaseUrl } from "@/lib/utils"
+import { eq, and, inArray, or, isNull, lte, sql } from "drizzle-orm"
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
+
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+
+async function sendTeamNotificationEmail(payload: {
+  email: string
+  teamId: string
+}) {
+  const team = TEAMS.find(t => t.id === payload.teamId)
+  if (!team) {
+    throw new Error(`Team ${payload.teamId} not found`)
+  }
+
+  const predictUrl = new URL("/", getBaseUrl()).toString()
+
+  if (process.env.RESEND_API_KEY) {
+    await resend.emails.send({
+      from: "VCT Capsule <notifications@resend.dev>",
+      to: payload.email,
+      subject: `Unlocked: ${team.name}`,
+      html: `<p>The team <strong>${team.name}</strong> is now unlocked in the Time Capsule.</p>
+             <p><a href="${predictUrl}">Predict Now</a></p>`,
+    })
+  } else {
+    console.log(
+      `[MOCK EMAIL] To: ${payload.email} | Subject: Unlocked: ${team.name}`
+    )
+  }
+}
+
+
 export async function GET(request: Request) {
-  // Check for secret to preventing public abuse (simple protection)
-  const authHeader = request.headers.get('authorization');
+  // ---- auth guard (unchanged logic) ----
+  const authHeader = request.headers.get("authorization")
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    // allowing bypass for dev if no secret set, or return 401
-    if (process.env.NODE_ENV === 'production' && process.env.CRON_SECRET) {
-      return new NextResponse('Unauthorized', { status: 401 });
+    if (process.env.NODE_ENV === "production" && process.env.CRON_SECRET) {
+      return new NextResponse("Unauthorized", { status: 401 })
     }
   }
 
   const now = new Date()
-  
-  // 1. Identify teams that JUST unlocked or are unlocked (but we only want to notify once)
-  // For simplicity, we check all unlocked teams, and rely on 'sent=false' in DB to avoid spam.
-  
+  const db = getDb()
+
+  // ---- STEP 1: find unlocked teams ----
   const unlockedTeamIds = TEAMS
     .filter(team => getUnlockStatus(team, now).isUnlocked)
     .map(team => team.id)
@@ -31,11 +59,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: "No teams unlocked" })
   }
 
-  // 2. Find pending notifications for these teams
-  const pending = await db
+  // ---- STEP 2: discover subscriptions that need notifications ----
+  const subscriptions = await db
     .select({
-      id: teamNotifications.id,
-      userId: teamNotifications.userId,
+      teamNotificationId: teamNotifications.id,
       teamId: teamNotifications.teamId,
       email: users.email,
     })
@@ -48,42 +75,121 @@ export async function GET(request: Request) {
       )
     )
 
-  if (pending.length === 0) {
+  if (subscriptions.length === 0) {
     return NextResponse.json({ message: "No pending notifications" })
   }
 
-  // 3. Send Emails
-  const results = await Promise.all(pending.map(async (record) => {
-    const team = TEAMS.find(t => t.id === record.teamId)
-    if (!team) return null
+  // ---- STEP 3: insert outbox rows (transactional) ----
+  await db.transaction(async (tx) => {
+    for (const sub of subscriptions) {
+      await tx.insert(emailOutbox).values({
+        type: "team_notification",
+        payload: JSON.stringify({
+          email: sub.email,
+          teamId: sub.teamId,
+          teamNotificationId: sub.teamNotificationId,
+        }),
+        status: "pending",
+      })
+    }
+  })
+
+  // ---- STEP 4: process pending outbox items ----
+  const pendingOutbox = await db
+    .select()
+    .from(emailOutbox)
+    .where(
+      and(
+        eq(emailOutbox.status, "pending"),
+        or(
+          isNull(emailOutbox.nextRetryAt),
+          lte(emailOutbox.nextRetryAt, now)
+        )
+      )
+    )
+
+  let sentCount = 0
+  let failedCount = 0
+
+  for (const item of pendingOutbox) {
+    // idempotency guard
+    if (item.status === "sent") continue
+    if (item.attempts >= 5) continue
+
+    const payload = JSON.parse(item.payload) as {
+      email: string
+      teamId: string
+      teamNotificationId: string
+    }
+
+    const nextDelayMs = Math.min(
+      24 * 60 * 60 * 1000,
+      Math.pow(2, item.attempts) * 60 * 60 * 1000
+    )
+
+    // ---- STEP 4a: increment attempts BEFORE send ----
+    await db.transaction(async (tx) => {
+      await tx
+        .update(emailOutbox)
+        .set({
+          attempts: sql`${emailOutbox.attempts} + 1`,
+          updatedAt: new Date(),
+          nextRetryAt: new Date(Date.now() + nextDelayMs),
+        })
+        .where(eq(emailOutbox.id, item.id))
+    })
 
     try {
-        if (process.env.RESEND_API_KEY) {
-            await resend.emails.send({
-                from: 'VCT Capsule <notifications@resend.dev>',
-                to: record.email,
-                subject: `Unlocked: ${team.name}`,
-                html: `<p>The team <strong>${team.name}</strong> is now unlocked in the Time Capsule.</p><p><a href="http://localhost:3000">Predict Now</a></p>`
-            })
-        } else {
-            console.log(`[MOCK EMAIL] To: ${record.email} | Subject: Unlocked: ${team.name}`)
-        }
+      // ---- STEP 4b: send email (outside transaction) ----
+      await sendTeamNotificationEmail({
+        email: payload.email,
+        teamId: payload.teamId,
+      })
 
-        // Mark as sent
-        await db
-            .update(teamNotifications)
-            .set({ sent: true })
-            .where(eq(teamNotifications.id, record.id))
-        
-        return record.id
-    } catch (error) {
-        console.error("Failed to send email", error)
-        return null
+      // ---- STEP 4c: mark outbox + subscription as sent ----
+      await db.transaction(async (tx) => {
+        await tx
+          .update(emailOutbox)
+          .set({
+            status: "sent",
+            sentAt: new Date(),
+            updatedAt: new Date(),
+            nextRetryAt: null,
+          })
+          .where(eq(emailOutbox.id, item.id))
+
+        await tx
+          .update(teamNotifications)
+          .set({ sent: true })
+          .where(eq(teamNotifications.id, payload.teamNotificationId))
+      })
+
+      sentCount++
+    } catch (err) {
+      failedCount++
+
+      console.error(
+        `Outbox send failed (id=${item.id}, attempt=${item.attempts + 1})`,
+        err
+      )
+
+      await db.transaction(async (tx) => {
+        await tx
+          .update(emailOutbox)
+          .set({
+            status: item.attempts + 1 >= 5 ? "failed" : "pending",
+            lastError: String(err),
+            updatedAt: new Date(),
+          })
+          .where(eq(emailOutbox.id, item.id))
+      })
     }
-  }))
+  }
 
-  return NextResponse.json({ 
-    success: true, 
-    sentCount: results.filter(Boolean).length 
+  return NextResponse.json({
+    success: true,
+    queued: subscriptions.length,
+    sentCount,
+    failedCount,
   })
 }

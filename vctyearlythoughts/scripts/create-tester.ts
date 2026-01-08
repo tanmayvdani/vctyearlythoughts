@@ -1,5 +1,3 @@
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
@@ -13,13 +11,6 @@ const allowedTesters = sqliteTable("allowed_tester", {
   email: text("email").notNull().unique(),
 });
 
-const client = createClient({
-  url: process.env.DATABASE_URL!,
-  authToken: process.env.DATABASE_AUTH_TOKEN,
-});
-
-const db = drizzle(client);
-
 async function addTester(email: string) {
   if (!email) {
     console.error("Please provide an email address.");
@@ -29,6 +20,8 @@ async function addTester(email: string) {
   console.log(`Adding ${email} to allowed testers...`);
 
   try {
+    const { getDb } = await import("../lib/db");
+    const db = getDb();
     await db.insert(allowedTesters).values({
       id: crypto.randomUUID(),
       email,

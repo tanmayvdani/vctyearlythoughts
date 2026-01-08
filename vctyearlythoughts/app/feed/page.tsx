@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
-import { db } from "@/lib/db"
+import { getDb } from "@/lib/db"
 import { predictions } from "@/lib/schema"
 import { count, desc, eq, and, inArray, or } from "drizzle-orm"
 import { FeedList } from "@/components/feed-list"
@@ -64,7 +64,8 @@ export default async function FeedPage({
   const offset = (page - 1) * PAGE_SIZE
 
   // Fetch real public predictions from DB with pagination and total count for navigation
-  const [dbPredictions, totalCountResult] = await Promise.all([
+  const db = getDb()
+  const results = await Promise.allSettled([
     db
       .select()
       .from(predictions)
@@ -77,6 +78,13 @@ export default async function FeedPage({
       .from(predictions)
       .where(filters),
   ])
+
+  const dbPredictions = results[0].status === 'fulfilled' ? (results[0].value as any[]) : []
+  const totalCountResult = results[1].status === 'fulfilled' ? (results[1].value as any[]) : []
+
+  if (results.some(r => r.status === 'rejected')) {
+    console.error("Failed to fetch feed data:", results.filter(r => r.status === 'rejected'))
+  }
 
   const totalCount = totalCountResult[0]?.count ?? 0
   const hasMore = page * PAGE_SIZE < totalCount
@@ -99,7 +107,7 @@ export default async function FeedPage({
         <div className="max-w-[800px] mx-auto space-y-8">
           <header className="space-y-2">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tighter uppercase">Community Predictions</h1>
-            <p className="text-muted-foreground font-mono text-sm">
+            <p className="text-muted-foreground font-mono text-[10pt]">
               Explore shared thoughts from fans across the globe.
             </p>
           </header>
@@ -112,7 +120,7 @@ export default async function FeedPage({
             <div className="flex justify-end">
               <Link
                 href={`?${nextPageSearch.toString()}`}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+                className="inline-flex items-center gap-2 text-[10pt] font-semibold text-primary hover:underline"
               >
                 Next Page →
               </Link>

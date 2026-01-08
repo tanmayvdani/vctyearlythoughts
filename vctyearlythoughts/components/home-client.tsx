@@ -54,15 +54,15 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
       <Navbar />
 
       <div className="flex-1 flex flex-col items-center">
-        <div className="w-full max-w-[1200px] px-4 py-6 space-y-6">
+        <div className="w-full max-w-[1380px] px-4 py-6 space-y-6">
           <header className="flex flex-col md:flex-row md:items-end justify-between border-b border-border pb-4 gap-4">
             <div className="space-y-1">
               <h1 className="text-2xl font-black leading-none">{daysUntilStart > 0 ? `${daysUntilStart} DAYS TO VCT` : "VCT IS HERE"}</h1>
-              <p className="text-muted-foreground text-[12px] max-w-xl">
+              <p className="text-muted-foreground text-[10pt] max-w-xl">
                 The 2026 season is approaching. Record your thoughts on each team as they unlock.
               </p>
             </div>
-            <div className="flex items-center gap-4 text-[11px] font-bold text-muted-foreground uppercase">
+            <div className="flex items-center gap-4 text-[10pt] font-bold text-muted-foreground uppercase">
               <span className="text-primary animate-pulse">Live Tracking</span>
             </div>
           </header>
@@ -70,7 +70,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
           {(todaysTeams.length > 0 || tomorrowTeams.length > 0) && (
             <section className="space-y-3 animate-in fade-in slide-in-from-top-4">
               <div className="h-8 px-3 flex items-center bg-primary/10 border-l-2 border-primary">
-                <h2 className="text-xs font-black text-primary uppercase tracking-tight">Predict Today&apos;s Teams</h2>
+                <h2 className="text-[10pt] font-black text-primary uppercase tracking-tight">Predict Today&apos;s Teams</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 {todaysTeams.map((team) => (
@@ -92,7 +92,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
 
           <section className="space-y-3">
             <div className="h-8 px-3 flex items-center bg-muted border-l-2 border-muted-foreground/30">
-              <h2 className="text-xs font-black text-muted-foreground uppercase tracking-tight">Predict All Teams</h2>
+              <h2 className="text-[10pt] font-black text-muted-foreground uppercase tracking-tight">Predict All Teams</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-border border border-border">
               <RegionColumn 
@@ -132,7 +132,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
         </div>
       </div>
 
-      <footer className="p-4 border-t border-white/5 bg-black/20 text-center font-mono text-[10px] text-muted-foreground">
+      <footer className="p-4 border-t border-white/5 bg-black/20 text-center font-mono text-[10pt] text-muted-foreground">
         EST. 2026 // VALORANT ESPORTS TIME CAPSULE // ALL DATA ENCRYPTED UNTIL END OF SEASON
       </footer>
 

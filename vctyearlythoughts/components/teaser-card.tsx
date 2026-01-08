@@ -56,7 +56,7 @@ export function TeaserCard({ team, initialIsSubscribed }: TeaserCardProps) {
           <button 
             onClick={handleActionClick}
             className={cn(
-              "absolute top-2 right-2 text-[9px] font-black px-1.5 py-0.5 uppercase tracking-wide z-20 shadow-sm flex items-center gap-1 transition-colors border",
+              "absolute top-2 right-2 text-[10pt] font-black px-1.5 py-0.5 uppercase tracking-wide z-20 shadow-sm flex items-center gap-1 transition-colors border",
               isSubscribed 
                 ? "bg-primary text-white border-primary" 
                 : "bg-muted text-muted-foreground border-border hover:bg-primary/10 hover:text-primary hover:border-primary/30"
@@ -81,7 +81,7 @@ export function TeaserCard({ team, initialIsSubscribed }: TeaserCardProps) {
 
           <div className="text-center space-y-1 z-10">
               <h3 className="font-black text-lg uppercase tracking-tight text-muted-foreground">Unlocking Tomorrow</h3>
-              <p className="text-xs text-muted-foreground/60 font-mono uppercase">{team.region}</p>
+              <p className="text-[10pt] text-muted-foreground/60 font-mono uppercase">{team.region}</p>
           </div>
       </div>
 

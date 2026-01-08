@@ -33,7 +33,7 @@ export function ConfirmDialog({
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-sm bg-card border border-border shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between px-4 h-10 bg-muted border-b border-border">
-          <h3 className="text-xs font-black text-white uppercase tracking-tight flex items-center gap-2">
+          <h3 className="text-[10pt] font-black text-white uppercase tracking-tight flex items-center gap-2">
             <AlertTriangle className="w-3.5 h-3.5 text-primary" />
             {title}
           </h3>
@@ -43,7 +43,7 @@ export function ConfirmDialog({
         </div>
 
         <div className="p-6 space-y-6">
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-[10pt] text-muted-foreground leading-relaxed">
             {description}
           </p>
 
@@ -51,7 +51,7 @@ export function ConfirmDialog({
              <div className="flex gap-3">
               <button
                 onClick={onCancel}
-                className="flex-1 h-10 bg-muted text-white hover:bg-muted/80 border border-border font-bold text-[11px] uppercase transition-colors"
+                className="flex-1 h-10 bg-muted text-white hover:bg-muted/80 border border-border font-bold text-[10pt] uppercase transition-colors"
               >
                 {cancelText}
               </button>
@@ -59,7 +59,7 @@ export function ConfirmDialog({
                 onClick={onConfirm}
                 className={`flex-1 h-10 ${
                   variant === "destructive" ? "bg-destructive hover:bg-destructive/90" : "bg-primary hover:bg-primary/90"
-                } text-white font-bold text-[11px] uppercase transition-colors`}
+                } text-white font-bold text-[10pt] uppercase transition-colors`}
               >
                 {confirmText}
               </button>
@@ -67,7 +67,7 @@ export function ConfirmDialog({
             {onAlternative && alternativeText && (
                <button
                   onClick={onAlternative}
-                  className="w-full h-10 bg-transparent text-muted-foreground hover:text-white border border-dashed border-border hover:border-white/50 font-bold text-[10px] uppercase transition-colors"
+                  className="w-full h-10 bg-transparent text-muted-foreground hover:text-white border border-dashed border-border hover:border-white/50 font-bold text-[10pt] uppercase transition-colors"
                >
                   {alternativeText}
                </button>

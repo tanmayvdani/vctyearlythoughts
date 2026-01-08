@@ -1,9 +1,8 @@
 import { Navbar } from "@/components/navbar"
-import { db } from "@/lib/db"
+import { getDb } from "@/lib/db"
 import { predictions } from "@/lib/schema"
 import { desc, eq, and, inArray } from "drizzle-orm"
 import { auth } from "@/auth"
-import { redirect } from "next/navigation"
 import { MyFeedList } from "@/components/my-feed-list"
 import { FeedFilters } from "@/components/feed-filters"
 import { TEAMS } from "@/lib/teams"
@@ -19,8 +18,31 @@ export default async function MyFeedPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const session = await auth()
+  
   if (!session?.user?.id) {
-    redirect("/login")
+    return (
+      <main className="min-h-screen bg-background text-foreground flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center p-4">
+          <div className="w-full max-w-md bg-card border border-white/10 p-12 text-center space-y-6">
+            <div className="space-y-2">
+              <h2 className="text-2xl font-bold tracking-tighter uppercase">Private Feed</h2>
+              <p className="text-[10pt] text-muted-foreground font-mono uppercase tracking-widest leading-relaxed">
+                To access your personal time capsule and view your predictions, you must sign in.
+              </p>
+            </div>
+            <div className="pt-4">
+              <a 
+                href="/login" 
+                className="inline-flex h-12 items-center justify-center px-8 bg-primary hover:bg-primary/90 rounded-none font-bold uppercase tracking-widest text-[10pt] text-primary-foreground transition-colors w-full"
+              >
+                Sign In to Continue
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
+    )
   }
 
   const params = await searchParams
@@ -57,6 +79,7 @@ export default async function MyFeedPage({
      }
   }
 
+  const db = getDb()
   const myPredictions = await db
     .select()
     .from(predictions)
@@ -76,7 +99,7 @@ export default async function MyFeedPage({
         <div className="max-w-[800px] mx-auto space-y-8">
           <header className="space-y-2">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tighter uppercase">My Predictions</h1>
-            <p className="text-muted-foreground font-mono text-sm">
+            <p className="text-muted-foreground font-mono text-[10pt]">
               Your personal time capsule. Click a card to reveal your prediction.
             </p>
           </header>

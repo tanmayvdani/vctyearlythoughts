@@ -80,8 +80,8 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
                   />
               </div>
               <div className="flex flex-col">
-                  <h2 className="text-sm font-black text-white uppercase tracking-wider leading-none">{region}</h2>
-                  <span className="text-[10px] font-bold text-muted-foreground uppercase mt-0.5">Starts {formattedDate}</span>
+                  <h2 className="text-[10pt] font-black text-white uppercase tracking-wider leading-none">{region}</h2>
+                  <span className="text-[10pt] font-bold text-muted-foreground uppercase mt-0.5">Starts {formattedDate}</span>
               </div>
           </div>
           <div className="flex items-center gap-3">
@@ -99,7 +99,7 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
                       )} 
                   />
               </button>
-              <span className="text-[10px] font-bold text-muted-foreground tabular-nums bg-black/20 px-2 py-1 rounded-sm">
+              <span className="text-[10pt] font-bold text-muted-foreground tabular-nums bg-black/20 px-2 py-1 rounded-sm">
                   {unlockedCount}/12
               </span>
           </div>

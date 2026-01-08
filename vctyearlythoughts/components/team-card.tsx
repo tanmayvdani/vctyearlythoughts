@@ -7,7 +7,7 @@ import { Lock, Bell, BellOff } from "lucide-react"
 import Image from "next/image"
 import { useAuth } from "@/components/auth-provider"
 import { subscribeToTeam, unsubscribeFromTeam } from "@/app/actions"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ConfirmDialog } from "@/components/confirm-dialog"
@@ -28,7 +28,26 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
   const [showSubscribeModal, setShowSubscribeModal] = useState(false)
   const [showUnsubscribeModal, setShowUnsubscribeModal] = useState(false)
 
+  const nameRef = useRef<HTMLSpanElement | null>(null)
+  const [isNameWrapped, setIsNameWrapped] = useState(false)
+
   const formattedUnlockDate = unlockDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+
+  useEffect(() => {
+    const element = nameRef.current
+    if (!element) return
+
+    const update = () => {
+      const rects = element.getClientRects()
+      setIsNameWrapped(rects.length > 1)
+    }
+
+    update()
+
+    const ro = new ResizeObserver(update)
+    ro.observe(element)
+    return () => ro.disconnect()
+  }, [team.name])
 
   const handleActionClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -68,10 +87,10 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
         )}
       >
         <div className="flex items-center gap-3">
-          <span className="font-mono text-[10px] text-muted-foreground/60 w-4 tabular-nums">
+          <span className="font-mono text-[9pt] text-muted-foreground/60 w-4 tabular-nums">
             {team.index.toString().padStart(2, "0")}
           </span>
-          <div className="flex items-center gap-2">
+          <div className={cn("flex items-center gap-2", isNameWrapped && "items-start")}>
             <Image 
               src={`/logos/${team.id}.png`}
               alt={team.name} 
@@ -79,8 +98,10 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
               height={20} 
               className="object-contain" 
             />
-            <span className="font-bold text-[12px] text-foreground/90">{team.name}</span>
-            <span className="text-[10px] text-muted-foreground font-medium uppercase">{team.tag}</span>
+            <div className={cn("flex items-center gap-2", isNameWrapped && "flex-col items-start gap-0")}> 
+              <span ref={nameRef} className="font-bold text-[9pt] text-foreground/90 leading-tight">{team.name}</span>
+              <span className="text-[9pt] text-muted-foreground font-medium uppercase">{team.tag}</span>
+            </div>
             {!isUnlocked && (
                <Lock className="w-3 h-3 text-muted-foreground/50 ml-1" />
             )}
@@ -104,7 +125,7 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
               />
             </button>
           ) : (
-            <span className="text-[10px] font-bold text-primary uppercase border border-primary/20 px-2 py-0.5 rounded-sm hover:bg-primary hover:text-white transition-colors">
+            <span className="text-[9pt] font-bold text-primary uppercase border border-primary/20 px-2 py-0.5 rounded-sm hover:bg-primary hover:text-white transition-colors">
               Predict
             </span>
           )}

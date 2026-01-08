@@ -33,7 +33,7 @@ export function loginUser(email: string): User {
   const user: User = {
     email,
     name: email.split("@")[0],
-    id: Math.random().toString(36).substring(7),
+    id: crypto.randomUUID()
   }
   localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user))
   return user
@@ -55,7 +55,7 @@ export function savePrediction(
   const userName = identity === "anonymous" ? "Anonymous" : (user?.name || "Guest")
   
   const newPrediction: Prediction = {
-    id: Math.random().toString(36).substring(7),
+    id: crypto.randomUUID(),
     teamId: team.id,
     teamName: team.name,
     teamTag: team.tag,
