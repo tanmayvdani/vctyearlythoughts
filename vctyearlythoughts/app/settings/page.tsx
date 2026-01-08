@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Navbar } from "@/components/navbar"
@@ -9,7 +9,7 @@ import { updateUsername, requestEmailChange } from "@/app/actions"
 import { useSession } from "next-auth/react"
 import { CheckCircle, AlertCircle, Pencil, Mail, Save } from "lucide-react"
 
-export default function SettingsPage() {
+function SettingsContent() {
   const [username, setUsername] = useState("")
   const [newEmail, setNewEmail] = useState("")
   const [isEditingUsername, setIsEditingUsername] = useState(false)
@@ -238,5 +238,25 @@ export default function SettingsPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-background text-foreground flex flex-col">
+        <Navbar />
+        <div className="flex-1 p-4 md:p-8">
+          <div className="max-w-[800px] mx-auto space-y-8">
+            <div className="text-center space-y-2">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tighter uppercase">Settings</h1>
+            </div>
+            <div className="text-center text-muted-foreground">Loading...</div>
+          </div>
+        </div>
+      </main>
+    }>
+      <SettingsContent />
+    </Suspense>
   )
 }
