@@ -7,6 +7,8 @@ import { PredictionModal } from "@/components/prediction-modal"
 import { Navbar } from "@/components/navbar"
 import { FeaturedTeamCard } from "@/components/featured-team-card"
 import { TeaserCard } from "@/components/teaser-card"
+import { CalendarDays, ChevronDown, Lock, Trophy, Unlock } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface HomeClientProps {
   initialSubscriptions: string[]
@@ -21,28 +23,17 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [subscribedTeams, setSubscribedTeams] = useState<string[]>(initialSubscriptions)
   const [subscribedRegions, setSubscribedRegions] = useState<string[]>(initialRegionSubscriptions)
+  const [isInfoExpanded, setIsInfoExpanded] = useState(false)
 
-  // We can still use useAuth for user state in Navbar or Modal if needed, 
-  // but main data is passed from server.
-  // Actually, RegionColumn/TeamCard might need to know if we are logged in to show bells.
-  // The TeamCard component uses useAuth internally, which is fine as it wraps SessionProvider.
-  // But for the "bells" state, we passed subscribedTeams.
-  
-  // Note: If the user subscribes/unsubscribes, we might want to update the local state here
-  // or let the action revalidate the path. 
-  // Since we revalidatePath in actions, the server component will re-render and pass new initialSubscriptions.
-  // So we can just rely on props or sync state. 
-  // However, for immediate feedback, TeamCard manages its own subscribed state mostly, 
-  // but RegionColumn takes `subscribedTeams` prop to pass down.
-  // Let's rely on the prop updating from server revalidation for the list, 
-  // or we can optimistic update. 
-  // For this refactor, let's keep it simple: simpler is safer. 
-  // Revalidation will handle the list update on next navigation/refresh.
-  // But wait, TeamCard has internal state `isSubscribed`.
-  // RegionColumn passes `subscribedTeams`. 
-  // If I subscribe in TeamCard, it updates its own state. 
-  // But `subscribedTeams` prop in HomeClient won't update unless page reloads.
-  // This is acceptable for "Fixing" the architecture.
+  const availableTodayCount = todaysTeams.length
+  const seasonSummary = daysUntilStart > 0
+    ? `Season starts in ${daysUntilStart} day${daysUntilStart === 1 ? "" : "s"}.`
+    : "Season is live."
+  const availabilitySummary = availableTodayCount > 0
+    ? `${availableTodayCount} new team${availableTodayCount === 1 ? "" : "s"} available for prediction today.`
+    : (tomorrowTeams.length > 0 ? "Next team unlocks tomorrow." : "No new teams available today.")
+  const collapsedInfo = `${seasonSummary} ${availabilitySummary}`
+
 
   const handleTeamClick = (team: Team) => {
     setSelectedTeam(team)
@@ -56,12 +47,69 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
       <div className="flex-1 flex flex-col items-center">
         <div className="w-full max-w-[1380px] px-4 py-6 space-y-6">
           <header className="flex flex-col md:flex-row md:items-end justify-between border-b border-border pb-4 gap-4">
-            <div className="space-y-1">
-              <h1 className="text-2xl font-black leading-none">{daysUntilStart > 0 ? `${daysUntilStart} DAYS TO VCT` : "VCT IS HERE"}</h1>
-              <p className="text-muted-foreground text-[10pt] max-w-xl">
-                The 2026 season is approaching. Record your thoughts on each team as they unlock.
-              </p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-black leading-none">
+                  {daysUntilStart > 0 ? `${daysUntilStart} DAYS TO VCT` : "VCT IS HERE"}
+                </h1>
+                <button
+                  onClick={() => setIsInfoExpanded(!isInfoExpanded)}
+                  className="p-1 hover:bg-white/5 rounded-full transition-colors focus:outline-none"
+                  aria-expanded={isInfoExpanded}
+                  aria-label="Toggle info"
+                >
+                  <ChevronDown
+                    className={cn(
+                      "w-5 h-5 text-muted-foreground transition-transform duration-200",
+                      isInfoExpanded && "rotate-180",
+                    )}
+                  />
+                </button>
+              </div>
+
+              <div className="max-w-[44rem]">
+                {!isInfoExpanded && (
+                  <p className="text-[10pt] leading-relaxed text-muted-foreground/80">
+                    {collapsedInfo}
+                  </p>
+                )}
+
+                <div
+                  className={cn(
+                    "grid transition-all duration-200 ease-in-out overflow-hidden",
+                    isInfoExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                  )}
+                >
+                  <div className="min-h-0 pt-2">
+                    <ul className="space-y-2 text-[10pt] leading-relaxed text-muted-foreground/80">
+                      <li className="flex gap-2">
+                        <CalendarDays className="mt-0.5 h-4 w-4 text-muted-foreground" aria-hidden />
+                        <span>
+                          <span className="font-semibold text-foreground/90">12 Days Out:</span> First teams unlock.
+                        </span>
+                      </li>
+                      <li className="flex gap-2">
+                        <Unlock className="mt-0.5 h-4 w-4 text-muted-foreground" aria-hidden />
+                        <span>
+                          <span className="font-semibold text-foreground/90">Daily Unlocks:</span> One new team per region, each day until kickoff.
+                        </span>
+                      </li>
+                      <li className="flex gap-2">
+                        <Trophy className="mt-0.5 h-4 w-4 text-muted-foreground" aria-hidden />
+                        <span>
+                          <span className="font-semibold text-foreground/90">Predict:</span> Log your thoughts now, then revisit at season’s end.
+                          <span className="mt-1 flex items-start gap-2">
+                            <Lock className="mt-0.5 h-3.5 w-3.5 text-muted-foreground" aria-hidden />
+                            <span>The day kickoff starts for each region, the predictions lock.</span>
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div className="flex items-center gap-4 text-[10pt] font-bold text-muted-foreground uppercase">
               <span className="text-primary animate-pulse">Live Tracking</span>
             </div>
@@ -74,16 +122,16 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 {todaysTeams.map((team) => (
-                  <FeaturedTeamCard 
+                  <FeaturedTeamCard
                     key={team.id}
-                    team={team} 
-                    onClick={handleTeamClick} 
+                    team={team}
+                    onClick={handleTeamClick}
                   />
                 ))}
                 {tomorrowTeams.length > 0 && (
-                  <TeaserCard 
-                    team={tomorrowTeams[0]} 
-                    initialIsSubscribed={subscribedTeams.includes(tomorrowTeams[0].id)} 
+                  <TeaserCard
+                    teams={tomorrowTeams}
+                    initialSubscribedTeamIds={subscribedTeams}
                   />
                 )}
               </div>
@@ -95,35 +143,35 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
               <h2 className="text-[10pt] font-black text-muted-foreground uppercase tracking-tight">Predict All Teams</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-border border border-border">
-              <RegionColumn 
-                region="Americas" 
-                teams={TEAMS} 
-                onTeamClick={handleTeamClick} 
-                subscribedTeams={subscribedTeams} 
-                initialIsRegionSubscribed={subscribedRegions.includes("Americas")} 
+              <RegionColumn
+                region="Americas"
+                teams={TEAMS}
+                onTeamClick={handleTeamClick}
+                subscribedTeams={subscribedTeams}
+                initialIsRegionSubscribed={subscribedRegions.includes("Americas")}
                 startDate={KICKOFF_DATES["Americas"]}
               />
-              <RegionColumn 
-                region="EMEA" 
-                teams={TEAMS} 
-                onTeamClick={handleTeamClick} 
-                subscribedTeams={subscribedTeams} 
+              <RegionColumn
+                region="EMEA"
+                teams={TEAMS}
+                onTeamClick={handleTeamClick}
+                subscribedTeams={subscribedTeams}
                 initialIsRegionSubscribed={subscribedRegions.includes("EMEA")}
                 startDate={KICKOFF_DATES["EMEA"]}
               />
-              <RegionColumn 
-                region="Pacific" 
-                teams={TEAMS} 
-                onTeamClick={handleTeamClick} 
-                subscribedTeams={subscribedTeams} 
+              <RegionColumn
+                region="Pacific"
+                teams={TEAMS}
+                onTeamClick={handleTeamClick}
+                subscribedTeams={subscribedTeams}
                 initialIsRegionSubscribed={subscribedRegions.includes("Pacific")}
                 startDate={KICKOFF_DATES["Pacific"]}
               />
-              <RegionColumn 
-                region="China" 
-                teams={TEAMS} 
-                onTeamClick={handleTeamClick} 
-                subscribedTeams={subscribedTeams} 
+              <RegionColumn
+                region="China"
+                teams={TEAMS}
+                onTeamClick={handleTeamClick}
+                subscribedTeams={subscribedTeams}
                 initialIsRegionSubscribed={subscribedRegions.includes("China")}
                 startDate={KICKOFF_DATES["China"]}
               />

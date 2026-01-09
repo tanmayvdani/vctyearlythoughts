@@ -16,9 +16,10 @@ interface TeamCardProps {
   team: Team
   onClick: (team: Team) => void
   initialIsSubscribed: boolean
+  isNextToUnlock?: boolean
 }
 
-export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) {
+export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock }: TeamCardProps) {
   const { isUnlocked, unlockDate } = getUnlockStatus(team)
   const { user } = useAuth()
   const router = useRouter()
@@ -27,11 +28,43 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSubscribeModal, setShowSubscribeModal] = useState(false)
   const [showUnsubscribeModal, setShowUnsubscribeModal] = useState(false)
+  const [timeLeft, setTimeLeft] = useState<string>("")
 
   const nameRef = useRef<HTMLSpanElement | null>(null)
   const [isNameWrapped, setIsNameWrapped] = useState(false)
 
   const formattedUnlockDate = unlockDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+
+  useEffect(() => {
+    if (!isNextToUnlock || isUnlocked) return
+
+    const calculateTimeLeft = () => {
+      const now = new Date()
+      const diff = unlockDate.getTime() - now.getTime()
+
+      if (diff <= 0) return "00:00"
+
+      const hours = Math.floor(diff / (1000 * 60 * 60))
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+      const pad = (n: number) => n.toString().padStart(2, "0")
+
+      if (hours >= 1) {
+        return `${hours}h ${minutes}m`
+      } else {
+        return `${minutes}m ${seconds}s`
+      }
+    }
+
+    setTimeLeft(calculateTimeLeft())
+
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft())
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [isNextToUnlock, isUnlocked, unlockDate])
 
   useEffect(() => {
     const element = nameRef.current
@@ -103,7 +136,11 @@ export function TeamCard({ team, onClick, initialIsSubscribed }: TeamCardProps) 
               <span className="text-[9pt] text-muted-foreground font-medium uppercase">{team.tag}</span>
             </div>
             {!isUnlocked && (
-               <Lock className="w-3 h-3 text-muted-foreground/50 ml-1" />
+               isNextToUnlock ? (
+                 <span className="font-mono text-[9pt] text-muted-foreground font-medium ml-1">{timeLeft}</span>
+               ) : (
+                 <Lock className="w-3 h-3 text-muted-foreground/50 ml-1" />
+               )
             )}
           </div>
         </div>

@@ -26,7 +26,7 @@ export default async function Home() {
   // Using the same logic as isUnlockedToday but for tomorrow.
   const tomorrow = new Date(serverTime)
   tomorrow.setDate(tomorrow.getDate() + 1)
-  const tomorrowTeams = TEAMS.filter(t => isUnlockedToday(t, tomorrow)).slice(0, 1)
+  const tomorrowTeams = TEAMS.filter(t => isUnlockedToday(t, tomorrow)).slice(0, 4)
 
   // Calculate days until earliest start
   const earliestStartStr = Object.values(KICKOFF_DATES).sort()[0]

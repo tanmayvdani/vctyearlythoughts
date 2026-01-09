@@ -60,8 +60,15 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
   const placementOptions12 = ["1st", "2nd", "3rd-4th", "5th-6th", "7th-8th", "9th-10th", "11th-12th"]
   const placementOptions16 = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-12th", "13th-16th"]
 
-  const players = roster.filter((m: any) => m.role.toLowerCase().includes("player") || m.role.toLowerCase().includes("stand-in"))
-  const coaches = roster.filter((m: any) => m.role.toLowerCase().includes("coach"))
+  const players = roster.filter((m: any) => {
+    const role = m.role.toLowerCase();
+    const isPlayer = role.includes("player") || role.includes("stand-in") || role.includes("igl");
+    return isPlayer && (showTransactions || m.status !== "Left");
+  })
+  const coaches = roster.filter((m: any) => {
+    const isCoach = m.role.toLowerCase().includes("coach");
+    return isCoach && (showTransactions || m.status !== "Left");
+  })
 
   const masters1Qualified = ["1st", "2nd", "3rd"].includes(kickoffPlacement)
   const masters2Qualified = ["1st", "2nd", "3rd"].includes(stage1Placement)
@@ -275,7 +282,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
               <button 
                 type="button"
                 onClick={() => setIsRosterVisible(!isRosterVisible)}
-                className="text-[10pt] font-black uppercase bg-secondary hover:bg-secondary/80 px-2.5 py-1 border border-border transition-colors h-6 flex items-center gap-1.5"
+                className="text-[9pt] font-black uppercase bg-secondary hover:bg-secondary/80 px-2.5 py-1 border border-border transition-colors h-6 flex items-center gap-1.5"
               >
                 {isRosterVisible ? "Hide Roster" : "Show Roster"}
               </button>
@@ -293,7 +300,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                   <button 
                     type="button"
                     onClick={() => setShowTransactions(!showTransactions)}
-                    className="text-[10pt] font-black uppercase bg-secondary hover:bg-secondary/80 px-2 py-0.5 border border-border transition-colors h-5"
+                    className="text-[9pt] font-black uppercase bg-secondary hover:bg-secondary/80 px-2 border border-border transition-colors h-5 flex items-center"
                   >
                     {showTransactions ? "Hide Changes" : "Show Changes"}
                   </button>
@@ -309,16 +316,22 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                 ) : (
                   <div className="grid grid-cols-2 gap-2 pr-1">
                     <div className="space-y-1">
-                      <p className="text-[10pt] font-black text-primary uppercase mb-1 sticky top-0 bg-card py-0.5">Players</p>
+                      <p className="text-[10pt] font-black text-primary uppercase mb-1">Players</p>
                       {players.length > 0 ? players.map((p: any, i: number) => {
-                        const joining = showTransactions && transactions.find((t: any) => t.player === p.alias && t.action === "join");
+                        const joining = showTransactions && (p.status === "In" || transactions.find((t: any) => t.player === p.alias && t.action === "join"));
+                        const left = showTransactions && p.status === "Left";
                         return (
-                          <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : "bg-muted/30 border-border/50"}`}>
+                          <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : left ? "bg-red-500/10 border-red-500/30 opacity-70" : "bg-muted/30 border-border/50"}`}>
                             <div className="flex items-center justify-between gap-1">
-                              <span className={`text-[10pt] font-black leading-none ${joining ? "text-green-500" : ""}`}>{p.alias}</span>
+                              <span className={`text-[10pt] font-black leading-none ${joining ? "text-green-500" : left ? "text-red-500" : ""}`}>{p.alias}</span>
                               {joining && <Plus className="w-3 h-3 text-green-500" />}
+                              {left && (
+                                <div className="bg-red-500 px-1 py-0.5 rounded-sm flex items-center justify-center">
+                                  <Minus className="w-3 h-3 text-white" />
+                                </div>
+                              )}
                             </div>
-                            <span className="text-[10pt] text-muted-foreground truncate">{p.name || "-"}</span>
+                            <span className={`text-[10pt] truncate ${left ? "text-red-500/70" : "text-muted-foreground"}`}>{p.name || (left ? "Departed" : "-")}</span>
                           </div>
                         );
                       }) : <p className="text-[10pt] text-muted-foreground italic">No players found</p>}
@@ -334,16 +347,22 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                       ))}
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[10pt] font-black text-primary uppercase mb-1 sticky top-0 bg-card py-0.5">Staff</p>
+                      <p className="text-[10pt] font-black text-primary uppercase mb-1">Staff</p>
                       {coaches.length > 0 ? coaches.map((c: any, i: number) => {
-                        const joining = showTransactions && transactions.find((t: any) => t.player === c.alias && t.action === "join");
+                        const joining = showTransactions && (c.status === "In" || transactions.find((t: any) => t.player === c.alias && t.action === "join"));
+                        const left = showTransactions && c.status === "Left";
                         return (
-                          <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : "bg-muted/30 border-border/50"}`}>
+                          <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : left ? "bg-red-500/10 border-red-500/30 opacity-70" : "bg-muted/30 border-border/50"}`}>
                             <div className="flex items-center justify-between gap-1">
-                              <span className={`text-[10pt] font-bold leading-none ${joining ? "text-green-500" : ""}`}>{c.alias}</span>
+                              <span className={`text-[10pt] font-bold leading-none ${joining ? "text-green-500" : left ? "text-red-500" : ""}`}>{c.alias}</span>
                               {joining && <Plus className="w-3 h-3 text-green-500" />}
+                              {left && (
+                                <div className="bg-red-500 px-1 py-0.5 rounded-sm flex items-center justify-center">
+                                  <Minus className="w-3 h-3 text-white" />
+                                </div>
+                              )}
                             </div>
-                            <span className="text-[10pt] text-muted-foreground truncate">{c.role}</span>
+                            <span className={`text-[10pt] truncate ${left ? "text-red-500/70" : "text-muted-foreground"}`}>{c.role}</span>
                           </div>
                         );
                       }) : <p className="text-[10pt] text-muted-foreground italic">No staff found</p>}

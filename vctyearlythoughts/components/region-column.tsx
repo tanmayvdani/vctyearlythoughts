@@ -2,7 +2,7 @@
 
 import type { Region, Team } from "@/lib/teams"
 import { TeamCard } from "./team-card"
-import { getRegionUnlockCount } from "@/lib/vct-utils"
+import { getRegionUnlockCount, getUnlockStatus } from "@/lib/vct-utils"
 import Image from "next/image"
 import { Bell, BellOff } from "lucide-react"
 import { useState } from "react"
@@ -66,6 +66,12 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
     setShowUnsubscribeModal(false)
   }
 
+  const sortedTeams = teams
+    .filter((t) => t.region === region)
+    .sort((a, b) => a.index - b.index)
+
+  const nextLockedTeam = sortedTeams.find((t) => !getUnlockStatus(t).isUnlocked)
+
   return (
     <>
       <div className="flex flex-col bg-card h-full">
@@ -106,15 +112,13 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          {teams
-            .filter((t) => t.region === region)
-            .sort((a, b) => a.index - b.index)
-            .map((team) => (
+          {sortedTeams.map((team) => (
               <TeamCard 
                 key={team.id} 
                 team={team} 
                 onClick={onTeamClick} 
                 initialIsSubscribed={subscribedTeams.includes(team.id)}
+                isNextToUnlock={team.id === nextLockedTeam?.id}
               />
             ))}
         </div>
