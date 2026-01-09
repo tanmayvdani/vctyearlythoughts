@@ -7,7 +7,7 @@ import type { Team } from "@/lib/teams"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { X, Send, Lock, Plus, Minus, Users, Repeat } from "lucide-react"
+import { X, Send, Lock, Plus, Minus, Users, Repeat, ExternalLink } from "lucide-react"
 import { useAuth } from "@/components/auth-provider"
 import { submitPrediction, getTeamData, updatePredictionFull } from "@/app/actions"
 import Image from "next/image"
@@ -249,6 +249,16 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
      await executeSubmission()
   }
 
+  const getKickoffUrl = (region: string) => {
+    switch (region.toLowerCase()) {
+      case "china": return "https://www.vlr.gg/event/2685/vct-2026-china-kickoff"
+      case "pacific": return "https://www.vlr.gg/event/2683/vct-2026-pacific-kickoff"
+      case "emea": return "https://www.vlr.gg/event/2684/vct-2026-emea-kickoff"
+      case "americas": return "https://www.vlr.gg/event/2682/vct-2026-americas-kickoff"
+      default: return "#"
+    }
+  }
+
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-none animate-in fade-in duration-150">
@@ -375,7 +385,15 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
             <form id="prediction-form" onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-3 gap-2">
                  <div className="space-y-1.5">
-                    <label className="text-[10pt] font-bold uppercase text-muted-foreground">Kickoff</label>
+                    <a 
+                      href={getKickoffUrl(team.region)} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-[10pt] font-bold uppercase text-muted-foreground hover:text-primary flex items-center gap-1 w-fit group"
+                    >
+                      <span className="group-hover:underline underline-offset-2 decoration-primary/50">Kickoff</span>
+                      <ExternalLink className="w-3 h-3 opacity-70" />
+                    </a>
                     <Select value={kickoffPlacement} onValueChange={setKickoffPlacement}>
                       <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
                         <SelectValue placeholder="-" />
