@@ -163,9 +163,9 @@ export function FeedList({ items, currentUserId }: { items: Prediction[], curren
                 )}
                 {(post.masters1Placement || post.masters2Placement || post.championsPlacement) && (
                     <div className="col-span-2 flex flex-wrap gap-x-4 gap-y-1 border-t border-white/5 pt-1">
-                        {post.masters1Placement && <div><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> SANTIAGO:</span> {post.masters1Placement}</div>}
-                        {post.masters2Placement && <div><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> LONDON:</span> {post.masters2Placement}</div>}
-                        {post.championsPlacement && <div><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} className="mr-1" /> SHANGHAI:</span> {post.championsPlacement}</div>}
+                        {post.masters1Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> SANTIAGO:</span>{post.masters1Placement}</div>}
+                        {post.masters2Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> LONDON:</span>{post.masters2Placement}</div>}
+                        {post.championsPlacement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} className="mr-1" /> SHANGHAI:</span>{post.championsPlacement}</div>}
                     </div>
                 )}
                 {post.rosterMoves && (
