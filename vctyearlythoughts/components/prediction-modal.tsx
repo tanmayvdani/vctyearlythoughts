@@ -437,7 +437,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                 <div className="grid grid-cols-3 gap-2 animate-in fade-in slide-in-from-top-1 duration-200">
                    {masters1Qualified ? (
                      <div className="space-y-1.5">
-                        <label className="text-[10pt] font-bold uppercase text-primary">Masters Santiago</label>
+                        <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> SANTIAGO:</label>
                         <Select value={masters1Placement} onValueChange={setMasters1Placement}>
                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
                             <SelectValue placeholder="-" />
@@ -452,7 +452,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                    ) : <div />}
                    {masters2Qualified ? (
                      <div className="space-y-1.5">
-                        <label className="text-[10pt] font-bold uppercase text-primary">Masters London</label>
+                        <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> LONDON:</label>
                         <Select value={masters2Placement} onValueChange={setMasters2Placement}>
                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
                             <SelectValue placeholder="-" />
@@ -467,7 +467,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                    ) : <div />}
                    {championsQualified ? (
                      <div className="space-y-1.5">
-                        <label className="text-[10pt] font-bold uppercase text-primary">Champions Shanghai</label>
+                        <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} /> SHANGHAI:</label>
                         <Select value={championsPlacement} onValueChange={setChampionsPlacement}>
                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
                             <SelectValue placeholder="-" />

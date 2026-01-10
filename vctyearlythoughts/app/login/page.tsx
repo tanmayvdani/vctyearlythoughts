@@ -136,6 +136,8 @@ function LoginForm() {
               We&apos;ve sent a magic link to <span className="text-foreground font-bold">{email}</span>.
               <br/>
               Click the link to sign in.
+              <br/>
+              <span className="mt-2 block opacity-80 text-[9pt]">Check your spam folder if it doesn&apos;t arrive.</span>
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-center p-4 pb-6">

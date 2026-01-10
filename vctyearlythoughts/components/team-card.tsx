@@ -113,11 +113,17 @@ export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock, i
     <>
       <div
         role="button"
-        onClick={() => isUnlocked && onClick(team)}
+        onClick={(e) => {
+          if (isUnlocked) {
+            onClick(team)
+          } else {
+            handleActionClick(e)
+          }
+        }}
         title={!isUnlocked ? `Unlocks ${formattedUnlockDate}` : undefined}
         className={cn(
           "zebra-row flex items-center justify-between w-full h-9 px-3 transition-colors text-left border-b border-border/50 last:border-0 group",
-          isUnlocked ? "hover:bg-primary/5 cursor-pointer" : "bg-black/10 cursor-default",
+          isUnlocked ? "hover:bg-primary/5 cursor-pointer" : "bg-black/10 cursor-pointer hover:bg-primary/5",
         )}
       >
         <div className="flex items-center gap-3">
@@ -150,15 +156,15 @@ export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock, i
           {!isUnlocked ? (
             <button 
               onClick={handleActionClick}
-              className="p-1 hover:scale-110 transition-transform focus:outline-none"
+              className="p-1 transition-transform focus:outline-none h-full flex items-center"
               title={isSubscribed ? "Unsubscribe" : "Notify me"}
             >
               <Bell 
                 className={cn(
-                  "w-3.5 h-3.5",
+                  "w-3.5 h-3.5 transition-all duration-300",
                   isSubscribed 
                     ? "fill-primary text-primary" 
-                    : "text-muted-foreground/40 hover:text-primary/70"
+                    : "text-muted-foreground/40 group-hover:text-primary group-hover:scale-110"
                 )} 
               />
             </button>
