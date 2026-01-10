@@ -187,5 +187,5 @@ function html(params: { url: string; host: string; theme: { brandColor: string; 
 
 // Email Text body (fallback for email clients that don't render HTML, e.g. feature phones)
 function text({ url, host }: { url: string; host: string }) {
-  return `Sign in to ${host}\n${url}\n\n`
+  return `Sign in to VCT Time Capsule (${host})\n\nPlease click the link below to sign in:\n${url}\n\nIf you did not request this email, you can safely ignore it.\n`
 }

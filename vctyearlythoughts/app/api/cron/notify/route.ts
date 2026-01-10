@@ -24,11 +24,15 @@ async function sendTeamNotificationEmail(payload: {
 
   if (process.env.RESEND_API_KEY) {
     await resend.emails.send({
-      from: "VCT Capsule <notifications@resend.dev>",
+      from: process.env.EMAIL_FROM || "onboarding@resend.dev",
       to: payload.email,
       subject: `Unlocked: ${team.name}`,
       html: `<p>The team <strong>${team.name}</strong> is now unlocked in the Time Capsule.</p>
              <p><a href="${predictUrl}">Predict Now</a></p>`,
+      text: `The team ${team.name} is now unlocked in the Time Capsule.\n\nPredict Now: ${predictUrl}`,
+      headers: {
+        "List-Unsubscribe": `<${predictUrl}>`,
+      },
     })
   } else {
     console.log(

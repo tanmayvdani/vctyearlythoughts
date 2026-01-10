@@ -19,6 +19,7 @@ interface RegionColumnProps {
   subscribedTeams: string[]
   initialIsRegionSubscribed: boolean
   startDate: string
+  predictedTeamIds: string[]
 }
 
 const REGION_LOGOS: Record<Region, string> = {
@@ -28,7 +29,7 @@ const REGION_LOGOS: Record<Region, string> = {
   China: "/logos/cn.png",
 }
 
-export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, initialIsRegionSubscribed, startDate }: RegionColumnProps) {
+export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, initialIsRegionSubscribed, startDate, predictedTeamIds }: RegionColumnProps) {
   const unlockedCount = getRegionUnlockCount(region, teams)
   const { user } = useAuth()
   const router = useRouter()
@@ -119,6 +120,7 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
                 onClick={onTeamClick} 
                 initialIsSubscribed={subscribedTeams.includes(team.id)}
                 isNextToUnlock={team.id === nextLockedTeam?.id}
+                isPredicted={predictedTeamIds.includes(team.id)}
               />
             ))}
         </div>

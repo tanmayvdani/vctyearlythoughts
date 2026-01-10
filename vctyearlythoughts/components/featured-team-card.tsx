@@ -8,10 +8,11 @@ import { ArrowRight } from "lucide-react"
 interface FeaturedTeamCardProps {
   team: Team
   onClick: (team: Team) => void
-  isSubscribed?: boolean // Included for interface consistency, though featured cards might not need notify/sub logic as they are unlocked
+  isSubscribed?: boolean 
+  isPredicted?: boolean
 }
 
-export function FeaturedTeamCard({ team, onClick }: FeaturedTeamCardProps) {
+export function FeaturedTeamCard({ team, onClick, isPredicted }: FeaturedTeamCardProps) {
   return (
     <div className="bg-card border border-border p-6 flex flex-col items-center gap-4 group hover:border-primary/50 transition-colors relative overflow-hidden">
       <div className="absolute top-2 right-2 bg-primary text-white text-[10pt] font-black px-1.5 py-0.5 uppercase tracking-wide z-20 shadow-sm">
@@ -35,9 +36,14 @@ export function FeaturedTeamCard({ team, onClick }: FeaturedTeamCardProps) {
 
       <button 
         onClick={() => onClick(team)}
-        className="w-full mt-2 h-10 bg-primary/10 hover:bg-primary text-primary hover:text-white border border-primary/20 hover:border-primary font-bold text-[10pt] uppercase tracking-widest transition-all flex items-center justify-center gap-2 z-10"
+        className={cn(
+          "w-full mt-2 h-10 font-bold text-[10pt] uppercase tracking-widest transition-all flex items-center justify-center gap-2 z-10",
+          isPredicted 
+            ? "bg-primary text-white border border-primary hover:bg-primary/90" 
+            : "bg-primary/10 hover:bg-primary text-primary hover:text-white border border-primary/20 hover:border-primary"
+        )}
       >
-        Predict Now
+        {isPredicted ? "Edit Prediction" : "Predict Now"}
         <ArrowRight className="w-3 h-3" />
       </button>
     </div>

@@ -17,9 +17,10 @@ interface TeamCardProps {
   onClick: (team: Team) => void
   initialIsSubscribed: boolean
   isNextToUnlock?: boolean
+  isPredicted?: boolean
 }
 
-export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock }: TeamCardProps) {
+export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock, isPredicted }: TeamCardProps) {
   const { isUnlocked, unlockDate } = getUnlockStatus(team)
   const { user } = useAuth()
   const router = useRouter()
@@ -162,8 +163,13 @@ export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock }:
               />
             </button>
           ) : (
-            <span className="text-[9pt] font-bold text-primary uppercase border border-primary/20 px-2 py-0.5 rounded-sm hover:bg-primary hover:text-white transition-colors">
-              Predict
+            <span className={cn(
+              "text-[9pt] font-bold uppercase border px-2 py-0.5 rounded-sm transition-colors",
+              isPredicted 
+                ? "bg-primary text-white border-primary hover:bg-primary/90" 
+                : "text-primary border-primary/20 hover:bg-primary hover:text-white"
+            )}>
+              {isPredicted ? "Edit" : "Predict"}
             </span>
           )}
         </div>

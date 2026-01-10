@@ -1,5 +1,5 @@
 import { HomeClient } from "@/components/home-client"
-import { getUserSubscriptions, getUserRegionSubscriptions } from "@/app/actions"
+import { getUserSubscriptions, getUserRegionSubscriptions, getUserPredictions } from "@/app/actions"
 import { TEAMS, KICKOFF_DATES } from "@/lib/teams"
 import { isUnlockedToday } from "@/lib/vct-utils"
 import { auth } from "@/auth"
@@ -16,6 +16,7 @@ export default async function Home() {
   // Fetch data on the server
   const subscriptions = await getUserSubscriptions()
   const regionSubscriptions = await getUserRegionSubscriptions()
+  const predictions = await getUserPredictions()
   
   // Calculate today's teams using Server Time
   const serverTime = new Date()
@@ -37,6 +38,7 @@ export default async function Home() {
     <HomeClient 
       initialSubscriptions={subscriptions} 
       initialRegionSubscriptions={regionSubscriptions}
+      initialPredictions={predictions}
       todaysTeams={todaysTeams} 
       tomorrowTeams={tomorrowTeams}
       daysUntilStart={daysUntilStart}

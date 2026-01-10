@@ -13,13 +13,22 @@ import { cn } from "@/lib/utils"
 interface HomeClientProps {
   initialSubscriptions: string[]
   initialRegionSubscriptions: string[]
+  initialPredictions: any[]
   todaysTeams: Team[]
   tomorrowTeams: Team[]
   daysUntilStart: number
 }
 
-export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, todaysTeams, tomorrowTeams, daysUntilStart }: HomeClientProps) {
+export function HomeClient({ 
+  initialSubscriptions, 
+  initialRegionSubscriptions, 
+  initialPredictions,
+  todaysTeams, 
+  tomorrowTeams, 
+  daysUntilStart 
+}: HomeClientProps) {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null)
+  const [selectedPrediction, setSelectedPrediction] = useState<any | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [subscribedTeams, setSubscribedTeams] = useState<string[]>(initialSubscriptions)
   const [subscribedRegions, setSubscribedRegions] = useState<string[]>(initialRegionSubscriptions)
@@ -36,9 +45,13 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
 
 
   const handleTeamClick = (team: Team) => {
+    const existingPrediction = initialPredictions.find(p => p.teamId === team.id)
     setSelectedTeam(team)
+    setSelectedPrediction(existingPrediction || null)
     setIsModalOpen(true)
   }
+
+  const predictedTeamIds = initialPredictions.map(p => p.teamId)
 
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col">
@@ -126,6 +139,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
                     key={team.id}
                     team={team}
                     onClick={handleTeamClick}
+                    isPredicted={predictedTeamIds.includes(team.id)}
                   />
                 ))}
                 {tomorrowTeams.length > 0 && (
@@ -150,6 +164,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
                 subscribedTeams={subscribedTeams}
                 initialIsRegionSubscribed={subscribedRegions.includes("Americas")}
                 startDate={KICKOFF_DATES["Americas"]}
+                predictedTeamIds={predictedTeamIds}
               />
               <RegionColumn
                 region="EMEA"
@@ -158,6 +173,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
                 subscribedTeams={subscribedTeams}
                 initialIsRegionSubscribed={subscribedRegions.includes("EMEA")}
                 startDate={KICKOFF_DATES["EMEA"]}
+                predictedTeamIds={predictedTeamIds}
               />
               <RegionColumn
                 region="Pacific"
@@ -166,6 +182,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
                 subscribedTeams={subscribedTeams}
                 initialIsRegionSubscribed={subscribedRegions.includes("Pacific")}
                 startDate={KICKOFF_DATES["Pacific"]}
+                predictedTeamIds={predictedTeamIds}
               />
               <RegionColumn
                 region="China"
@@ -174,6 +191,7 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
                 subscribedTeams={subscribedTeams}
                 initialIsRegionSubscribed={subscribedRegions.includes("China")}
                 startDate={KICKOFF_DATES["China"]}
+                predictedTeamIds={predictedTeamIds}
               />
             </div>
           </section>
@@ -184,7 +202,12 @@ export function HomeClient({ initialSubscriptions, initialRegionSubscriptions, t
         EST. 2026 // VALORANT ESPORTS TIME CAPSULE // ALL DATA ENCRYPTED UNTIL END OF SEASON
       </footer>
 
-      <PredictionModal team={selectedTeam} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <PredictionModal 
+        team={selectedTeam} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        existingPrediction={selectedPrediction}
+      />
     </main>
   )
 }

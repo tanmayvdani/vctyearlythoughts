@@ -147,6 +147,7 @@ export async function requestEmailChange(newEmail: string) {
       to: validatedEmail,
       subject: "Confirm Email Change - VCT Time Capsule",
       html,
+      text: `Confirm Email Change\n\nPlease click the link below to confirm your email change:\n${confirmUrl}\n\nThis link will expire in 1 hour.\nIf you did not request this change, you can safely ignore this email.`,
     })
   } catch (error) {
     console.error("Failed to send email change confirmation", error)
@@ -285,6 +286,23 @@ export async function getUserRegionSubscriptions() {
   return results.map(r => r.regionName)
 }
 
+export async function getUserPredictions() {
+  const session = await auth()
+  if (!session?.user?.id) {
+    return []
+  }
+
+  const db = getDb()
+  const results = await db.select()
+    .from(predictions)
+    .where(eq(predictions.userId, session.user.id))
+
+  return results.map(p => ({
+    ...p,
+    isPublic: p.isPublic || false
+  }))
+}
+
 
 
 export async function submitPrediction(formData: FormData) {
@@ -371,6 +389,7 @@ export async function submitPrediction(formData: FormData) {
     rosterMoves: rosterMoves || null,
   })
 
+  revalidatePath("/")
   revalidatePath("/feed")
   return { success: true }
 }
@@ -409,6 +428,7 @@ export async function updatePrediction(predictionId: string, thought: string, is
     })
     .where(eq(predictions.id, predictionId))
 
+  revalidatePath("/")
   revalidatePath("/my-feed")
   revalidatePath("/feed")
   return { success: true }
@@ -461,6 +481,7 @@ export async function updatePredictionFull(
     })
     .where(eq(predictions.id, predictionId))
 
+  revalidatePath("/")
   revalidatePath("/my-feed")
   revalidatePath("/feed")
   return { success: true }
@@ -480,6 +501,7 @@ export async function deletePrediction(predictionId: string) {
       eq(predictions.userId, session.user.id)
     ))
 
+  revalidatePath("/")
   revalidatePath("/my-feed")
   revalidatePath("/feed")
   return { success: true }
