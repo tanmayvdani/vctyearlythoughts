@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Clock, MessageSquare, Shield, Eye, Pencil, Trash2 } from "lucide-react"
+import { Clock, MessageSquare, Shield, Eye, Pencil, Trash2, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { ReportModal } from "@/components/report-modal"
@@ -31,6 +31,7 @@ function timeAgo(dateString: string) {
 export function FeedList({ items, currentUserId }: { items: Prediction[], currentUserId?: string }) {
   const [revealed, setRevealed] = useState<Record<string, boolean>>({})
   const [reportData, setReportData] = useState<{ postId: string, username: string } | null>(null)
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   // Edit/Delete State
   const [editingPost, setEditingPost] = useState<Prediction | null>(null)
@@ -148,10 +149,24 @@ export function FeedList({ items, currentUserId }: { items: Prediction[], curren
             <div className="relative">
               <p className={cn(
                 "text-[10pt] leading-relaxed mb-4 text-foreground/90 italic transition-all duration-300",
-                isHidden && "blur-sm select-none opacity-50"
+                isHidden && "blur-sm select-none opacity-50",
+                !expanded[post.id] && "line-clamp-3"
               )}>
                 &quot;{post.thought}&quot;
               </p>
+              
+              {!isHidden && post.thought.split('\n').length > 3 && !expanded[post.id] && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setExpanded(prev => ({ ...prev, [post.id]: true }))
+                  }}
+                  className="text-primary hover:underline text-[10pt] font-mono mb-4 flex items-center gap-1"
+                >
+                  READ MORE
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              )}
 
               <div className={cn("grid grid-cols-2 gap-x-4 gap-y-2 text-[10pt] font-mono text-muted-foreground border-t border-white/5 pt-3 transition-all duration-300", isHidden && "blur-sm select-none opacity-50")}>
                 {(post.kickoffPlacement || post.stage1Placement || post.stage2Placement) && (

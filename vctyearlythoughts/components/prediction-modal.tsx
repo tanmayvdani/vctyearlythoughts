@@ -55,6 +55,9 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
   const [loading, setLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const MAX_CHARS = 2048
+  const isOverLimit = thought.length > MAX_CHARS
+
   const placementOptionsKickoff = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-10th", "11th-12th"]
   const placementOptionsStages = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-12th"]
   const placementOptions12 = ["1st", "2nd", "3rd-4th", "5th-6th", "7th-8th", "9th-10th", "11th-12th"]
@@ -166,6 +169,12 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Client-side validation
+    if (isOverLimit) {
+      toast.error(`Thought is too long (max ${MAX_CHARS} characters)`)
+      return
+    }
 
     if (!user) {
       // Save draft before prompting (only for new predictions)
@@ -497,14 +506,32 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10pt] font-bold uppercase text-muted-foreground">Season Thoughts</label>
+                <div className="flex items-center justify-between">
+                  <label className="text-[10pt] font-bold uppercase text-muted-foreground">Season Thoughts</label>
+                  <span className={`text-[9pt] font-mono transition-colors ${
+                    isOverLimit 
+                      ? "text-primary font-bold" 
+                      : thought.length > MAX_CHARS * 0.9 
+                        ? "text-yellow-500" 
+                        : "text-muted-foreground"
+                  }`}>
+                    {thought.length}/{MAX_CHARS}
+                  </span>
+                </div>
                 <Textarea
                   placeholder={`What will ${team.name} achieve in 2026?`}
-                  className="min-h-[100px] bg-input/50 border-border rounded-none resize-none focus:border-primary/50 text-[10pt]"
+                  className={`min-h-[100px] bg-input/50 border-border rounded-none resize-none focus:border-primary/50 text-[10pt] transition-colors ${
+                    isOverLimit ? "border-primary/50 focus:border-primary" : ""
+                  }`}
                   value={thought}
                   onChange={(e) => setThought(e.target.value)}
                   required
                 />
+                {isOverLimit && (
+                  <p className="text-[9pt] text-primary font-mono animate-in fade-in slide-in-from-top-1 duration-200">
+                    ⚠ Your thought exceeds the {MAX_CHARS} character limit by {thought.length - MAX_CHARS} characters
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -561,7 +588,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
             <button 
               type="submit" 
               form="prediction-form"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isOverLimit}
               className="w-full h-10 bg-primary text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed border border-transparent font-bold text-[10pt] uppercase transition-colors flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
@@ -572,7 +599,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
               ) : (
                 <>
                   <Send className="w-3.5 h-3.5" />
-                  SAVE TO CAPSULE
+                  {isOverLimit ? "CHARACTER LIMIT EXCEEDED" : "SAVE TO CAPSULE"}
                 </>
               )}
             </button>

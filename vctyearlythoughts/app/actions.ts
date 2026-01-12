@@ -12,7 +12,7 @@ import { getUnlockStatus } from "@/lib/vct-utils"
 import { Resend as ResendClient } from "resend"
 
 const predictionSchema = z.object({
-  thought: z.string().min(1, "Thought cannot be empty").max(280, "Thought is too long (max 280 chars)"),
+  thought: z.string().min(1, "Thought cannot be empty").max(2048, "Thought is too long (max 2048 chars)"),
   teamId: z.string().regex(/^[a-z0-9-]+$/, "Invalid Team ID format"),
   teamName: z.string().min(1, "Team Name is required"),
   teamTag: z.string().optional(),
@@ -36,7 +36,7 @@ const emailSchema = z.string().email("Invalid email address");
 
 const updatePredictionThoughtSchema = z.string()
   .min(1, "Thought cannot be empty")
-  .max(280, "Thought is too long (max 280 chars)");
+  .max(2048, "Thought is too long (max 2048 chars)");
 
 export async function updateUsername(username: string) {
   const session = await auth()

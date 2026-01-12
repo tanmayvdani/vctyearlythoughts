@@ -5,6 +5,7 @@ import { predictions } from "@/lib/schema"
 import { count, desc, eq, and, inArray, or } from "drizzle-orm"
 import { FeedList } from "@/components/feed-list"
 import { FeedFilters } from "@/components/feed-filters"
+import { PaginationControls } from "@/components/pagination-controls"
 import { auth } from "@/auth"
 import { TEAMS } from "@/lib/teams"
 
@@ -87,13 +88,7 @@ export default async function FeedPage({
   }
 
   const totalCount = totalCountResult[0]?.count ?? 0
-  const hasMore = page * PAGE_SIZE < totalCount
-  const nextPageSearch = new URLSearchParams()
-  
-  teamFilters.forEach(t => nextPageSearch.append("team", t))
-  regionFilters.forEach(r => nextPageSearch.append("region", r))
-  
-  nextPageSearch.set("page", String(page + 1))
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   const feedItems = dbPredictions.map(p => ({
     ...p
@@ -116,16 +111,10 @@ export default async function FeedPage({
 
           <FeedList items={feedItems} currentUserId={session?.user?.id} />
 
-          {hasMore && (
-            <div className="flex justify-end">
-              <Link
-                href={`?${nextPageSearch.toString()}`}
-                className="inline-flex items-center gap-2 text-[10pt] font-semibold text-primary hover:underline"
-              >
-                Next Page →
-              </Link>
-            </div>
-          )}
+          <PaginationControls 
+            currentPage={page}
+            totalPages={totalPages}
+          />
         </div>
       </div>
     </main>
