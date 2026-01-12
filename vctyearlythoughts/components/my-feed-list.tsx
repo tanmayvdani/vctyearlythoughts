@@ -9,6 +9,7 @@ import { toast } from "sonner"
 import { PredictionModal } from "@/components/prediction-modal"
 import { ConfirmDialog } from "@/components/confirm-dialog"
 import { TEAMS } from "@/lib/teams"
+import { MarkdownContent } from "@/components/markdown-content"
 
 interface FeedItem {
   id: string
@@ -148,13 +149,13 @@ export function MyFeedList({ items }: { items: FeedItem[] }) {
             </div>
 
             <div className="relative">
-                <p className={cn(
-                    "text-[10pt] leading-relaxed mb-4 text-foreground/90 italic transition-all duration-300",
+                <div className={cn(
+                    "text-[10pt] leading-relaxed mb-4 text-foreground/90 transition-all duration-300",
                     !isRevealed && "blur-sm select-none opacity-50",
                     !expanded[post.id] && "line-clamp-3"
                 )}>
-                    &quot;{post.thought}&quot;
-                </p>
+                    <MarkdownContent content={post.thought} />
+                </div>
                 
                 {isRevealed && post.thought.split('\n').length > 3 && !expanded[post.id] && (
                   <button

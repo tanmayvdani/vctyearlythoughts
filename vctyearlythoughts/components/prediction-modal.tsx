@@ -519,13 +519,14 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                   </span>
                 </div>
                 <Textarea
-                  placeholder={`What will ${team.name} achieve in 2026?`}
-                  className={`min-h-[100px] bg-input/50 border-border rounded-none resize-none focus:border-primary/50 text-[10pt] transition-colors ${
+                  placeholder={`What will ${team.name} achieve in 2026?\n\nMarkdown supported: **bold**, *italic*, [links](url), etc.`}
+                  className={`min-h-[200px] bg-input/50 border-border rounded-none resize-y focus:border-primary/50 text-[10pt] leading-relaxed transition-colors ${
                     isOverLimit ? "border-primary/50 focus:border-primary" : ""
                   }`}
                   value={thought}
                   onChange={(e) => setThought(e.target.value)}
                   required
+                  style={{ fontFamily: 'inherit' }}
                 />
                 {isOverLimit && (
                   <p className="text-[9pt] text-primary font-mono animate-in fade-in slide-in-from-top-1 duration-200">
