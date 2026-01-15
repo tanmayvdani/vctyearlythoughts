@@ -2,9 +2,9 @@
 
 import type { Region, Team } from "@/lib/teams"
 import { TeamCard } from "./team-card"
-import { getRegionUnlockCount, getUnlockStatus } from "@/lib/vct-utils"
+import { getRegionUnlockCount, getUnlockStatus, getRegionLockStatus } from "@/lib/vct-utils"
 import Image from "next/image"
-import { Bell, BellOff } from "lucide-react"
+import { Bell, BellOff, Lock } from "lucide-react"
 import { useState } from "react"
 import { useAuth } from "@/components/auth-provider"
 import { subscribeToRegion, unsubscribeFromRegion } from "@/app/actions"
@@ -31,6 +31,7 @@ const REGION_LOGOS: Record<Region, string> = {
 
 export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, initialIsRegionSubscribed, startDate, predictedTeamIds }: RegionColumnProps) {
   const unlockedCount = getRegionUnlockCount(region, teams)
+  const { isLocked, lockDate } = getRegionLockStatus(region)
   const { user } = useAuth()
   const router = useRouter()
   
@@ -40,6 +41,7 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
   const [showUnsubscribeModal, setShowUnsubscribeModal] = useState(false)
 
   const formattedDate = new Date(startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  const formattedLockDate = lockDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 
   const handleActionClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -88,7 +90,14 @@ export function RegionColumn({ region, teams, onTeamClick, subscribedTeams, init
               </div>
               <div className="flex flex-col">
                   <h2 className="text-[10pt] font-black text-white uppercase tracking-wider leading-none">{region}</h2>
-                  <span className="text-[10pt] font-bold text-muted-foreground uppercase mt-0.5">Starts {formattedDate}</span>
+                  {isLocked ? (
+                    <span className="text-[9pt] font-bold text-red-500 uppercase mt-0.5 flex items-center gap-1">
+                      <Lock className="w-3 h-3" />
+                      Locked
+                    </span>
+                  ) : (
+                    <span className="text-[10pt] font-bold text-muted-foreground uppercase mt-0.5">Starts {formattedDate}</span>
+                  )}
               </div>
           </div>
           <div className="flex items-center gap-3">

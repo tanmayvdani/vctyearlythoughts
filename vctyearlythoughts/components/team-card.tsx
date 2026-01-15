@@ -1,7 +1,7 @@
 "use client"
 
 import type { Team } from "@/lib/teams"
-import { getUnlockStatus } from "@/lib/vct-utils"
+import { getUnlockStatus, isRegionLocked } from "@/lib/vct-utils"
 import { cn } from "@/lib/utils"
 import { Lock, Bell, BellOff } from "lucide-react"
 import Image from "next/image"
@@ -22,6 +22,7 @@ interface TeamCardProps {
 
 export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock, isPredicted }: TeamCardProps) {
   const { isUnlocked, unlockDate } = getUnlockStatus(team)
+  const regionLocked = isRegionLocked(team.region)
   const { user } = useAuth()
   const router = useRouter()
   
@@ -114,16 +115,30 @@ export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock, i
       <div
         role="button"
         onClick={(e) => {
+          if (regionLocked) {
+            // Do nothing if region is locked
+            return
+          }
           if (isUnlocked) {
             onClick(team)
           } else {
             handleActionClick(e)
           }
         }}
-        title={!isUnlocked ? `Unlocks ${formattedUnlockDate}` : undefined}
+        title={
+          regionLocked 
+            ? `${team.region} region is locked` 
+            : !isUnlocked 
+              ? `Unlocks ${formattedUnlockDate}` 
+              : undefined
+        }
         className={cn(
           "zebra-row flex items-center justify-between w-full h-9 px-3 transition-colors text-left border-b border-border/50 last:border-0 group",
-          isUnlocked ? "hover:bg-primary/5 cursor-pointer" : "bg-black/10 cursor-pointer hover:bg-primary/5",
+          regionLocked 
+            ? "bg-black/20 cursor-not-allowed opacity-60"
+            : isUnlocked 
+              ? "hover:bg-primary/5 cursor-pointer" 
+              : "bg-black/10 cursor-pointer hover:bg-primary/5",
         )}
       >
         <div className="flex items-center gap-3">
@@ -153,7 +168,12 @@ export function TeamCard({ team, onClick, initialIsSubscribed, isNextToUnlock, i
         </div>
 
         <div className="flex items-center gap-2">
-          {!isUnlocked ? (
+          {regionLocked ? (
+            <span className="text-[9pt] font-bold uppercase text-red-500/70 flex items-center gap-1">
+              <Lock className="w-3 h-3" />
+              Locked
+            </span>
+          ) : !isUnlocked ? (
             <button 
               onClick={handleActionClick}
               className="p-1 transition-transform focus:outline-none h-full flex items-center"

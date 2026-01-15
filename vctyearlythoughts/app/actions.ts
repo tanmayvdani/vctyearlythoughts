@@ -8,7 +8,7 @@ import { cookies } from "next/headers"
 import { eq, and } from "drizzle-orm"
 import { z } from "zod"
 import { TEAMS } from "@/lib/teams"
-import { getUnlockStatus } from "@/lib/vct-utils"
+import { getUnlockStatus, isRegionLocked } from "@/lib/vct-utils"
 import { Resend as ResendClient } from "resend"
 
 const predictionSchema = z.object({
@@ -340,6 +340,11 @@ export async function submitPrediction(formData: FormData) {
     throw new Error("Invalid Team ID")
   }
   
+  // 2. Check if region is locked
+  if (isRegionLocked(team.region)) {
+    throw new Error(`The ${team.region} region is locked. New predictions and edits are no longer allowed.`)
+  }
+  
   const { isUnlocked } = getUnlockStatus(team)
   if (!isUnlocked) {
     throw new Error("This team is locked. You cannot submit a prediction yet.")
@@ -416,6 +421,12 @@ export async function updatePrediction(predictionId: string, thought: string, is
     throw new Error("Prediction not found or unauthorized")
   }
 
+  // Check if region is locked
+  const team = TEAMS.find(t => t.id === prediction.teamId)
+  if (team && isRegionLocked(team.region)) {
+    throw new Error(`The ${team.region} region is locked. Edits are no longer allowed.`)
+  }
+
   await db.update(predictions)
     .set({
       thought: validatedThought,
@@ -465,6 +476,12 @@ export async function updatePredictionFull(
 
   if (!prediction) {
     throw new Error("Prediction not found or unauthorized")
+  }
+
+  // Check if region is locked
+  const team = TEAMS.find(t => t.id === prediction.teamId)
+  if (team && isRegionLocked(team.region)) {
+    throw new Error(`The ${team.region} region is locked. Edits are no longer allowed.`)
   }
 
   await db.update(predictions)

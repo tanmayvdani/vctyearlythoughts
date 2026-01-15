@@ -15,6 +15,14 @@ export const KICKOFF_DATES: Record<Region, string> = {
   China: "2026-01-22",
 }
 
+// Region lock dates - prevents new predictions and edits after this date (UTC 00:00)
+export const LOCK_DATES: Record<Region, string> = {
+  Americas: "2026-01-17",
+  EMEA: "2026-01-21",
+  Pacific: "2026-01-23",
+  China: "2026-01-23",
+}
+
 export const TEAMS: Team[] = [
   // Americas
   { id: "sen", name: "Sentinels", tag: "SEN", region: "Americas", index: 1 },
