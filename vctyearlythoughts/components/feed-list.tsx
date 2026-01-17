@@ -12,6 +12,7 @@ import { PredictionModal } from "@/components/prediction-modal"
 import { ConfirmDialog } from "@/components/confirm-dialog"
 import { TEAMS } from "@/lib/teams"
 import { MarkdownContent } from "@/components/markdown-content"
+import { isRegionLocked } from "@/lib/vct-utils"
 
 type Prediction = typeof predictions.$inferSelect;
 
@@ -90,6 +91,9 @@ export function FeedList({ items, currentUserId }: { items: Prediction[], curren
         const isOwnPost = currentUserId && post.userId === currentUserId
         const isHidden = isOwnPost && !revealed[post.id]
         const isEditing = editingPost?.id === post.id
+        
+        const team = TEAMS.find(t => t.id === post.teamId)
+        const isLocked = team ? isRegionLocked(team.region) : true
 
         return (
           <div
@@ -124,7 +128,7 @@ export function FeedList({ items, currentUserId }: { items: Prediction[], curren
               </div>
               
               <div className="flex items-center gap-2">
-                {isOwnPost && !isEditing && (
+                {isOwnPost && !isEditing && !isLocked && (
                   <>
                     <button
                       onClick={(e) => startEditing(e, post)}
