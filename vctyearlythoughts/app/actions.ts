@@ -510,8 +510,31 @@ export async function deletePrediction(predictionId: string) {
     throw new Error("Unauthorized")
   }
 
-  // Verify ownership and delete
   const db = getDb()
+  
+  // 1. Fetch prediction to check ownership and team
+  const [prediction] = await db.select()
+    .from(predictions)
+    .where(and(
+      eq(predictions.id, predictionId),
+      eq(predictions.userId, session.user.id)
+    ))
+    .limit(1)
+
+  if (!prediction) {
+    // Prediction doesn't exist or doesn't belong to user
+    // We can just return success or throw error. 
+    // Usually idempotent delete is fine, but here we want to ensure ownership.
+    return { success: true }
+  }
+
+  // 2. Check if region is locked
+  const team = TEAMS.find(t => t.id === prediction.teamId)
+  if (team && isRegionLocked(team.region)) {
+    throw new Error(`The ${team.region} region is locked. Deletions are no longer allowed.`)
+  }
+
+  // 3. Verify ownership and delete (we already verified ownership above, but using where clause again is safe)
   await db.delete(predictions)
     .where(and(
       eq(predictions.id, predictionId),
