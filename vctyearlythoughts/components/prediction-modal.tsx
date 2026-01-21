@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import type { Team } from "@/lib/teams"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -14,6 +14,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { ConfirmDialog } from "@/components/confirm-dialog"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 interface PredictionModalProps {
   team: Team | null
@@ -31,9 +32,10 @@ interface PredictionModalProps {
     rosterMoves?: string | null
     isPublic: boolean
   } | null
+  isPredictAny?: boolean
 }
 
-export function PredictionModal({ team, isOpen, onClose, existingPrediction }: PredictionModalProps) {
+export function PredictionModal({ team, isOpen, onClose, existingPrediction, isPredictAny = false }: PredictionModalProps) {
   const [thought, setThought] = useState("")
   const [kickoffPlacement, setKickoffPlacement] = useState("")
   const [stage1Placement, setStage1Placement] = useState("")
@@ -42,7 +44,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
   const [masters2Placement, setMasters2Placement] = useState("")
   const [championsPlacement, setChampionsPlacement] = useState("")
   const [rosterMoves, setRosterMoves] = useState("")
-  
+
   const [isPublic, setIsPublic] = useState(true)
   const [identity, setIdentity] = useState("username")
   const { user } = useAuth()
@@ -55,13 +57,102 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
   const [loading, setLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const [tourStep, setTourStep] = useState(0)
+  const [hasStartedTyping, setHasStartedTyping] = useState(false)
+
+  // --- REFS FOR DYNAMIC POSITIONING ---
+  const modalContainerRef = useRef<HTMLDivElement>(null)
+  const modalWrapperRef = useRef<HTMLDivElement>(null)
+  const [tooltipTop, setTooltipTop] = useState<number>(0)
+
   const MAX_CHARS = 2048
   const isOverLimit = thought.length > MAX_CHARS
+
+  const teamBadge = team ? (
+    <span className="inline-flex items-center gap-2 align-middle">
+      <Image
+        src={`/logos/${team.id}.png`}
+        alt={team.tag}
+        width={24}
+        height={24}
+        className="object-contain"
+      />
+      <span className="text-[10pt] font-black uppercase tracking-tight">{team.tag}</span>
+    </span>
+  ) : null
 
   const placementOptionsKickoff = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-10th", "11th-12th"]
   const placementOptionsStages = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-12th"]
   const placementOptions12 = ["1st", "2nd", "3rd-4th", "5th-6th", "7th-8th", "9th-10th", "11th-12th"]
   const placementOptions16 = ["1st", "2nd", "3rd", "4th", "5th-6th", "7th-8th", "9th-12th", "13th-16th"]
+
+  const tourSteps: Array<{ message: React.ReactNode; target: string }> = [
+    {
+      message: <>What place will {teamBadge} get in kickoff?</>,
+      target: "kickoff"
+    },
+    {
+      message: <>What place will {teamBadge} get in stage 1 and 2?</>,
+      target: "stages"
+    },
+    {
+      message: "Who gets replaced mid season?",
+      target: "roster-moves"
+    },
+    {
+      message: <>How will {teamBadge}{"'s"} year go?</>,
+      target: "season-thoughts"
+    }
+  ]
+
+  const isTourActive = isPredictAny && tourStep > 0 && tourStep <= 4
+  const isTooltipRight = isTourActive && tourStep === 2
+
+  // --- DYNAMIC POSITION CALCULATION ---
+  // This calculates exactly where the active input is, regardless of how much roster data loaded above it
+  useEffect(() => {
+    if (!isTourActive || !modalContainerRef.current || !modalWrapperRef.current) return
+
+    const updatePosition = () => {
+      // We look for the element with the ID corresponding to the current step
+      let targetId = ""
+      switch (tourStep) {
+        case 1: targetId = "kickoff-select"; break;
+        case 2: targetId = "stages-select"; break;
+        case 3: targetId = "roster-moves-input"; break;
+        case 4: targetId = "season-thoughts-textarea"; break;
+        case 5: targetId = "identity-public-section"; break;
+      }
+
+      const targetElement = document.getElementById(targetId)
+      
+      if (targetElement && modalContainerRef.current && modalWrapperRef.current) {
+        // Position relative to the modal wrapper so it moves with scrolling
+        const wrapperRect = modalWrapperRef.current.getBoundingClientRect()
+        const elementRect = targetElement.getBoundingClientRect()
+
+        const elementCenter = elementRect.top - wrapperRect.top + targetElement.offsetHeight / 2
+        setTooltipTop(elementCenter)
+      }
+    }
+
+    // Run immediately
+    updatePosition()
+
+    // Run again after a short delay to account for any final layout shifts/animations
+    const timeout = setTimeout(updatePosition, 300)
+    
+    // Add scroll and resize listeners to update position
+    const scrollContainer = modalContainerRef.current
+    scrollContainer?.addEventListener('scroll', updatePosition)
+    window.addEventListener('resize', updatePosition)
+
+    return () => {
+      clearTimeout(timeout)
+      scrollContainer?.removeEventListener('scroll', updatePosition)
+      window.removeEventListener('resize', updatePosition)
+    }
+  }, [tourStep, isTourActive, roster, isRosterVisible])
 
   const players = roster.filter((m: any) => {
     const role = m.role.toLowerCase();
@@ -89,6 +180,43 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
   useEffect(() => {
     if (!championsQualified) setChampionsPlacement("")
   }, [championsQualified])
+
+  // Initialize tour for predict-any users
+  useEffect(() => {
+    if (isOpen && isPredictAny && !existingPrediction) {
+      setTourStep(1)
+      setHasStartedTyping(false)
+    }
+  }, [isOpen, isPredictAny, existingPrediction])
+
+  // Auto-advance tour when user makes selections
+  useEffect(() => {
+    if (tourStep === 1 && kickoffPlacement) {
+      setTourStep(2)
+    }
+  }, [kickoffPlacement, tourStep])
+
+  useEffect(() => {
+    if (tourStep === 2 && stage1Placement && stage2Placement) {
+      setTourStep(3)
+    }
+  }, [stage1Placement, stage2Placement, tourStep])
+
+  useEffect(() => {
+    if (tourStep === 3 && rosterMoves) {
+      setTourStep(4)
+    }
+  }, [rosterMoves, tourStep])
+
+  const handleThoughtChange = (value: string) => {
+    setThought(value)
+    if (!hasStartedTyping && value.length > 0) {
+      setHasStartedTyping(true)
+    }
+    if (tourStep === 4) {
+      setTourStep(5)
+    }
+  }
 
   useEffect(() => {
     if (isOpen && team) {
@@ -268,7 +396,40 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-none animate-in fade-in duration-150">
-        <div className="relative w-full max-w-lg bg-card border border-border shadow-2xl animate-in zoom-in-95 duration-150 max-h-[90vh] flex flex-col">
+        
+        {/* Modal Wrapper - Tooltip is now INSIDE here */}
+        <div
+          ref={modalWrapperRef}
+          className="relative w-full max-w-lg bg-card border border-border shadow-2xl animate-in zoom-in-95 duration-150 max-h-[90vh] flex flex-col"
+        >
+          
+          {/* Tour Prompt - Dynamically positioned based on active input */}
+          {isTourActive && !hasStartedTyping && (
+            <div 
+              className={cn(
+                "absolute w-56 z-[60] pointer-events-auto animate-in fade-in duration-300 transition-all ease-out",
+                isTooltipRight ? "left-full ml-6 slide-in-from-left-4" : "-left-64 slide-in-from-right-4"
+              )}
+              style={{ top: `${tooltipTop}px`, transform: "translateY(-50%)" }}
+            >
+              <div className="bg-card border-2 border-primary px-6 py-4 rounded-lg shadow-2xl shadow-primary/20 relative">
+                <p className="text-sm font-bold text-white mb-2">{tourSteps[tourStep - 1]?.message}</p>
+                <p className="text-xs text-muted-foreground">Make your selection to continue</p>
+                
+                {/* Connector Line to Modal */}
+                <div
+                  className={cn(
+                    "absolute top-1/2 h-0.5 w-16",
+                    isTooltipRight
+                      ? "-left-16 bg-gradient-to-l from-primary to-transparent"
+                      : "-right-16 bg-gradient-to-r from-primary to-transparent"
+                  )}
+                  style={{ transform: "translateY(-50%)" }}
+                />
+              </div>
+            </div>
+          )}
+
           <div className="flex-none">
             <div className="flex items-center justify-between px-4 h-10 bg-muted border-b border-border">
               <h3 className="text-[10pt] font-black text-white uppercase tracking-tight">TEAM PREDICTION</h3>
@@ -305,9 +466,9 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+          <div className={cn("flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar relative", isTourActive && !hasStartedTyping && "z-40")} ref={modalContainerRef}>
             {isRosterVisible && (
-              <div className="space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
+              <div className={cn("space-y-3 animate-in fade-in slide-in-from-top-1 duration-200")}>
                 <div className="flex items-center justify-between">
                   <h4 className="text-[10pt] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                     {showTransactions ? <Repeat className="w-3 h-3" /> : <Users className="w-3 h-3" />}
@@ -388,13 +549,13 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
               </div>
             )}
 
-            <form id="prediction-form" onSubmit={handleSubmit} className="space-y-4">
+            <form id="prediction-form" onSubmit={handleSubmit} className={cn("space-y-4 relative", isTourActive && !hasStartedTyping && "z-40")}>
               <div className="grid grid-cols-3 gap-2">
-                 <div className="space-y-1.5">
-                    <a 
-                      href={getKickoffUrl(team.region)} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+               <div id="kickoff-select" className={cn("space-y-1.5 relative transition-all duration-300", tourStep === 1 && isTourActive && !hasStartedTyping && "ring-2 ring-primary ring-offset-2 ring-offset-card")}>
+                    <a
+                      href={getKickoffUrl(team.region)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-[10pt] font-bold uppercase text-muted-foreground hover:text-primary flex items-center gap-1 w-fit group"
                     >
                       <span className="group-hover:underline underline-offset-2 decoration-primary/50">Kickoff</span>
@@ -411,7 +572,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                       </SelectContent>
                     </Select>
                  </div>
-                 <div className="space-y-1.5">
+                 <div id="stages-select" className={cn("space-y-1.5 relative transition-all duration-300", tourStep === 2 && isTourActive && !hasStartedTyping && "ring-2 ring-primary ring-offset-2 ring-offset-card")}>
                     <label className="text-[10pt] font-bold uppercase text-muted-foreground">Stage 1</label>
                     <Select value={stage1Placement} onValueChange={setStage1Placement}>
                       <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
@@ -424,107 +585,107 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                       </SelectContent>
                     </Select>
                  </div>
-                 <div className="space-y-1.5">
+                 <div id="stage-2-select" className={cn("space-y-1.5 relative transition-all duration-300", tourStep === 2 && isTourActive && !hasStartedTyping && "ring-2 ring-primary ring-offset-2 ring-offset-card")}>
                     <label className="text-[10pt] font-bold uppercase text-muted-foreground">Stage 2</label>
                     <Select value={stage2Placement} onValueChange={setStage2Placement}>
                       <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
                         <SelectValue placeholder="-" />
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border rounded-none">
-                         {placementOptionsStages.map(opt => (
-                           <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
-                        ))}
+                          {placementOptionsStages.map(opt => (
+                            <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
+                          ))}
                       </SelectContent>
                     </Select>
                  </div>
               </div>
 
-              {(masters1Qualified || masters2Qualified || championsQualified) && (
-                <div className="grid grid-cols-3 gap-2 animate-in fade-in slide-in-from-top-1 duration-200">
-                   {masters1Qualified ? (
-                     <div className="space-y-1.5">
-                        <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> SANTIAGO:</label>
-                        <Select value={masters1Placement} onValueChange={setMasters1Placement}>
-                          <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
-                            <SelectValue placeholder="-" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-card border-border rounded-none">
-                            {placementOptions12.map(opt => (
-                               <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                     </div>
-                   ) : <div />}
-                   {masters2Qualified ? (
-                     <div className="space-y-1.5">
-                        <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> LONDON:</label>
-                        <Select value={masters2Placement} onValueChange={setMasters2Placement}>
-                          <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
-                            <SelectValue placeholder="-" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-card border-border rounded-none">
-                            {placementOptions12.map(opt => (
-                               <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                     </div>
-                   ) : <div />}
-                   {championsQualified ? (
-                     <div className="space-y-1.5">
-                        <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} /> SHANGHAI:</label>
-                        <Select value={championsPlacement} onValueChange={setChampionsPlacement}>
-                          <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
-                            <SelectValue placeholder="-" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-card border-border rounded-none">
-                            {placementOptions16.map(opt => (
-                               <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                     </div>
-                   ) : <div />}
-                </div>
-              )}
+               {(masters1Qualified || masters2Qualified || championsQualified) && (
+                 <div className={cn("grid grid-cols-3 gap-2 animate-in fade-in slide-in-from-top-1 duration-200")}>
+                    {masters1Qualified ? (
+                      <div className="space-y-1.5">
+                         <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> SANTIAGO:</label>
+                         <Select value={masters1Placement} onValueChange={setMasters1Placement}>
+                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
+                             <SelectValue placeholder="-" />
+                           </SelectTrigger>
+                           <SelectContent className="bg-card border-border rounded-none">
+                             {placementOptions12.map(opt => (
+                                <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
+                             ))}
+                           </SelectContent>
+                         </Select>
+                      </div>
+                    ) : <div />}
+                    {masters2Qualified ? (
+                      <div className="space-y-1.5">
+                         <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> LONDON:</label>
+                         <Select value={masters2Placement} onValueChange={setMasters2Placement}>
+                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
+                             <SelectValue placeholder="-" />
+                           </SelectTrigger>
+                           <SelectContent className="bg-card border-border rounded-none">
+                             {placementOptions12.map(opt => (
+                                <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
+                             ))}
+                           </SelectContent>
+                         </Select>
+                      </div>
+                    ) : <div />}
+                    {championsQualified ? (
+                      <div className="space-y-1.5">
+                         <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} /> SHANGHAI:</label>
+                         <Select value={championsPlacement} onValueChange={setChampionsPlacement}>
+                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
+                             <SelectValue placeholder="-" />
+                           </SelectTrigger>
+                           <SelectContent className="bg-card border-border rounded-none">
+                             {placementOptions16.map(opt => (
+                                <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
+                             ))}
+                           </SelectContent>
+                         </Select>
+                      </div>
+                    ) : <div />}
+                 </div>
+               )}
 
-              <div className="space-y-1.5">
-                  <label className="text-[10pt] font-bold uppercase text-muted-foreground">Roster Moves?</label>
-                   <div className="relative">
-                      <input 
-                          type="text" 
-                          placeholder="e.g. They sign a new duelist..." 
-                          className="w-full h-8 px-3 bg-input/50 border border-border rounded-none text-[10pt] focus:border-primary/50 outline-none"
-                          value={rosterMoves}
-                          onChange={(e) => setRosterMoves(e.target.value)}
-                      />
-                   </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-[10pt] font-bold uppercase text-muted-foreground">Season Thoughts</label>
-                  <span className={`text-[9pt] font-mono transition-colors ${
-                    isOverLimit 
-                      ? "text-primary font-bold" 
-                      : thought.length > MAX_CHARS * 0.9 
-                        ? "text-yellow-500" 
-                        : "text-muted-foreground"
-                  }`}>
-                    {thought.length}/{MAX_CHARS}
-                  </span>
+                <div id="roster-moves-input" className={cn("space-y-1.5 relative transition-all duration-300", tourStep === 3 && isTourActive && !hasStartedTyping && "ring-2 ring-primary ring-offset-2 ring-offset-card")}>
+                    <label className="text-[10pt] font-bold uppercase text-muted-foreground">Roster Moves?</label>
+                      <div className="relative">
+                        <input
+                            type="text"
+                            placeholder="e.g. They sign a new duelist..."
+                            className="w-full h-8 px-3 bg-input/50 border border-border rounded-none text-[10pt] focus:border-primary/50 outline-none"
+                            value={rosterMoves}
+                            onChange={(e) => setRosterMoves(e.target.value)}
+                        />
+                      </div>
                 </div>
-                <Textarea
-                  placeholder={`What will ${team.name} achieve in 2026?\n\nMarkdown supported: **bold**, *italic*, [links](url), etc.`}
-                  className={`min-h-[200px] bg-input/50 border-border rounded-none resize-y focus:border-primary/50 text-[10pt] leading-relaxed transition-colors ${
-                    isOverLimit ? "border-primary/50 focus:border-primary" : ""
-                  }`}
-                  value={thought}
-                  onChange={(e) => setThought(e.target.value)}
-                  required
-                  style={{ fontFamily: 'inherit' }}
-                />
+
+                <div id="season-thoughts-textarea" className={cn("space-y-1.5 relative transition-all duration-300", tourStep === 4 && isTourActive && !hasStartedTyping && "ring-2 ring-primary ring-offset-2 ring-offset-card")}>
+                 <div className="flex items-center justify-between">
+                   <label className="text-[10pt] font-bold uppercase text-muted-foreground">Season Thoughts</label>
+                   <span className={`text-[9pt] font-mono transition-colors ${
+                     isOverLimit
+                       ? "text-primary font-bold"
+                       : thought.length > MAX_CHARS * 0.9
+                         ? "text-yellow-500"
+                         : "text-muted-foreground"
+                   }`}>
+                     {thought.length}/{MAX_CHARS}
+                   </span>
+                 </div>
+                 <Textarea
+                   placeholder={`What will ${team.name} achieve in 2026?\n\nMarkdown supported: **bold**, *italic*, [links](url), etc.`}
+                   className={`min-h-[200px] bg-input/50 border-border rounded-none resize-y focus:border-primary/50 text-[10pt] leading-relaxed transition-colors ${
+                     isOverLimit ? "border-primary/50 focus:border-primary" : ""
+                   }`}
+                   value={thought}
+                   onChange={(e) => handleThoughtChange(e.target.value)}
+                   required
+                   style={{ fontFamily: 'inherit' }}
+                 />
                 {isOverLimit && (
                   <p className="text-[9pt] text-primary font-mono animate-in fade-in slide-in-from-top-1 duration-200">
                     ⚠ Your thought exceeds the {MAX_CHARS} character limit by {thought.length - MAX_CHARS} characters
@@ -532,53 +693,59 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-[10pt] font-bold uppercase text-muted-foreground">Identity</label>
-                  <Select value={identity} onValueChange={setIdentity} disabled={!user}>
-                    <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-card border-border rounded-none">
-                      <SelectItem value="username" disabled={!user} className="text-[10pt] font-bold uppercase">
-                        <span className="flex items-center justify-between w-full gap-2">
-                          Username {!user && <Lock className="w-3 h-3 opacity-50" />}
-                        </span>
-                      </SelectItem>
-                      <SelectItem value="email" disabled={!user} className="text-[10pt] font-bold uppercase">
-                        <span className="flex items-center justify-between w-full gap-2">
-                          Email {!user && <Lock className="w-3 h-3 opacity-50" />}
-                        </span>
-                      </SelectItem>
-                      <SelectItem value="anonymous" className="text-[10pt] font-bold uppercase">
-                        Anonymous
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {!user && (
-                     <p className="text-[10pt] text-muted-foreground font-mono mt-1">
-                       * Sign in to reveal identity
-                     </p>
-                  )}
-                </div>
+                <div id="identity-public-section" className={cn("grid grid-cols-2 gap-4 transition-all duration-300", tourStep === 5 && isTourActive && !hasStartedTyping && "ring-2 ring-primary ring-offset-2 ring-offset-card")}>
+                 <div className="space-y-1.5">
+                   <label className="text-[10pt] font-bold uppercase text-muted-foreground">Identity</label>
+                   <Select value={identity} onValueChange={setIdentity} disabled={!user}>
+                     <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
+                       <SelectValue placeholder="Select" />
+                     </SelectTrigger>
+                     <SelectContent className="bg-card border-border rounded-none">
+                       <SelectItem value="username" disabled={!user} className="text-[10pt] font-bold uppercase">
+                         <span className="flex items-center justify-between w-full gap-2">
+                           Username {!user && <Lock className="w-3 h-3 opacity-50" />}
+                         </span>
+                       </SelectItem>
+                       <SelectItem value="email" disabled={!user} className="text-[10pt] font-bold uppercase">
+                         <span className="flex items-center justify-between w-full gap-2">
+                           Email {!user && <Lock className="w-3 h-3 opacity-50" />}
+                         </span>
+                       </SelectItem>
+                       <SelectItem value="anonymous" className="text-[10pt] font-bold uppercase">
+                         Anonymous
+                       </SelectItem>
+                     </SelectContent>
+                   </Select>
+                   {!user && (
+                      <p className="text-[10pt] text-muted-foreground font-mono mt-1">
+                        * Sign in to reveal identity
+                      </p>
+                   )}
+                 </div>
 
-                <div className="flex flex-col justify-end pb-1">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="public"
-                      checked={isPublic}
-                      onCheckedChange={(checked) => setIsPublic(!!checked)}
-                      className="w-4 h-4 rounded-none border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
-                    />
-                    <label
-                      htmlFor="public"
-                      className="text-[10pt] font-bold uppercase text-muted-foreground cursor-pointer"
-                    >
-                      Public Feed
-                    </label>
-                  </div>
-                </div>
-              </div>
+                 <div className="flex flex-col justify-end pb-1">
+                   <div className="flex items-center space-x-2">
+                     <Checkbox
+                       id="public"
+                       checked={isPublic}
+                       onCheckedChange={(checked) => setIsPublic(!!checked)}
+                       className="w-4 h-4 rounded-none border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                     />
+                     <label
+                       htmlFor="public"
+                       className="text-[10pt] font-bold uppercase text-muted-foreground cursor-pointer"
+                     >
+                       Public Feed
+                     </label>
+                   </div>
+                 </div>
+               </div>
+
+                {tourStep === 5 && isTourActive && !hasStartedTyping && (
+                   <div className="text-[10pt] text-muted-foreground font-mono p-3 bg-primary/10 border border-primary/20 rounded-none animate-in fade-in duration-200">
+                     Sign in to save your prediction. Turn on public feed to share your thoughts with the community.
+                   </div>
+                )}
             </form>
           </div>
 

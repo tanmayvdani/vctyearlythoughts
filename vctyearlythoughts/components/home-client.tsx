@@ -227,11 +227,12 @@ export function HomeClient({
         EST. 2026 // VALORANT ESPORTS TIME CAPSULE // ALL DATA ENCRYPTED UNTIL END OF SEASON
       </footer>
 
-      <PredictionModal 
-        team={selectedTeam} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <PredictionModal
+        team={selectedTeam}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         existingPrediction={selectedPrediction}
+        isPredictAny={isFocusMode}
       />
     </main>
   )
