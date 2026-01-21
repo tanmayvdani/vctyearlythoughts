@@ -90,10 +90,6 @@ export default async function FeedPage({
   const dbPredictions = results[0].status === 'fulfilled' ? (results[0].value as any[]) : []
   const totalCountResult = results[1].status === 'fulfilled' ? (results[1].value as any[]) : []
 
-  if (results.some(r => r.status === 'rejected')) {
-    console.error("Failed to fetch feed data:", results.filter(r => r.status === 'rejected'))
-  }
-
   const totalCount = totalCountResult[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 

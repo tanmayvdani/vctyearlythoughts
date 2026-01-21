@@ -34,10 +34,6 @@ async function sendTeamNotificationEmail(payload: {
         "List-Unsubscribe": `<${predictUrl}>`,
       },
     })
-  } else {
-    console.log(
-      `[MOCK EMAIL] To: ${payload.email} | Subject: Unlocked: ${team.name}`
-    )
   }
 }
 
@@ -171,11 +167,6 @@ export async function GET(request: Request) {
       sentCount++
     } catch (err) {
       failedCount++
-
-      console.error(
-        `Outbox send failed (id=${item.id}, attempt=${item.attempts + 1})`,
-        err
-      )
 
       await db.transaction(async (tx) => {
         await tx

@@ -27,7 +27,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             text: text({ url, host }),
           })
         } catch (error) {
-          console.error("Failed to send verification email", error)
           throw new Error("Failed to send verification email")
         }
       },
@@ -59,22 +58,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if (requests.length > 0) {
             const existingRequest = requests[0]
             if (existingRequest.count >= 100) {
-              console.warn(`Rate limit exceeded for ${userEmail}`)
               throw new RateLimitError()
             }
-            
-            console.log(`Login attempt ${existingRequest.count + 1}/100 for ${userEmail}`)
 
             // Update count
             await tx
               .update(otpRequests)
-              .set({ 
+              .set({
                 count: existingRequest.count + 1,
                 lastRequest: new Date(now)
               })
               .where(eq(otpRequests.id, existingRequest.id))
           } else {
-            console.log(`First login attempt for ${userEmail}`)
             // Create new record
             await tx.insert(otpRequests).values({
               identifier: userEmail,
@@ -89,7 +84,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (error instanceof RateLimitError) {
           return "/login?error=RateLimitExceeded"
         }
-        console.error("Sign in error:", error)
         return false
       }
     },

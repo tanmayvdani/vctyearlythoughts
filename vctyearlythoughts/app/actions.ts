@@ -150,7 +150,6 @@ export async function requestEmailChange(newEmail: string) {
       text: `Confirm Email Change\n\nPlease click the link below to confirm your email change:\n${confirmUrl}\n\nThis link will expire in 1 hour.\nIf you did not request this change, you can safely ignore this email.`,
     })
   } catch (error) {
-    console.error("Failed to send email change confirmation", error)
     return { error: "Failed to send confirmation email" }
   }
 
@@ -335,7 +334,6 @@ export async function submitPrediction(formData: FormData) {
   const validatedFields = predictionSchema.safeParse(rawData)
 
   if (!validatedFields.success) {
-    console.error("Validation failed:", validatedFields.error.flatten())
     throw new Error(validatedFields.error.issues[0].message)
   }
 

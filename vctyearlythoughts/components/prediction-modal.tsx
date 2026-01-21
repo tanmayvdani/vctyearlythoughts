@@ -101,8 +101,6 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
             setRoster(data.roster || [])
             setTransactions(data.transactions || [])
           }
-        } catch (error) {
-          console.error("Failed to fetch team data:", error)
         } finally {
           setLoading(false)
         }
@@ -244,7 +242,6 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction }: P
       toast.success(existingPrediction ? "Prediction updated!" : "Prediction saved to capsule!")
       onClose()
     } catch (error: any) {
-      console.error("Submission error:", error)
       toast.error(error.message || "Failed to save prediction")
     } finally {
       setIsSubmitting(false)

@@ -128,7 +128,6 @@ export async function addComment(predictionId: string, content: string, parentId
     revalidatePath("/feed")
     revalidatePath(`/feed/post/${prediction.slug}`)
   } catch (error) {
-    console.error("Failed to add comment:", error)
     throw new Error("Failed to add comment")
   }
 }

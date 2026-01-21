@@ -41,20 +41,18 @@ export function SpecialEventCTA() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [subheading, setSubheading] = useState<React.ReactNode>(SUBHEADINGS[0])
 
-  // Real countdown for the visual effect
   useEffect(() => {
     const interval = setInterval(() => {
-      // DEBUG: Simulating time inside the event (Jan 22nd 12:00 PM)
-      const now = new Date("2026-01-22T12:00:00.000Z")
+      const now = new Date()
       const diff = Math.max(0, GLOBAL_UNLOCK_END.getTime() - now.getTime())
-      
+
       const hours = Math.floor(diff / (1000 * 60 * 60))
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-      
+
       if (diff === 0) {
-          setTimeLeft("00:00:00")
-          return
+        setTimeLeft("00:00:00")
+        return
       }
 
       setTimeLeft(
