@@ -10,6 +10,11 @@ import { TeaserCard } from "@/components/teaser-card"
 import { CalendarDays, ChevronDown, Lock, Trophy, Unlock } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+import { SpecialEventCTA } from "@/components/special-event-cta"
+import { isGlobalUnlockActive } from "@/lib/vct-utils"
+import { useSearchParams } from "next/navigation"
+import { ArrowDown } from "lucide-react"
+
 interface HomeClientProps {
   initialSubscriptions: string[]
   initialRegionSubscriptions: string[]
@@ -17,6 +22,7 @@ interface HomeClientProps {
   todaysTeams: Team[]
   tomorrowTeams: Team[]
   daysUntilStart: number
+  isLoggedIn?: boolean
 }
 
 export function HomeClient({ 
@@ -25,7 +31,8 @@ export function HomeClient({
   initialPredictions,
   todaysTeams, 
   tomorrowTeams, 
-  daysUntilStart 
+  daysUntilStart,
+  isLoggedIn = false
 }: HomeClientProps) {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null)
   const [selectedPrediction, setSelectedPrediction] = useState<any | null>(null)
@@ -33,6 +40,12 @@ export function HomeClient({
   const [subscribedTeams, setSubscribedTeams] = useState<string[]>(initialSubscriptions)
   const [subscribedRegions, setSubscribedRegions] = useState<string[]>(initialRegionSubscriptions)
   const [isInfoExpanded, setIsInfoExpanded] = useState(false)
+  
+  const searchParams = useSearchParams()
+  const isFocusMode = searchParams.get("action") === "predict-any" && !isLoggedIn
+
+  const showSpecialEvent = isGlobalUnlockActive() && !isLoggedIn
+  const isAfterJan22 = new Date() >= new Date("2026-01-22T00:00:00.000Z")
 
   const availableTodayCount = todaysTeams.length
   const seasonSummary = daysUntilStart > 0
@@ -55,11 +68,15 @@ export function HomeClient({
 
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col">
-      <Navbar />
+      <div className={cn("transition-opacity duration-500", isFocusMode ? "opacity-20 pointer-events-none" : "opacity-100")}>
+        <Navbar />
+      </div>
 
       <div className="flex-1 flex flex-col items-center">
         <div className="w-full max-w-[1380px] px-4 py-6 space-y-6">
-          <header className="flex flex-col md:flex-row md:items-end justify-between border-b border-border pb-4 gap-4">
+          {showSpecialEvent && !isFocusMode && <SpecialEventCTA />}
+          
+          <header className={cn("flex flex-col md:flex-row md:items-end justify-between border-b border-border pb-4 gap-4 transition-opacity duration-500", isFocusMode ? "opacity-20 pointer-events-none" : "opacity-100")}>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-black leading-none">
@@ -128,7 +145,7 @@ export function HomeClient({
             </div>
           </header>
 
-          {(todaysTeams.length > 0 || tomorrowTeams.length > 0) && (
+          {(!showSpecialEvent && !isFocusMode && !isAfterJan22 && (todaysTeams.length > 0 || tomorrowTeams.length > 0)) && (
             <section className="space-y-3 animate-in fade-in slide-in-from-top-4">
               <div className="h-8 px-3 flex items-center bg-primary/10 border-l-2 border-primary">
                 <h2 className="text-[10pt] font-black text-primary uppercase tracking-tight">Predict Today&apos;s Teams</h2>
@@ -152,11 +169,19 @@ export function HomeClient({
             </section>
           )}
 
-          <section className="space-y-3">
-            <div className="h-8 px-3 flex items-center bg-muted border-l-2 border-muted-foreground/30">
+          <section className="space-y-3 relative">
+             {isFocusMode && (
+                <div className="absolute -top-12 left-0 w-full flex items-center justify-center animate-bounce z-10">
+                   <div className="flex items-center gap-2 text-primary font-black uppercase text-sm bg-background/80 px-4 py-2 rounded-full border border-primary/20 backdrop-blur-sm shadow-[0_0_20px_rgba(253,83,96,0.3)]">
+                      <span>Predict your favorite teams</span>
+                      <ArrowDown className="h-4 w-4" />
+                   </div>
+                </div>
+             )}
+            <div className={cn("h-8 px-3 flex items-center bg-muted border-l-2 border-muted-foreground/30 transition-opacity duration-500", isFocusMode ? "opacity-100" : "opacity-100")}>
               <h2 className="text-[10pt] font-black text-muted-foreground uppercase tracking-tight">Predict All Teams</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-border border border-border">
+            <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-border border border-border transition-all duration-500", isFocusMode && "ring-2 ring-primary ring-offset-2 ring-offset-background shadow-[0_0_50px_-10px_rgba(253,83,96,0.2)]")}>
               <RegionColumn
                 region="Americas"
                 teams={TEAMS}
@@ -198,7 +223,7 @@ export function HomeClient({
         </div>
       </div>
 
-      <footer className="p-4 border-t border-white/5 bg-black/20 text-center font-mono text-[10pt] text-muted-foreground">
+      <footer className={cn("p-4 border-t border-white/5 bg-black/20 text-center font-mono text-[10pt] text-muted-foreground transition-opacity duration-500", isFocusMode ? "opacity-20" : "opacity-100")}>
         EST. 2026 // VALORANT ESPORTS TIME CAPSULE // ALL DATA ENCRYPTED UNTIL END OF SEASON
       </footer>
 

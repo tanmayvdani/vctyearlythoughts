@@ -76,10 +76,49 @@ export const predictions = sqliteTable("prediction", {
   masters2Placement: text("masters2Placement"),
   championsPlacement: text("championsPlacement"),
   rosterMoves: text("rosterMoves"),
+  voteScore: integer("voteScore").notNull().default(0),
+  commentCount: integer("commentCount").notNull().default(0),
+  slug: text("slug"),
 }, (table) => ({
   userIdIdx: index("user_id_idx").on(table.userId),
   teamIdIdx: index("team_id_idx").on(table.teamId),
   publicTimeIdx: index("public_time_idx").on(table.isPublic, table.timestamp),
+}))
+
+export const comments = sqliteTable("comment", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId").notNull(),
+  userName: text("userName").notNull(),
+  userImage: text("userImage"),
+  predictionId: text("predictionId")
+    .notNull()
+    .references(() => predictions.id, { onDelete: "cascade" }),
+  parentId: text("parentId"), // Self-reference for threading
+  content: text("content").notNull(),
+  voteScore: integer("voteScore").notNull().default(0),
+  createdAt: integer("createdAt", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
+  updatedAt: integer("updatedAt", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
+}, (table) => ({
+  predictionIdx: index("comment_prediction_idx").on(table.predictionId),
+  parentIdx: index("comment_parent_idx").on(table.parentId),
+}))
+
+export const votes = sqliteTable("vote", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId").notNull(),
+  predictionId: text("predictionId")
+    .references(() => predictions.id, { onDelete: "cascade" }),
+  commentId: text("commentId")
+    .references(() => comments.id, { onDelete: "cascade" }),
+  value: integer("value").notNull(), // 1 for upvote, -1 for downvote
+  createdAt: integer("createdAt", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
+}, (table) => ({
+  userPredictionUnique: uniqueIndex("user_prediction_vote_unique").on(table.userId, table.predictionId),
+  userCommentUnique: uniqueIndex("user_comment_vote_unique").on(table.userId, table.commentId),
 }))
 
 export const otpRequests = sqliteTable("otp_request", {

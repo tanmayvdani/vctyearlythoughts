@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { getDb } from "@/lib/db"
-import { predictions } from "@/lib/schema"
-import { count, desc, eq, and, inArray, or } from "drizzle-orm"
+import { predictions, votes } from "@/lib/schema"
+import { count, desc, eq, and, inArray, or, sql } from "drizzle-orm"
 import { FeedList } from "@/components/feed-list"
 import { FeedFilters } from "@/components/feed-filters"
 import { PaginationControls } from "@/components/pagination-controls"
@@ -31,32 +31,27 @@ export default async function FeedPage({
 
   const conditions = [eq(predictions.isPublic, true)]
 
+  // ... rest of filters logic ...
   // Combine explicitly selected teams + teams from selected regions
   let allowedTeamIds: string[] = []
   
-  // 1. Add explicitly selected teams
   if (teamFilters.length > 0 && !teamFilters.includes("all")) {
     allowedTeamIds.push(...teamFilters)
   }
 
-  // 2. Add teams from selected regions
   if (regionFilters.length > 0 && !regionFilters.includes("all")) {
     const regionTeams = TEAMS.filter((t) => regionFilters.includes(t.region)).map((t) => t.id)
     allowedTeamIds.push(...regionTeams)
   }
 
-  // Deduplicate
   allowedTeamIds = Array.from(new Set(allowedTeamIds))
 
-  // Apply Filter if we have any constraints
-  // If "all" was selected or no filters provided, allowedTeamIds might be empty but we only filter if filters exist
   const hasFilters = (teamFilters.length > 0 && !teamFilters.includes("all")) || (regionFilters.length > 0 && !regionFilters.includes("all"))
 
   if (hasFilters) {
      if (allowedTeamIds.length > 0) {
         conditions.push(inArray(predictions.teamId, allowedTeamIds))
      } else {
-        // User selected a filter combo yielding no teams (e.g. empty region?) - unlikely given static data
         conditions.push(eq(predictions.id, "impossible_id"))
      }
   }
@@ -64,8 +59,20 @@ export default async function FeedPage({
   const filters = and(...conditions)
   const offset = (page - 1) * PAGE_SIZE
 
-  // Fetch real public predictions from DB with pagination and total count for navigation
   const db = getDb()
+  
+  // Fetch user votes if logged in
+  const userVotes: Record<string, number> = {}
+  if (session?.user?.id) {
+    const votesData = await db.select()
+      .from(votes)
+      .where(and(eq(votes.userId, session.user.id), sql`predictionId IS NOT NULL`))
+    
+    votesData.forEach(v => {
+      if (v.predictionId) userVotes[v.predictionId] = v.value
+    })
+  }
+
   const results = await Promise.allSettled([
     db
       .select()
@@ -109,7 +116,7 @@ export default async function FeedPage({
 
           <FeedFilters />
 
-          <FeedList items={feedItems} currentUserId={session?.user?.id} />
+          <FeedList items={feedItems} currentUserId={session?.user?.id} userVotes={userVotes} />
 
           <PaginationControls 
             currentPage={page}

@@ -42,6 +42,7 @@ export default async function Home() {
       todaysTeams={todaysTeams} 
       tomorrowTeams={tomorrowTeams}
       daysUntilStart={daysUntilStart}
+      isLoggedIn={!!session?.user}
     />
   )
 }

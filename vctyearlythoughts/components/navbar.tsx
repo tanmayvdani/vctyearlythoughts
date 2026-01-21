@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/components/auth-provider"
-import { LogOut, User } from "lucide-react"
+import { LogOut, User, Home, Bookmark, Globe } from "lucide-react"
 import Image from "next/image"
 
 export function Navbar() {
@@ -12,9 +12,9 @@ export function Navbar() {
   const { user, logout } = useAuth()
 
   const navItems = [
-    { label: "DASHBOARD", href: "/" },
-    { label: "MY FEED", href: "/my-feed" },
-    { label: "PUBLIC FEED", href: "/feed" },
+    { label: "DASHBOARD", href: "/", icon: Home },
+    { label: "MY FEED", href: "/my-feed", icon: Bookmark },
+    { label: "PUBLIC FEED", href: "/feed", icon: Globe },
   ]
 
   return (
@@ -33,20 +33,24 @@ export function Navbar() {
           </Link>
 
           <div className="flex items-center">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "px-4 h-10 flex items-center text-[10pt] font-bold tracking-tight transition-colors border-b-2",
-                  pathname === item.href
-                    ? "text-primary border-primary bg-white/[0.03]"
-                    : "text-muted-foreground border-transparent hover:text-foreground hover:bg-white/[0.02]",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const Icon = item.icon
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "px-4 h-10 flex items-center gap-2 text-[10pt] font-bold tracking-tight transition-colors border-b-2",
+                    pathname === item.href
+                      ? "text-primary border-primary bg-white/[0.03]"
+                      : "text-muted-foreground border-transparent hover:text-foreground hover:bg-white/[0.02]",
+                  )}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  {item.label}
+                </Link>
+              )
+            })}
           </div>
         </div>
 

@@ -305,6 +305,13 @@ export async function getUserPredictions() {
 
 
 
+function generateSlug(username: string, teamTag: string) {
+  const cleanUser = username.toLowerCase().replace(/[^a-z0-9]/g, '-')
+  const cleanTeam = teamTag.toLowerCase().replace(/[^a-z0-9]/g, '-')
+  const random = Math.random().toString(36).substring(2, 6)
+  return `${cleanUser}-predicts-${cleanTeam}-${random}`
+}
+
 export async function submitPrediction(formData: FormData) {
   const session = await auth()
   const cookieStore = await cookies()
@@ -375,6 +382,8 @@ export async function submitPrediction(formData: FormData) {
     userName = "Guest"
   }
 
+  const slug = generateSlug(userName, teamTag || "team")
+
   const db = getDb()
   await db.insert(predictions).values({
     teamId,
@@ -392,6 +401,7 @@ export async function submitPrediction(formData: FormData) {
     masters2Placement: masters2Placement || null,
     championsPlacement: championsPlacement || null,
     rosterMoves: rosterMoves || null,
+    slug,
   })
 
   revalidatePath("/")

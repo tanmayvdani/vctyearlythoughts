@@ -1,7 +1,8 @@
 import { drizzle } from "drizzle-orm/libsql"
 import { createClient, type Client } from "@libsql/client"
+import * as schema from "./schema"
 
-let _db: ReturnType<typeof drizzle> | undefined
+let _db: ReturnType<typeof drizzle<typeof schema>> | undefined
 let _client: Client | undefined
 
 export function getDb() {
@@ -18,7 +19,7 @@ export function getDb() {
   }
 
   _client = createClient({ url, authToken })
-  _db = drizzle(_client)
+  _db = drizzle(_client, { schema })
   return _db
 }
 
