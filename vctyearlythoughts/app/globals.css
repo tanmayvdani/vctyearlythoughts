@@ -144,6 +144,17 @@
   .vct-red-gradient {
     @apply bg-gradient-to-r from-primary to-primary/80;
   }
+  
+  .placement-gold {
+    @apply bg-gradient-to-br from-[#FFD700] via-[#FDB931] to-[#9E7E1C] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(253,185,49,0.3)];
+  }
+  .placement-silver {
+    @apply bg-gradient-to-br from-[#E6E6E6] via-[#A6A6A6] to-[#737373] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(166,166,166,0.3)];
+  }
+  .placement-bronze {
+    @apply bg-gradient-to-br from-[#CD7F32] via-[#A0522D] to-[#8B4513] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(160,82,45,0.3)];
+  }
+
   /* Zebra striping for lists */
   .zebra-row:nth-child(even) {
     @apply bg-white/[0.02];

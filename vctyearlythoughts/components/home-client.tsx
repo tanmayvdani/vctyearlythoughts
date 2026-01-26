@@ -14,6 +14,8 @@ import { SpecialEventCTA } from "@/components/special-event-cta"
 import { isGlobalUnlockActive } from "@/lib/vct-utils"
 import { useSearchParams } from "next/navigation"
 import { ArrowDown } from "lucide-react"
+import { useEffect, useRef } from "react"
+import { toast } from "sonner"
 
 interface HomeClientProps {
   initialSubscriptions: string[]
@@ -40,12 +42,51 @@ export function HomeClient({
   const [subscribedTeams, setSubscribedTeams] = useState<string[]>(initialSubscriptions)
   const [subscribedRegions, setSubscribedRegions] = useState<string[]>(initialRegionSubscriptions)
   const [isInfoExpanded, setIsInfoExpanded] = useState(false)
+  const hasResumed = useRef(false)
   
   const searchParams = useSearchParams()
   const isFocusMode = searchParams.get("action") === "predict-any" && !isLoggedIn
 
   const showSpecialEvent = isGlobalUnlockActive() && !isLoggedIn
   const isAfterJan22 = new Date() >= new Date("2026-01-22T00:00:00.000Z")
+
+  // Check for pending prediction resumption
+  useEffect(() => {
+    if (isLoggedIn && !hasResumed.current) {
+      const pendingStr = localStorage.getItem("pending_prediction")
+      if (pendingStr) {
+        try {
+          const pending = JSON.parse(pendingStr)
+          // check if within 30 mins
+          if (Date.now() - pending.timestamp < 30 * 60 * 1000) {
+            // Find team
+            const team = [...todaysTeams, ...tomorrowTeams, ...TEAMS].find(t => t.id === pending.teamId)
+            
+            if (team) {
+              // Open modal
+              setSelectedTeam(team)
+              // Check if there is an existing prediction (likely not if they just signed up, but good to check)
+              const existingPrediction = initialPredictions.find(p => p.teamId === team.id)
+              setSelectedPrediction(existingPrediction || null)
+              
+              setIsModalOpen(true)
+              toast.info("Resuming your prediction draft")
+              
+              // Clear pending flag
+              localStorage.removeItem("pending_prediction")
+              hasResumed.current = true
+            }
+          } else {
+            // Expired
+            localStorage.removeItem("pending_prediction")
+          }
+        } catch (e) {
+          console.error("Failed to parse pending prediction", e)
+          localStorage.removeItem("pending_prediction")
+        }
+      }
+    }
+  }, [isLoggedIn, todaysTeams, tomorrowTeams, initialPredictions])
 
   const availableTodayCount = todaysTeams.length
   const seasonSummary = daysUntilStart > 0

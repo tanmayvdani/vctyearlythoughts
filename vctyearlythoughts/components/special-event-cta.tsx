@@ -33,7 +33,7 @@ const SUBHEADINGS = [
 
 import { isGlobalUnlockActive } from "@/lib/vct-utils"
 
-const GLOBAL_UNLOCK_END = new Date("2026-01-23T00:00:00.000Z")
+const GLOBAL_UNLOCK_END = new Date("2026-01-28T17:00:00.000Z")
 
 export function SpecialEventCTA() {
   const [timeLeft, setTimeLeft] = useState<string>("24:00:00")
@@ -127,9 +127,9 @@ export function SpecialEventCTA() {
         {/* Main Title with Glitch Effect */}
         <div className="relative">
           <h1 className="text-5xl font-black italic tracking-tighter text-white md:text-7xl lg:text-8xl">
-            <span className={cn("block transform transition-transform duration-75", glitchIndex === 1 ? "translate-x-1 opacity-80" : "")}>
-              PRE-SEASON
-            </span>
+              <span className={cn("block transform transition-transform duration-75", glitchIndex === 1 ? "translate-x-1 opacity-80" : "")}>
+                FIRST IMPRESSIONS
+              </span>
             <span className={cn("block text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary transform transition-transform duration-75", glitchIndex === 2 ? "-translate-x-1" : "")}>
               UNLOCK
             </span>

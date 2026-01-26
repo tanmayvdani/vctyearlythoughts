@@ -1,11 +1,10 @@
 import { KICKOFF_DATES, LOCK_DATES, type Region, type Team } from "./teams"
 
-// Global Unlock Event: Jan 22 2026 00:00 GMT to Jan 23 2026 00:00 GMT
-const GLOBAL_UNLOCK_START = new Date("2026-01-22T00:00:00.000Z")
-const GLOBAL_UNLOCK_END = new Date("2026-01-23T00:00:00.000Z")
+// Global Unlock Event: Jan 26 2026 15:00 GMT to Jan 28 2026 17:00 GMT
+const GLOBAL_UNLOCK_START = new Date("2026-01-26T15:00:00.000Z")
+const GLOBAL_UNLOCK_END = new Date("2026-01-28T17:00:00.000Z")
 
 export function isGlobalUnlockActive(mockDate?: Date) {
-  return true // DEBUG: Forcing event active
   const now = mockDate || new Date()
   return now >= GLOBAL_UNLOCK_START && now < GLOBAL_UNLOCK_END
 }

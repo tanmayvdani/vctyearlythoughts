@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { MessageSquare, ArrowBigUp, ArrowBigDown, Share2, Reply, Shield, Clock, Eye, Pencil, Trash2, ChevronDown } from "lucide-react"
+import { PlacementText } from "@/components/placement-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
@@ -175,16 +176,16 @@ export function PredictionCard({
             <div className={cn("grid grid-cols-2 gap-x-4 gap-y-2 text-[10pt] font-mono text-muted-foreground border-t border-white/5 pt-3 transition-all duration-300", isHidden && "blur-sm select-none opacity-50")}>
                 {(prediction.kickoffPlacement || prediction.stage1Placement || prediction.stage2Placement) && (
                     <div className="col-span-2 flex flex-wrap gap-x-4 gap-y-1">
-                        {prediction.kickoffPlacement && <div><span className="text-primary/70 font-bold">KICKOFF:</span> {prediction.kickoffPlacement}</div>}
-                        {prediction.stage1Placement && <div><span className="text-primary/70 font-bold">STAGE 1:</span> {prediction.stage1Placement}</div>}
-                        {prediction.stage2Placement && <div><span className="text-primary/70 font-bold">STAGE 2:</span> {prediction.stage2Placement}</div>}
+                        {prediction.kickoffPlacement && <div><span className="text-primary/70 font-bold">KICKOFF:</span> <PlacementText value={prediction.kickoffPlacement} /></div>}
+                        {prediction.stage1Placement && <div><span className="text-primary/70 font-bold">STAGE 1:</span> <PlacementText value={prediction.stage1Placement} /></div>}
+                        {prediction.stage2Placement && <div><span className="text-primary/70 font-bold">STAGE 2:</span> <PlacementText value={prediction.stage2Placement} /></div>}
                     </div>
                 )}
                 {(prediction.masters1Placement || prediction.masters2Placement || prediction.championsPlacement) && (
                     <div className="col-span-2 flex flex-wrap gap-x-4 gap-y-1 border-t border-white/5 pt-1">
-                        {prediction.masters1Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> SANTIAGO:</span>{prediction.masters1Placement}</div>}
-                        {prediction.masters2Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> LONDON:</span>{prediction.masters2Placement}</div>}
-                        {prediction.championsPlacement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} className="mr-1" /> SHANGHAI:</span>{prediction.championsPlacement}</div>}
+                        {prediction.masters1Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> SANTIAGO:</span><PlacementText value={prediction.masters1Placement} /></div>}
+                        {prediction.masters2Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> LONDON:</span><PlacementText value={prediction.masters2Placement} /></div>}
+                        {prediction.championsPlacement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} className="mr-1" /> SHANGHAI:</span><PlacementText value={prediction.championsPlacement} /></div>}
                     </div>
                 )}
                 {prediction.rosterMoves && (

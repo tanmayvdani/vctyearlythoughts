@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { X, Send, Lock, Plus, Minus, Users, Repeat, ExternalLink } from "lucide-react"
+import { PlacementText } from "@/components/placement-text"
 import { useAuth } from "@/components/auth-provider"
 import { submitPrediction, getTeamData, updatePredictionFull } from "@/app/actions"
 import Image from "next/image"
@@ -499,16 +500,20 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                         const left = showTransactions && p.status === "Left";
                         return (
                           <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : left ? "bg-red-500/10 border-red-500/30 opacity-70" : "bg-muted/30 border-border/50"}`}>
-                            <div className="flex items-center justify-between gap-1">
-                              <span className={`text-[10pt] font-black leading-none ${joining ? "text-green-500" : left ? "text-red-500" : ""}`}>{p.alias}</span>
-                              {joining && <Plus className="w-3 h-3 text-green-500" />}
-                              {left && (
-                                <div className="bg-red-500 px-1 py-0.5 rounded-sm flex items-center justify-center">
-                                  <Minus className="w-3 h-3 text-white" />
-                                </div>
-                              )}
-                            </div>
-                            <span className={`text-[10pt] truncate ${left ? "text-red-500/70" : "text-muted-foreground"}`}>{p.name || (left ? "Departed" : "-")}</span>
+                             <div className="flex items-center justify-between gap-1">
+                               <span className={`text-[10pt] font-black leading-none ${joining ? "text-green-500" : left ? "text-red-500" : ""}`}>{p.alias}</span>
+                               <div className="flex items-center gap-1">
+                                 <span className={`text-[8pt] font-medium uppercase ${left ? "text-red-500/70" : "text-muted-foreground"}`}>
+                                   {left ? "Departed" : (p.role.toLowerCase().includes("sub") || p.role.toLowerCase().includes("stand-in") ? "Sub" : "")}
+                                 </span>
+                                 {joining && <Plus className="w-3 h-3 text-green-500" />}
+                                 {left && (
+                                   <div className="bg-red-500 px-1 py-0.5 rounded-sm flex items-center justify-center">
+                                     <Minus className="w-3 h-3 text-white" />
+                                   </div>
+                                 )}
+                               </div>
+                             </div>
                           </div>
                         );
                       }) : <p className="text-[10pt] text-muted-foreground italic">No players found</p>}
@@ -530,17 +535,21 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                         const left = showTransactions && c.status === "Left";
                         return (
                           <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : left ? "bg-red-500/10 border-red-500/30 opacity-70" : "bg-muted/30 border-border/50"}`}>
-                            <div className="flex items-center justify-between gap-1">
-                              <span className={`text-[10pt] font-bold leading-none ${joining ? "text-green-500" : left ? "text-red-500" : ""}`}>{c.alias}</span>
-                              {joining && <Plus className="w-3 h-3 text-green-500" />}
-                              {left && (
-                                <div className="bg-red-500 px-1 py-0.5 rounded-sm flex items-center justify-center">
-                                  <Minus className="w-3 h-3 text-white" />
-                                </div>
-                              )}
-                            </div>
-                            <span className={`text-[10pt] truncate ${left ? "text-red-500/70" : "text-muted-foreground"}`}>{c.role}</span>
-                          </div>
+                             <div className="flex items-center justify-between gap-1">
+                               <span className={`text-[10pt] font-bold leading-none ${joining ? "text-green-500" : left ? "text-red-500" : ""}`}>{c.alias}</span>
+                               <div className="flex items-center gap-1">
+                                 <span className={`text-[8pt] font-medium uppercase ${left ? "text-red-500/70" : "text-muted-foreground"}`}>
+                                   {left ? "Departed" : c.role}
+                                 </span>
+                                 {joining && <Plus className="w-3 h-3 text-green-500" />}
+                                 {left && (
+                                   <div className="bg-red-500 px-1 py-0.5 rounded-sm flex items-center justify-center">
+                                     <Minus className="w-3 h-3 text-white" />
+                                   </div>
+                                 )}
+                               </div>
+                             </div>
+                           </div>
                         );
                       }) : <p className="text-[10pt] text-muted-foreground italic">No staff found</p>}
                     </div>
@@ -563,11 +572,15 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                     </a>
                     <Select value={kickoffPlacement} onValueChange={setKickoffPlacement}>
                       <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
-                        <SelectValue placeholder="-" />
+                        <SelectValue placeholder="-">
+                          {kickoffPlacement ? <PlacementText value={kickoffPlacement} /> : null}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border rounded-none">
                         {placementOptionsKickoff.map(opt => (
-                           <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
+                           <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">
+                             <PlacementText value={opt} />
+                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -576,11 +589,15 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                     <label className="text-[10pt] font-bold uppercase text-muted-foreground">Stage 1</label>
                     <Select value={stage1Placement} onValueChange={setStage1Placement}>
                       <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
-                        <SelectValue placeholder="-" />
+                        <SelectValue placeholder="-">
+                          {stage1Placement ? <PlacementText value={stage1Placement} /> : null}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border rounded-none">
                         {placementOptionsStages.map(opt => (
-                           <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
+                           <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">
+                             <PlacementText value={opt} />
+                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -589,11 +606,15 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                     <label className="text-[10pt] font-bold uppercase text-muted-foreground">Stage 2</label>
                     <Select value={stage2Placement} onValueChange={setStage2Placement}>
                       <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
-                        <SelectValue placeholder="-" />
+                        <SelectValue placeholder="-">
+                          {stage2Placement ? <PlacementText value={stage2Placement} /> : null}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border rounded-none">
                           {placementOptionsStages.map(opt => (
-                            <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
+                            <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">
+                              <PlacementText value={opt} />
+                            </SelectItem>
                           ))}
                       </SelectContent>
                     </Select>
@@ -605,46 +626,58 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                     {masters1Qualified ? (
                       <div className="space-y-1.5">
                          <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> SANTIAGO:</label>
-                         <Select value={masters1Placement} onValueChange={setMasters1Placement}>
-                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
-                             <SelectValue placeholder="-" />
-                           </SelectTrigger>
-                           <SelectContent className="bg-card border-border rounded-none">
-                             {placementOptions12.map(opt => (
-                                <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
-                             ))}
-                           </SelectContent>
-                         </Select>
+                        <Select value={masters1Placement} onValueChange={setMasters1Placement}>
+                          <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
+                            <SelectValue placeholder="-">
+                              {masters1Placement ? <PlacementText value={masters1Placement} /> : null}
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent className="bg-card border-border rounded-none">
+                            {placementOptions12.map(opt => (
+                               <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">
+                                 <PlacementText value={opt} />
+                               </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                     ) : <div />}
                     {masters2Qualified ? (
                       <div className="space-y-1.5">
                          <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} /> LONDON:</label>
-                         <Select value={masters2Placement} onValueChange={setMasters2Placement}>
-                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
-                             <SelectValue placeholder="-" />
-                           </SelectTrigger>
-                           <SelectContent className="bg-card border-border rounded-none">
-                             {placementOptions12.map(opt => (
-                                <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
-                             ))}
-                           </SelectContent>
-                         </Select>
+                        <Select value={masters2Placement} onValueChange={setMasters2Placement}>
+                          <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
+                            <SelectValue placeholder="-">
+                              {masters2Placement ? <PlacementText value={masters2Placement} /> : null}
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent className="bg-card border-border rounded-none">
+                            {placementOptions12.map(opt => (
+                               <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">
+                                 <PlacementText value={opt} />
+                               </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                     ) : <div />}
                     {championsQualified ? (
                       <div className="space-y-1.5">
                          <label className="text-[10pt] font-bold uppercase text-primary flex items-center gap-1"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} /> SHANGHAI:</label>
-                         <Select value={championsPlacement} onValueChange={setChampionsPlacement}>
-                           <SelectTrigger className="h-8 bg-primary/5 border-primary/20 rounded-none text-[10pt] font-bold uppercase">
-                             <SelectValue placeholder="-" />
-                           </SelectTrigger>
-                           <SelectContent className="bg-card border-border rounded-none">
-                             {placementOptions16.map(opt => (
-                                <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">{opt}</SelectItem>
-                             ))}
-                           </SelectContent>
-                         </Select>
+                        <Select value={championsPlacement} onValueChange={setChampionsPlacement}>
+                          <SelectTrigger className="h-8 bg-input/50 border-border rounded-none text-[10pt] font-bold uppercase">
+                            <SelectValue placeholder="-">
+                              {championsPlacement ? <PlacementText value={championsPlacement} /> : null}
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent className="bg-card border-border rounded-none">
+                            {placementOptions16.map(opt => (
+                               <SelectItem key={opt} value={opt} className="text-[10pt] font-bold uppercase">
+                                 <PlacementText value={opt} />
+                               </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                     ) : <div />}
                  </div>
@@ -783,7 +816,15 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
         confirmText="Sign In"
         cancelText="Cancel"
         alternativeText="Post Anonymously (Guest)"
-        onConfirm={() => router.push("/login")}
+        onConfirm={() => {
+          if (team) {
+            localStorage.setItem("pending_prediction", JSON.stringify({ 
+              teamId: team.id,
+              timestamp: Date.now() 
+            }))
+          }
+          router.push("/login")
+        }}
         onCancel={() => setShowLoginDialog(false)}
         onAlternative={handleAnonymousSubmit}
       />

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Clock, Eye, Pencil, Trash2, ChevronDown } from "lucide-react"
+import { PlacementText } from "@/components/placement-text"
 import { cn } from "@/lib/utils"
 import { deletePrediction } from "@/app/actions"
 import { toast } from "sonner"
@@ -177,16 +178,16 @@ export function MyFeedList({ items }: { items: FeedItem[] }) {
                 <div className={cn("grid grid-cols-2 gap-x-4 gap-y-2 text-[10pt] font-mono text-muted-foreground border-t border-white/5 pt-3 transition-all duration-300", !isRevealed && "blur-sm select-none opacity-50")}>
                     {(post.kickoffPlacement || post.stage1Placement || post.stage2Placement) && (
                         <div className="col-span-2 flex flex-wrap gap-x-4 gap-y-1">
-                            {post.kickoffPlacement && <div><span className="text-primary/70 font-bold">KICKOFF:</span> {post.kickoffPlacement}</div>}
-                            {post.stage1Placement && <div><span className="text-primary/70 font-bold">STAGE 1:</span> {post.stage1Placement}</div>}
-                            {post.stage2Placement && <div><span className="text-primary/70 font-bold">STAGE 2:</span> {post.stage2Placement}</div>}
+                            {post.kickoffPlacement && <div><span className="text-primary/70 font-bold">KICKOFF:</span> <PlacementText value={post.kickoffPlacement} /></div>}
+                            {post.stage1Placement && <div><span className="text-primary/70 font-bold">STAGE 1:</span> <PlacementText value={post.stage1Placement} /></div>}
+                            {post.stage2Placement && <div><span className="text-primary/70 font-bold">STAGE 2:</span> <PlacementText value={post.stage2Placement} /></div>}
                         </div>
                     )}
                     {(post.masters1Placement || post.masters2Placement || post.championsPlacement) && (
                         <div className="col-span-2 flex flex-wrap gap-x-4 gap-y-1 border-t border-white/5 pt-1">
-                            {post.masters1Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> SANTIAGO:</span>{post.masters1Placement}</div>}
-                            {post.masters2Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> LONDON:</span>{post.masters2Placement}</div>}
-                            {post.championsPlacement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} className="mr-1" /> SHANGHAI:</span>{post.championsPlacement}</div>}
+                            {post.masters1Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> SANTIAGO:</span><PlacementText value={post.masters1Placement} /></div>}
+                            {post.masters2Placement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/masters.png" alt="Masters" width={14} height={14} className="mr-1" /> LONDON:</span><PlacementText value={post.masters2Placement} /></div>}
+                            {post.championsPlacement && <div className="flex items-center gap-1.5"><span className="text-red-500/80 font-bold inline-flex items-center"><Image src="/logos/champions.png" alt="Champions" width={14} height={14} className="mr-1" /> SHANGHAI:</span><PlacementText value={post.championsPlacement} /></div>}
                         </div>
                     )}
                     {post.rosterMoves && (
