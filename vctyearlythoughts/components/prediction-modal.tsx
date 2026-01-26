@@ -4,10 +4,12 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import type { Team } from "@/lib/teams"
+import { TEAMS } from "@/lib/teams"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { X, Send, Lock, Plus, Minus, Users, Repeat, ExternalLink } from "lucide-react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { X, Send, Lock, Plus, Minus, Users, Repeat, ExternalLink, Smile } from "lucide-react"
 import { PlacementText } from "@/components/placement-text"
 import { useAuth } from "@/components/auth-provider"
 import { submitPrediction, getTeamData, updatePredictionFull } from "@/app/actions"
@@ -16,6 +18,9 @@ import { useRouter } from "next/navigation"
 import { ConfirmDialog } from "@/components/confirm-dialog"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 
 interface PredictionModalProps {
   team: Team | null
@@ -57,9 +62,11 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
   const [transactions, setTransactions] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
 
   const [tourStep, setTourStep] = useState(0)
   const [hasStartedTyping, setHasStartedTyping] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // --- REFS FOR DYNAMIC POSITIONING ---
   const modalContainerRef = useRef<HTMLDivElement>(null)
@@ -216,6 +223,30 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
     }
     if (tourStep === 4) {
       setTourStep(5)
+    }
+  }
+
+  const insertTeamEmoji = (teamId: string) => {
+    const emojiCode = `![${teamId.toUpperCase()}](/logos/${teamId}.png)`
+    
+    if (textareaRef.current) {
+      const startPos = textareaRef.current.selectionStart
+      const endPos = textareaRef.current.selectionEnd
+      const newText = thought.substring(0, startPos) + emojiCode + thought.substring(endPos)
+      
+      setThought(newText)
+      setHasStartedTyping(true)
+      
+      // We need to wait for React to update the state and re-render
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.focus()
+          textareaRef.current.setSelectionRange(startPos + emojiCode.length, startPos + emojiCode.length)
+        }
+      }, 0)
+    } else {
+      setThought(prev => prev + emojiCode)
+      setHasStartedTyping(true)
     }
   }
 
@@ -697,28 +728,118 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                 </div>
 
                 <div id="season-thoughts-textarea" className={cn("space-y-1.5 relative transition-all duration-300", tourStep === 4 && isTourActive && !hasStartedTyping && "ring-2 ring-primary ring-offset-2 ring-offset-card")}>
-                 <div className="flex items-center justify-between">
+                   <div className="flex items-center justify-between">
                    <label className="text-[10pt] font-bold uppercase text-muted-foreground">Season Thoughts</label>
-                   <span className={`text-[9pt] font-mono transition-colors ${
-                     isOverLimit
-                       ? "text-primary font-bold"
-                       : thought.length > MAX_CHARS * 0.9
-                         ? "text-yellow-500"
-                         : "text-muted-foreground"
-                   }`}>
-                     {thought.length}/{MAX_CHARS}
-                   </span>
+                   <div className="flex items-center gap-4">
+                     {/* Emoji Selector */}
+                     <Popover>
+                       <PopoverTrigger asChild>
+                         <button 
+                           type="button"
+                           className="text-muted-foreground hover:text-primary transition-colors flex items-center justify-center"
+                           title="Insert Team Logo"
+                         >
+                           <Smile className="w-4 h-4" />
+                         </button>
+                       </PopoverTrigger>
+                       <PopoverContent className="w-80 p-0 bg-card border-border" align="end">
+                         <div className="flex flex-col max-h-[300px]">
+                           <div className="p-2 border-b border-border bg-muted/30">
+                             <p className="text-[9pt] font-bold uppercase text-muted-foreground">Insert Team Logo</p>
+                           </div>
+                           <div className="overflow-y-auto p-2 custom-scrollbar">
+                             {["Americas", "EMEA", "Pacific", "China"].map((region) => (
+                               <div key={region} className="mb-3 last:mb-0">
+                                 <p className="text-[8pt] font-bold text-primary uppercase mb-1.5 px-1">{region}</p>
+                                 <div className="grid grid-cols-6 gap-1">
+                                   {TEAMS.filter(t => t.region === region).map(t => (
+                                     <button
+                                       key={t.id}
+                                       type="button"
+                                       onClick={() => insertTeamEmoji(t.id)}
+                                       className="w-full aspect-square flex items-center justify-center p-1 rounded-sm hover:bg-muted/50 border border-transparent hover:border-border transition-colors group"
+                                       title={t.name}
+                                     >
+                                       <Image 
+                                         src={`/logos/${t.id}.png`}
+                                         alt={t.tag}
+                                         width={24}
+                                         height={24}
+                                         className="object-contain w-full h-full group-hover:scale-110 transition-transform"
+                                       />
+                                     </button>
+                                   ))}
+                                 </div>
+                               </div>
+                             ))}
+                           </div>
+                         </div>
+                       </PopoverContent>
+                     </Popover>
+
+                     <div className="flex items-center space-x-2">
+                         <Checkbox 
+                           id="preview-mode" 
+                           checked={showPreview} 
+                           onCheckedChange={(checked) => setShowPreview(!!checked)}
+                           className="w-3.5 h-3.5 rounded-none border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                         />
+                         <label
+                           htmlFor="preview-mode"
+                           className="text-[9pt] font-bold uppercase text-muted-foreground cursor-pointer select-none"
+                         >
+                           Markdown Preview
+                         </label>
+                     </div>
+                     <span className={`text-[9pt] font-mono transition-colors ${
+                       isOverLimit
+                         ? "text-primary font-bold"
+                         : thought.length > MAX_CHARS * 0.9
+                           ? "text-yellow-500"
+                           : "text-muted-foreground"
+                     }`}>
+                       {thought.length}/{MAX_CHARS}
+                     </span>
+                   </div>
                  </div>
-                 <Textarea
-                   placeholder={`What will ${team.name} achieve in 2026?\n\nMarkdown supported: **bold**, *italic*, [links](url), etc.`}
-                   className={`min-h-[200px] bg-input/50 border-border rounded-none resize-y focus:border-primary/50 text-[10pt] leading-relaxed transition-colors ${
-                     isOverLimit ? "border-primary/50 focus:border-primary" : ""
-                   }`}
-                   value={thought}
-                   onChange={(e) => handleThoughtChange(e.target.value)}
-                   required
-                   style={{ fontFamily: 'inherit' }}
-                 />
+                 
+                 <div className="relative">
+                    {!showPreview ? (
+                      <Textarea
+                        ref={textareaRef}
+                        placeholder={`What will ${team.name} achieve in 2026?\n\nMarkdown supported: **bold**, *italic*, [links](url), etc.`}
+                        className={`min-h-[200px] bg-input/50 border-border rounded-none resize-y focus:border-primary/50 text-[10pt] leading-relaxed transition-colors ${
+                          isOverLimit ? "border-primary/50 focus:border-primary" : ""
+                        }`}
+                        value={thought}
+                        onChange={(e) => handleThoughtChange(e.target.value)}
+                        required
+                        style={{ fontFamily: 'inherit' }}
+                      />
+                    ) : (
+                      <div className="min-h-[200px] p-3 bg-muted/20 border border-border/50 text-[10pt] overflow-y-auto">
+                        {thought ? (
+                          <div className="prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-muted prose-pre:p-2 prose-pre:rounded-sm">
+                            <ReactMarkdown 
+                              remarkPlugins={[remarkGfm, remarkBreaks]}
+                                components={{
+                                  a: ({node, ...props}) => <a {...props} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer" />,
+                                  ul: ({node, ...props}) => <ul {...props} className="list-disc pl-4 space-y-1" />,
+                                  ol: ({node, ...props}) => <ol {...props} className="list-decimal pl-4 space-y-1" />,
+                                  blockquote: ({node, ...props}) => <blockquote {...props} className="border-l-2 border-primary/50 pl-4 italic text-muted-foreground" />,
+                                  img: ({node, ...props}) => <img {...props} className="inline-block h-6 w-auto object-contain align-middle mx-0.5 my-0.5" />
+                                }}
+                              >
+                                {thought}
+                              </ReactMarkdown>
+                            </div>
+                          ) : (
+                            <span className="italic font-mono uppercase text-xs text-muted-foreground">Nothing to preview</span>
+                          )}
+                        </div>
+                      )}
+                 </div>
+
                 {isOverLimit && (
                   <p className="text-[9pt] text-primary font-mono animate-in fade-in slide-in-from-top-1 duration-200">
                     ⚠ Your thought exceeds the {MAX_CHARS} character limit by {thought.length - MAX_CHARS} characters

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "12 Days to VCT | Valorant Esports Time Capsule",
+  title: "VCT Time capsule",
   description: "Record your 2026 VCT predictions. A time capsule for Valorant Esports fans.",
   generator: "v0.app",
   icons: {

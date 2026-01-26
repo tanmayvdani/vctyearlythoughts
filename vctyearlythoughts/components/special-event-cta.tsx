@@ -33,7 +33,7 @@ const SUBHEADINGS = [
 
 import { isGlobalUnlockActive } from "@/lib/vct-utils"
 
-const GLOBAL_UNLOCK_END = new Date("2026-01-28T17:00:00.000Z")
+const GLOBAL_UNLOCK_END = new Date("2026-01-27T15:00:00.000Z")
 
 export function SpecialEventCTA() {
   const [timeLeft, setTimeLeft] = useState<string>("24:00:00")

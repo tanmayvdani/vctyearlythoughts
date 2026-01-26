@@ -66,6 +66,15 @@ export function MarkdownContent({ content, className }: MarkdownContentProps) {
             </blockquote>
           ),
           
+          // Images - resized for inline logos
+          img: ({ src, alt }) => (
+            <img 
+              src={src} 
+              alt={alt} 
+              className="inline-block h-6 w-auto object-contain align-middle mx-0.5 my-0.5"
+            />
+          ),
+
           // Horizontal rule
           hr: () => <hr className="border-t border-border/30 my-3" />,
         }}
