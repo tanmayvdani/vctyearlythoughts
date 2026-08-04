@@ -76,6 +76,8 @@ export const predictions = sqliteTable("prediction", {
   masters2Placement: text("masters2Placement"),
   championsPlacement: text("championsPlacement"),
   rosterMoves: text("rosterMoves"),
+  title: text("title"),
+  powerRanking: text("powerRanking"),
   voteScore: integer("voteScore").notNull().default(0),
   commentCount: integer("commentCount").notNull().default(0),
   slug: text("slug"),
@@ -83,6 +85,7 @@ export const predictions = sqliteTable("prediction", {
   userIdIdx: index("user_id_idx").on(table.userId),
   teamIdIdx: index("team_id_idx").on(table.teamId),
   publicTimeIdx: index("public_time_idx").on(table.isPublic, table.timestamp),
+  slugIdx: uniqueIndex("prediction_slug_idx").on(table.slug),
 }))
 
 export const comments = sqliteTable("comment", {

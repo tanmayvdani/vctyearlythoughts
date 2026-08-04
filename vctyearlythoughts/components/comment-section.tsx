@@ -39,7 +39,7 @@ export function CommentSection({ predictionId, comments, currentUserId }: Commen
       await addComment(predictionId, newComment)
       setNewComment("")
       toast.success("Comment added")
-    } catch (error) {
+    } catch {
       toast.error("Failed to add comment")
     } finally {
       setIsSubmitting(false)
@@ -47,14 +47,14 @@ export function CommentSection({ predictionId, comments, currentUserId }: Commen
   }
 
   // Build comment tree
-  const commentMap = new Map()
+  const commentMap = new Map<string, Comment>()
   comments.forEach(c => commentMap.set(c.id, { ...c, replies: [] }))
-  const rootComments: any[] = []
+  const rootComments: Comment[] = []
   
   commentMap.forEach(c => {
     if (c.parentId) {
       const parent = commentMap.get(c.parentId)
-      if (parent) parent.replies.push(c)
+      if (parent) parent.replies?.push(c)
     } else {
       rootComments.push(c)
     }
@@ -105,7 +105,7 @@ export function CommentSection({ predictionId, comments, currentUserId }: Commen
   )
 }
 
-function CommentItem({ comment, predictionId, currentUserId, depth = 0 }: { comment: any, predictionId: string, currentUserId?: string, depth?: number }) {
+function CommentItem({ comment, predictionId, currentUserId, depth = 0 }: { comment: Comment, predictionId: string, currentUserId?: string, depth?: number }) {
   const [isReplying, setIsReplying] = useState(false)
   const [replyContent, setReplyContent] = useState("")
   const [vote, setVote] = useState(comment.userVote || 0)
@@ -189,7 +189,7 @@ function CommentItem({ comment, predictionId, currentUserId, depth = 0 }: { comm
         </div>
       </div>
 
-      {comment.replies?.map((reply: any) => (
+      {comment.replies?.map((reply: Comment) => (
         <CommentItem 
           key={reply.id} 
           comment={reply} 

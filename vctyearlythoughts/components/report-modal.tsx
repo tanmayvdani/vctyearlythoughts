@@ -20,7 +20,7 @@ interface ReportModalProps {
   onClose: () => void
 }
 
-export function ReportModal({ isOpen, username, postId, onClose }: ReportModalProps) {
+export function ReportModal({ isOpen, username, onClose }: ReportModalProps) {
   const [reason, setReason] = useState("")
   const [details, setDetails] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)

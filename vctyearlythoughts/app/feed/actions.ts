@@ -127,7 +127,7 @@ export async function addComment(predictionId: string, content: string, parentId
 
     revalidatePath("/feed")
     revalidatePath(`/feed/post/${prediction.slug}`)
-  } catch (error) {
+  } catch {
     throw new Error("Failed to add comment")
   }
 }

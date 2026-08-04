@@ -49,7 +49,6 @@ export function MyFeedList({ items }: { items: FeedItem[] }) {
   const [revealed, setRevealed] = useState<Record<string, boolean>>({})
   const [editingItem, setEditingItem] = useState<FeedItem | null>(null)
   const [deleteId, setDeleteId] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   const toggleReveal = (id: string) => {
@@ -71,15 +70,12 @@ export function MyFeedList({ items }: { items: FeedItem[] }) {
   const executeDelete = async () => {
     if (!deleteId) return
 
-    setLoading(true)
     try {
       await deletePrediction(deleteId)
       toast.success("Prediction deleted")
       setDeleteId(null)
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete prediction")
-    } finally {
-      setLoading(false)
     }
   }
 

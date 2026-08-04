@@ -21,7 +21,7 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [isEmailSent, setIsEmailSent] = useState(false)
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const router = useRouter()
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function LoginForm() {
       
       setIsEmailSent(true)
 
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong. Please try again.")
     } finally {
       setIsLoading(false)

@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import { cn } from '@/lib/utils'
+import Image from "next/image"
 
 interface MarkdownContentProps {
   content: string
@@ -67,13 +68,20 @@ export function MarkdownContent({ content, className }: MarkdownContentProps) {
           ),
           
           // Images - resized for inline logos
-          img: ({ src, alt }) => (
-            <img 
-              src={src} 
-              alt={alt} 
-              className="inline-block h-6 w-auto object-contain align-middle mx-0.5 my-0.5"
-            />
-          ),
+          img: ({ src, alt, width, height, ...props }) => {
+            if (typeof src !== "string") return null
+            return (
+              <Image 
+                src={src} 
+                alt={alt ?? ""} 
+                width={Number(width) || 24}
+                height={Number(height) || 24}
+                unoptimized
+                {...props}
+                className="inline-block h-6 w-auto object-contain align-middle mx-0.5 my-0.5"
+              />
+            )
+          },
 
           // Horizontal rule
           hr: () => <hr className="border-t border-border/30 my-3" />,

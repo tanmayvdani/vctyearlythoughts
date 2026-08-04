@@ -22,20 +22,16 @@ export function FeedList({ items, currentUserId, userVotes = {} }: FeedListProps
   // Edit/Delete State
   const [editingPost, setEditingPost] = useState<Prediction | null>(null)
   const [deleteId, setDeleteId] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
 
   const executeDelete = async () => {
     if (!deleteId) return
 
-    setLoading(true)
     try {
       await deletePrediction(deleteId)
       toast.success("Prediction deleted")
       setDeleteId(null)
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete prediction")
-    } finally {
-      setLoading(false)
     }
   }
 

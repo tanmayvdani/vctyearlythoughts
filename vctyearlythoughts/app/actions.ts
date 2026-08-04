@@ -149,7 +149,7 @@ export async function requestEmailChange(newEmail: string) {
       html,
       text: `Confirm Email Change\n\nPlease click the link below to confirm your email change:\n${confirmUrl}\n\nThis link will expire in 1 hour.\nIf you did not request this change, you can safely ignore this email.`,
     })
-  } catch (error) {
+  } catch {
     return { error: "Failed to send confirmation email" }
   }
 
@@ -567,3 +567,61 @@ export async function getTeamData(teamId: string) {
     transactions: team.transactions ? JSON.parse(team.transactions) : []
   }
 }
+
+export async function submitPowerRanking(data: {
+  title: string
+  powerRanking: string
+  thought?: string
+  isPublic: boolean
+  identity?: string
+}) {
+  const session = await auth()
+  const cookieStore = await cookies()
+
+  let userId = "guest"
+  let userName = "Anonymous"
+
+  if (session?.user) {
+    userId = session.user.id || session.user.email || "user"
+    if (data.identity === "username") userName = session.user.name || "User"
+    if (data.identity === "email") userName = session.user.email || "User"
+    if (data.identity === "anonymous") userName = "Anonymous"
+  } else {
+    const existingGuestId = cookieStore.get("vct_guest_id")
+    if (existingGuestId) {
+      userId = existingGuestId.value
+    } else {
+      userId = "guest_" + crypto.randomUUID()
+      cookieStore.set("vct_guest_id", userId, { 
+        maxAge: 60 * 60 * 24 * 365,
+        httpOnly: true,
+        path: '/'
+      })
+    }
+    userName = "Guest"
+  }
+
+  const slug = generateSlug(userName, "power-ranking")
+  const db = getDb()
+
+  await db.insert(predictions).values({
+    teamId: "power_ranking",
+    teamName: data.title || "Power Ranking",
+    teamTag: "RANK",
+    thought: data.thought || "My VCT Power Rankings",
+    userId,
+    userName,
+    timestamp: new Date().toISOString(),
+    isPublic: data.isPublic,
+    title: data.title || "Power Rankings",
+    powerRanking: data.powerRanking,
+    slug,
+  })
+
+  revalidatePath("/")
+  revalidatePath("/feed")
+  revalidatePath("/my-feed")
+  revalidatePath("/power-rankings")
+  return { success: true }
+}
+

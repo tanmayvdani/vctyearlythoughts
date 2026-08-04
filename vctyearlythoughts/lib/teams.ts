@@ -8,6 +8,24 @@ export interface Team {
   index: number // 1-12
 }
 
+// Parsed roster / transaction entries (stored as JSON text in the DB)
+export interface RosterMember {
+  alias: string
+  name?: string
+  role: string
+  status?: string
+}
+
+export interface RosterTransaction {
+  player: string
+  action: string
+}
+
+export type TeamWithRoster = Team & {
+  roster: RosterMember[]
+  transactions: RosterTransaction[]
+}
+
 export const KICKOFF_DATES: Record<Region, string> = {
   Americas: "2026-01-16",
   EMEA: "2026-01-20",

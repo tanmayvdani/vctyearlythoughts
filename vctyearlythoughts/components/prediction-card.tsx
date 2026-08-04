@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { MessageSquare, ArrowBigUp, ArrowBigDown, Share2, Reply, Shield, Clock, Eye, Pencil, Trash2, ChevronDown } from "lucide-react"
+import { MessageSquare, ArrowBigUp, ArrowBigDown, Reply, Shield, Clock, Eye, Pencil, Trash2, ChevronDown, Trophy } from "lucide-react"
 import { PlacementText } from "@/components/placement-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -10,9 +10,12 @@ import Link from "next/link"
 import { voteOnPrediction } from "@/app/feed/actions"
 import { toast } from "sonner"
 import { MarkdownContent } from "@/components/markdown-content"
+import { predictions } from "@/lib/schema"
+
+type Prediction = typeof predictions.$inferSelect
 
 interface PredictionCardProps {
-  prediction: any
+  prediction: Prediction
   currentUserId?: string
   initialVote?: number
   isOwnPost?: boolean
@@ -66,7 +69,7 @@ export function PredictionCard({
 
     try {
       await voteOnPrediction(prediction.id, newValue)
-    } catch (error) {
+    } catch {
       setVote(vote)
       setScore(score)
       toast.error("Failed to save vote")
@@ -112,18 +115,25 @@ export function PredictionCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 px-2 py-1 bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-[10pt] uppercase tracking-tighter">
-                <Image 
-                  src={`/logos/${prediction.teamId}.png`}
-                  alt={prediction.teamTag} 
-                  width={14} 
-                  height={14} 
-                  className="object-contain" 
-                />
-                {prediction.teamTag}
-              </div>
+              {prediction.powerRanking ? (
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 font-mono font-bold text-[10pt] uppercase tracking-tighter rounded-sm">
+                  <Trophy className="w-3.5 h-3.5" />
+                  POWER RANKINGS
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-[10pt] uppercase tracking-tighter">
+                  <Image 
+                    src={`/logos/${prediction.teamId}.png`}
+                    alt={prediction.teamTag} 
+                    width={14} 
+                    height={14} 
+                    className="object-contain" 
+                  />
+                  {prediction.teamTag}
+                </div>
+              )}
               <span className="font-mono text-[10pt] font-bold truncate">
-                {prediction.userName} {isOwnPost && "(YOU)"}
+                {prediction.title || prediction.userName} {isOwnPost && "(YOU)"}
               </span>
             </div>
             
@@ -150,6 +160,41 @@ export function PredictionCard({
               </div>
             </div>
           </div>
+
+          {/* Plat Chat Power Ranking Grid Preview */}
+          {prediction.powerRanking && (
+            <div className="mb-4 bg-gradient-to-b from-[#1e150a] to-[#0d0905] border-2 border-yellow-900/60 p-3 rounded-lg shadow-md">
+              <div className="flex items-center justify-between border-b border-yellow-900/40 pb-2 mb-3">
+                <span className="text-xs font-black uppercase text-yellow-500 tracking-wider">
+                  {prediction.title || "Champions Paris Power Rankings"}
+                </span>
+                <span className="text-[10px] font-mono text-teal-400 font-black">PLAT CHAT</span>
+              </div>
+              <div className="grid grid-cols-4 gap-2">
+                {(() => {
+                  try {
+                    const rankings: { rank: number; teamId: string; teamTag: string }[] = JSON.parse(prediction.powerRanking)
+                    return rankings.slice(0, 16).map(item => (
+                      <div key={item.rank} className="relative aspect-[16/10] bg-white border border-gray-300 rounded p-1 flex items-center justify-center shadow-sm">
+                        <div className="absolute bottom-0.5 left-0.5 bg-white border border-black px-1 text-[9px] font-black text-black leading-none">
+                          {item.rank}
+                        </div>
+                        <Image
+                          src={`/logos/${item.teamId}.png`}
+                          alt={item.teamTag || item.teamId}
+                          width={24}
+                          height={24}
+                          className="object-contain max-h-[80%]"
+                        />
+                      </div>
+                    ))
+                  } catch {
+                    return <p className="text-xs text-muted-foreground italic col-span-4">Invalid ranking format</p>
+                  }
+                })()}
+              </div>
+            </div>
+          )}
 
           <div className="relative">
             <div className={cn(

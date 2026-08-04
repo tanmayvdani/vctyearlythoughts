@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { TEAMS } from "@/lib/teams"
 import { Button } from "@/components/ui/button"
 import { X, Check, ChevronsUpDown } from "lucide-react"
@@ -19,7 +19,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/command"
 
 const REGION_IMAGES: Record<string, string> = {
@@ -47,11 +46,14 @@ export function FeedFilters() {
   const [openRegion, setOpenRegion] = useState(false)
   const [openTeam, setOpenTeam] = useState(false)
 
-  // Sync state with URL when it changes
-  useEffect(() => {
+  // Sync state with URL when it changes (adjust state during render — the
+  // React-recommended replacement for a setState-in-effect sync loop)
+  const [prevSearchParams, setPrevSearchParams] = useState(searchParams)
+  if (searchParams !== prevSearchParams) {
+    setPrevSearchParams(searchParams)
     setSelectedRegions(getParams("region"))
     setSelectedTeams(getParams("team"))
-  }, [searchParams])
+  }
 
   // Prefetch logic
   useEffect(() => {

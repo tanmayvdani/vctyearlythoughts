@@ -26,6 +26,7 @@ export function FeaturedTeamCard({ team, onClick, isPredicted }: FeaturedTeamCar
           width={40} 
           height={40} 
           className="object-contain" 
+          priority
         />
       </div>
 

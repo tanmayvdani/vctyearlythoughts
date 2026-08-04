@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getDb } from "@/lib/db"
-import { emailChangeRequests, users, accounts } from "@/lib/schema"
-import { eq, and } from "drizzle-orm"
-import { auth, signIn } from "@/auth"
+import { emailChangeRequests, users } from "@/lib/schema"
+import { eq } from "drizzle-orm"
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams

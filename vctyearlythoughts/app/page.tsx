@@ -13,10 +13,12 @@ export default async function Home() {
     redirect("/onboarding")
   }
 
-  // Fetch data on the server
-  const subscriptions = await getUserSubscriptions()
-  const regionSubscriptions = await getUserRegionSubscriptions()
-  const predictions = await getUserPredictions()
+  // Fetch data on the server in parallel
+  const [subscriptions, regionSubscriptions, predictions] = await Promise.all([
+    getUserSubscriptions(),
+    getUserRegionSubscriptions(),
+    getUserPredictions()
+  ])
   
   // Calculate today's teams using Server Time
   const serverTime = new Date()

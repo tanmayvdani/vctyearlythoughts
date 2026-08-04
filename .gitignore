@@ -52,3 +52,7 @@ vlr.py
 create_tester.py
 package-lock.json
 vctyearlythoughts/package-lock.json
+.playwright-mcp/
+fix_cn_amer.py
+pr-*.md
+*.png

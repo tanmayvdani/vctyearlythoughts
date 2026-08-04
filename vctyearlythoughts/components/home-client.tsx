@@ -2,30 +2,45 @@
 
 import { useState } from "react"
 import { TEAMS, type Team, KICKOFF_DATES } from "@/lib/teams"
+import { predictions } from "@/lib/schema"
 import { RegionColumn } from "@/components/region-column"
-import { PredictionModal } from "@/components/prediction-modal"
 import { Navbar } from "@/components/navbar"
 import { FeaturedTeamCard } from "@/components/featured-team-card"
 import { TeaserCard } from "@/components/teaser-card"
 import { CalendarDays, ChevronDown, Lock, Trophy, Unlock } from "lucide-react"
 import { cn } from "@/lib/utils"
+import dynamic from "next/dynamic"
 
-import { SpecialEventCTA } from "@/components/special-event-cta"
+// Dynamic imports for heavy components
+const PredictionModal = dynamic(() => import("@/components/prediction-modal").then(mod => mod.PredictionModal), {
+  ssr: false,
+})
+
+const SpecialEventCTA = dynamic(() => import("@/components/special-event-cta").then(mod => mod.SpecialEventCTA), {
+  ssr: false,
+})
+
 import { isGlobalUnlockActive } from "@/lib/vct-utils"
 import { useSearchParams } from "next/navigation"
 import { ArrowDown } from "lucide-react"
 import { useEffect, useRef } from "react"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/components/auth-provider"
+import { subscribeToTeam, unsubscribeFromTeam } from "@/app/actions"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 interface HomeClientProps {
   initialSubscriptions: string[]
   initialRegionSubscriptions: string[]
-  initialPredictions: any[]
+  initialPredictions: Prediction[]
   todaysTeams: Team[]
   tomorrowTeams: Team[]
   daysUntilStart: number
   isLoggedIn?: boolean
 }
+
+type Prediction = typeof predictions.$inferSelect
 
 export function HomeClient({ 
   initialSubscriptions, 
@@ -37,13 +52,22 @@ export function HomeClient({
   isLoggedIn = false
 }: HomeClientProps) {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null)
-  const [selectedPrediction, setSelectedPrediction] = useState<any | null>(null)
+  const [selectedPrediction, setSelectedPrediction] = useState<Prediction | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [subscribedTeams, setSubscribedTeams] = useState<string[]>(initialSubscriptions)
-  const [subscribedRegions, setSubscribedRegions] = useState<string[]>(initialRegionSubscriptions)
+  const [subscribedRegions] = useState<string[]>(initialRegionSubscriptions)
   const [isInfoExpanded, setIsInfoExpanded] = useState(false)
   const hasResumed = useRef(false)
   
+  const router = useRouter()
+  const { user } = useAuth()
+  
+  // Teaser Modal states
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showTeaserSubscribeModal, setShowTeaserSubscribeModal] = useState(false)
+  const [showTeaserUnsubscribeModal, setShowTeaserUnsubscribeModal] = useState(false)
+  const [teaserTeam, setTeaserTeam] = useState<Team | null>(null)
+
   const searchParams = useSearchParams()
   const isFocusMode = searchParams.get("action") === "predict-any" && !isLoggedIn
 
@@ -63,18 +87,23 @@ export function HomeClient({
             const team = [...todaysTeams, ...tomorrowTeams, ...TEAMS].find(t => t.id === pending.teamId)
             
             if (team) {
-              // Open modal
-              setSelectedTeam(team)
-              // Check if there is an existing prediction (likely not if they just signed up, but good to check)
-              const existingPrediction = initialPredictions.find(p => p.teamId === team.id)
-              setSelectedPrediction(existingPrediction || null)
-              
-              setIsModalOpen(true)
-              toast.info("Resuming your prediction draft")
-              
-              // Clear pending flag
-              localStorage.removeItem("pending_prediction")
-              hasResumed.current = true
+              // Defer the state updates out of the effect body (synchronizing
+              // with localStorage is external state, but the setState calls
+              // belong in a callback rather than synchronously in the effect)
+              setTimeout(() => {
+                // Open modal
+                setSelectedTeam(team)
+                // Check if there is an existing prediction (likely not if they just signed up, but good to check)
+                const existingPrediction = initialPredictions.find(p => p.teamId === team.id)
+                setSelectedPrediction(existingPrediction || null)
+                
+                setIsModalOpen(true)
+                toast.info("Resuming your prediction draft")
+                
+                // Clear pending flag
+                localStorage.removeItem("pending_prediction")
+                hasResumed.current = true
+              }, 0)
             }
           } else {
             // Expired
@@ -103,6 +132,36 @@ export function HomeClient({
     setSelectedTeam(team)
     setSelectedPrediction(existingPrediction || null)
     setIsModalOpen(true)
+  }
+
+  const handleTeaserNotifyClick = (team: Team) => {
+    if (!user) {
+      setShowLoginModal(true)
+      return
+    }
+
+    setTeaserTeam(team)
+    if (subscribedTeams.includes(team.id)) {
+      setShowTeaserUnsubscribeModal(true)
+    } else {
+      setShowTeaserSubscribeModal(true)
+    }
+  }
+
+  const confirmTeaserSubscribe = async () => {
+    if (!teaserTeam) return
+    await subscribeToTeam(teaserTeam.id)
+    setSubscribedTeams(prev => [...prev, teaserTeam.id])
+    setShowTeaserSubscribeModal(false)
+    toast.success(`Subscribed to ${teaserTeam.name} updates`)
+  }
+
+  const confirmTeaserUnsubscribe = async () => {
+    if (!teaserTeam) return
+    await unsubscribeFromTeam(teaserTeam.id)
+    setSubscribedTeams(prev => prev.filter(id => id !== teaserTeam.id))
+    setShowTeaserUnsubscribeModal(false)
+    toast.success(`Unsubscribed from ${teaserTeam.name} updates`)
   }
 
   const predictedTeamIds = initialPredictions.map(p => p.teamId)
@@ -204,6 +263,7 @@ export function HomeClient({
                   <TeaserCard
                     teams={tomorrowTeams}
                     initialSubscribedTeamIds={subscribedTeams}
+                    onNotificationClick={handleTeaserNotifyClick}
                   />
                 )}
               </div>
@@ -275,6 +335,41 @@ export function HomeClient({
         existingPrediction={selectedPrediction}
         isPredictAny={isFocusMode}
       />
+
+      {/* Shared Modals for Teaser */}
+      <ConfirmDialog
+        isOpen={showLoginModal}
+        title="Authentication Required"
+        description="You must be signed in to manage notifications."
+        confirmText="Sign In"
+        cancelText="Cancel"
+        onConfirm={() => router.push("/login")}
+        onCancel={() => setShowLoginModal(false)}
+      />
+
+      {teaserTeam && (
+        <>
+          <ConfirmDialog
+            isOpen={showTeaserSubscribeModal}
+            title="Confirm Subscription"
+            description={`Confirm that you want to be notified with an email to ${user?.email || "your email"} when ${teaserTeam.name} unlocks.`}
+            confirmText="Yes"
+            cancelText="Cancel"
+            onConfirm={confirmTeaserSubscribe}
+            onCancel={() => setShowTeaserSubscribeModal(false)}
+          />
+
+          <ConfirmDialog
+            isOpen={showTeaserUnsubscribeModal}
+            title="Unsubscribe?"
+            description={`Confirm you want to UNSUBSCRIBE from being notified when ${teaserTeam.name} unlocks.`}
+            confirmText="Yes"
+            cancelText="Cancel"
+            onConfirm={confirmTeaserUnsubscribe}
+            onCancel={() => setShowTeaserUnsubscribeModal(false)}
+          />
+        </>
+      )}
     </main>
   )
 }

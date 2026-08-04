@@ -16,24 +16,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       sendVerificationRequest: async ({ identifier, url, provider }) => {
         const resend = new ResendClient(process.env.RESEND_API_KEY)
         const { host } = new URL(url)
-        const escapedHost = host.replace(/\./g, "&#8203;.")
 
         try {
           await resend.emails.send({
             from: provider.from || "onboarding@resend.dev",
             to: identifier,
             subject: `Sign in to ${host}`,
-            html: html({ url, host, theme: { brandColor: "#ff4655", buttonText: "#ffffff" } }),
+            html: html({ url, theme: { brandColor: "#ff4655", buttonText: "#ffffff" } }),
             text: text({ url, host }),
           })
-        } catch (error) {
+        } catch {
           throw new Error("Failed to send verification email")
         }
       },
     }),
   ],
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user }) {
       const userEmail = user.email
       if (!userEmail) return false
       
@@ -130,8 +129,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   }
 })
 
-function html(params: { url: string; host: string; theme: { brandColor: string; buttonText: string } }) {
-  const { url, host, theme } = params
+function html(params: { url: string; theme: { brandColor: string; buttonText: string } }) {
+  const { url, theme } = params
 
   const brandColor = theme.brandColor || "#ff4655" // Valorant Red default
   const color = {

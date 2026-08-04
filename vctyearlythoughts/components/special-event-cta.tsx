@@ -5,6 +5,7 @@ import { ArrowRight, Globe, Timer, Unlock, Zap } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 
 const LOGOS = [
   { id: 'sen', x: 15, y: 15, size: 'w-16 h-16', delay: '0s' },
@@ -24,14 +25,16 @@ const LOGOS = [
 ]
 
 const SUBHEADINGS = [
-  <>All teams from all regions are unlocked for 24 hours. Do you want bragging rights to show you predicted the <img src="/logos/champions.png" className="inline h-[26px] w-[26px] mx-1 align-middle" alt="Champions" /> winner at the start? Predict now. Any team, any region.</>,
-  <>Do you want to prove you're better than <img src="/logos/egg.png" className="inline h-[26px] w-[26px] mx-1 align-middle" alt="Sideshow" /> at predicting which team is F tier? Predict <img src="/logos/xlg.png" className="inline h-[26px] w-[26px] mx-1 align-middle" alt="XLG" />'s placement now.</>,
-  <>Will <img src="/logos/g2.png" className="inline h-[26px] w-[26px] mx-1 align-middle" alt="G2" /> win an international this time? Should babybay go back to overwatch? Share your thoughts on your favorite team, or your hate-watch.</>,
-  <>Will mini save <img src="/logos/zeta.png" className="inline h-[26px] w-[26px] mx-1 align-middle" alt="ZETA" /> or will they have an 11th-12th finish with dep gone? Share now and look back at the end of the year.</>,
-  <>Wanna show you're better at predicting the <img src="/logos/masters.png" className="inline h-[26px] w-[26px] mx-1 align-middle" alt="Masters" /> London winner? This is your chance. All predictions lock in 24 hours.</>
+  <>All teams from all regions are unlocked for 24 hours. Do you want bragging rights to show you predicted the <LogoImg src="/logos/champions.png" alt="Champions" /> winner at the start? Predict now. Any team, any region.</>,
+  <>Do you want to prove you&apos;re better than <LogoImg src="/logos/egg.png" alt="Sideshow" /> at predicting which team is F tier? Predict <LogoImg src="/logos/xlg.png" alt="XLG" />&apos;s placement now.</>,
+  <>Will <LogoImg src="/logos/g2.png" alt="G2" /> win an international this time? Should babybay go back to overwatch? Share your thoughts on your favorite team, or your hate-watch.</>,
+  <>Will mini save <LogoImg src="/logos/zeta.png" alt="ZETA" /> or will they have an 11th-12th finish with dep gone? Share now and look back at the end of the year.</>,
+  <>Wanna show you&apos;re better at predicting the <LogoImg src="/logos/masters.png" alt="Masters" /> London winner? This is your chance. All predictions lock in 24 hours.</>
 ]
 
-import { isGlobalUnlockActive } from "@/lib/vct-utils"
+function LogoImg({ src, alt }: { src: string; alt: string }) {
+  return <Image src={src} alt={alt} width={26} height={26} unoptimized className="inline h-[26px] w-[26px] mx-1 align-middle" />
+}
 
 const GLOBAL_UNLOCK_END = new Date("2026-01-27T15:00:00.000Z")
 
@@ -39,7 +42,9 @@ export function SpecialEventCTA() {
   const [timeLeft, setTimeLeft] = useState<string>("24:00:00")
   const [glitchIndex, setGlitchIndex] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [subheading, setSubheading] = useState<React.ReactNode>(SUBHEADINGS[0])
+  const [subheading] = useState<React.ReactNode>(() =>
+    SUBHEADINGS[Math.floor(Math.random() * SUBHEADINGS.length)]
+  )
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,11 +73,6 @@ export function SpecialEventCTA() {
       setGlitchIndex(prev => (prev + 1) % 4) // Cycle through 4 states
     }, 2000)
     return () => clearInterval(interval)
-  }, [])
-
-  // Set random subheading on mount
-  useEffect(() => {
-    setSubheading(SUBHEADINGS[Math.floor(Math.random() * SUBHEADINGS.length)])
   }, [])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {

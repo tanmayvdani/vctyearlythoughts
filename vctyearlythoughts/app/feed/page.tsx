@@ -1,8 +1,7 @@
-import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { getDb } from "@/lib/db"
 import { predictions, votes } from "@/lib/schema"
-import { count, desc, eq, and, inArray, or, sql } from "drizzle-orm"
+import { count, desc, eq, and, inArray, sql } from "drizzle-orm"
 import { FeedList } from "@/components/feed-list"
 import { FeedFilters } from "@/components/feed-filters"
 import { PaginationControls } from "@/components/pagination-controls"
@@ -87,8 +86,8 @@ export default async function FeedPage({
       .where(filters),
   ])
 
-  const dbPredictions = results[0].status === 'fulfilled' ? (results[0].value as any[]) : []
-  const totalCountResult = results[1].status === 'fulfilled' ? (results[1].value as any[]) : []
+  const dbPredictions = results[0].status === 'fulfilled' ? results[0].value : []
+  const totalCountResult = results[1].status === 'fulfilled' ? results[1].value : []
 
   const totalCount = totalCountResult[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)

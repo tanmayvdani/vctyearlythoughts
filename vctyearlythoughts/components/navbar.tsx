@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/components/auth-provider"
-import { LogOut, User, Home, Bookmark, Globe } from "lucide-react"
+import { LogOut, User, Home, Bookmark, Globe, Trophy, Users } from "lucide-react"
 import Image from "next/image"
 
 export function Navbar() {
@@ -13,6 +13,8 @@ export function Navbar() {
 
   const navItems = [
     { label: "DASHBOARD", href: "/", icon: Home },
+    { label: "POWER RANKINGS", href: "/power-rankings", icon: Trophy },
+    { label: "ROSTERS", href: "/rosters", icon: Users },
     { label: "MY FEED", href: "/my-feed", icon: Bookmark },
     { label: "PUBLIC FEED", href: "/feed", icon: Globe },
   ]
@@ -28,6 +30,7 @@ export function Navbar() {
               width={24} 
               height={24} 
               className="object-contain" 
+              priority
             />
             <span className="font-bold tracking-tight text-[10pt] hidden sm:inline-block text-white">VCT CAPSULE</span>
           </Link>

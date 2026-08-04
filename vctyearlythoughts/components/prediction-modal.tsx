@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
-import type { Team } from "@/lib/teams"
+import type { Team, RosterMember, RosterTransaction } from "@/lib/teams"
 import { TEAMS } from "@/lib/teams"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -58,8 +58,8 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const [showTransactions, setShowTransactions] = useState(false)
   const [isRosterVisible, setIsRosterVisible] = useState(true)
-  const [roster, setRoster] = useState<any[]>([])
-  const [transactions, setTransactions] = useState<any[]>([])
+  const [roster, setRoster] = useState<RosterMember[]>([])
+  const [transactions, setTransactions] = useState<RosterTransaction[]>([])
   const [loading, setLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
@@ -162,12 +162,12 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
     }
   }, [tourStep, isTourActive, roster, isRosterVisible])
 
-  const players = roster.filter((m: any) => {
+  const players = roster.filter((m: RosterMember) => {
     const role = m.role.toLowerCase();
     const isPlayer = role.includes("player") || role.includes("stand-in") || role.includes("igl");
     return isPlayer && (showTransactions || m.status !== "Left");
   })
-  const coaches = roster.filter((m: any) => {
+  const coaches = roster.filter((m: RosterMember) => {
     const isCoach = m.role.toLowerCase().includes("coach");
     return isCoach && (showTransactions || m.status !== "Left");
   })
@@ -294,7 +294,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
             setMasters2Placement(parsed.masters2Placement || "")
             setChampionsPlacement(parsed.championsPlacement || "")
             setRosterMoves(parsed.rosterMoves || "")
-          } catch (e) {
+          } catch {
             // Legacy text-only draft fallback
             setThought(savedDraft)
             setKickoffPlacement("")
@@ -401,8 +401,8 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
 
       toast.success(existingPrediction ? "Prediction updated!" : "Prediction saved to capsule!")
       onClose()
-    } catch (error: any) {
-      toast.error(error.message || "Failed to save prediction")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to save prediction")
     } finally {
       setIsSubmitting(false)
     }
@@ -526,8 +526,8 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                   <div className="grid grid-cols-2 gap-2 pr-1">
                     <div className="space-y-1">
                       <p className="text-[10pt] font-black text-primary uppercase mb-1">Players</p>
-                      {players.length > 0 ? players.map((p: any, i: number) => {
-                        const joining = showTransactions && (p.status === "In" || transactions.find((t: any) => t.player === p.alias && t.action === "join"));
+                      {players.length > 0 ? players.map((p: RosterMember, i: number) => {
+                        const joining = showTransactions && (p.status === "In" || transactions.find((t: RosterTransaction) => t.player === p.alias && t.action === "join"));
                         const left = showTransactions && p.status === "Left";
                         return (
                           <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : left ? "bg-red-500/10 border-red-500/30 opacity-70" : "bg-muted/30 border-border/50"}`}>
@@ -549,7 +549,7 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                         );
                       }) : <p className="text-[10pt] text-muted-foreground italic">No players found</p>}
                       
-                      {showTransactions && transactions.filter((t: any) => t.action === "leave" && !roster.some((r: any) => r.alias === t.player)).map((t: any, i: number) => (
+                      {showTransactions && transactions.filter((t: RosterTransaction) => t.action === "leave" && !roster.some((r: RosterMember) => r.alias === t.player)).map((t: RosterTransaction, i: number) => (
                         <div key={`left-${i}`} className="flex flex-col border bg-red-500/10 border-red-500/30 p-1.5 opacity-70">
                           <div className="flex items-center justify-between gap-1">
                             <span className="text-[10pt] font-black leading-none text-red-500">{t.player}</span>
@@ -561,8 +561,8 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                     </div>
                     <div className="space-y-1">
                       <p className="text-[10pt] font-black text-primary uppercase mb-1">Staff</p>
-                      {coaches.length > 0 ? coaches.map((c: any, i: number) => {
-                        const joining = showTransactions && (c.status === "In" || transactions.find((t: any) => t.player === c.alias && t.action === "join"));
+                      {coaches.length > 0 ? coaches.map((c: RosterMember, i: number) => {
+                        const joining = showTransactions && (c.status === "In" || transactions.find((t: RosterTransaction) => t.player === c.alias && t.action === "join"));
                         const left = showTransactions && c.status === "Left";
                         return (
                           <div key={i} className={`flex flex-col border p-1.5 ${joining ? "bg-green-500/10 border-green-500/30" : left ? "bg-red-500/10 border-red-500/30 opacity-70" : "bg-muted/30 border-border/50"}`}>
@@ -823,11 +823,14 @@ export function PredictionModal({ team, isOpen, onClose, existingPrediction, isP
                             <ReactMarkdown 
                               remarkPlugins={[remarkGfm, remarkBreaks]}
                                 components={{
-                                  a: ({node, ...props}) => <a {...props} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer" />,
-                                  ul: ({node, ...props}) => <ul {...props} className="list-disc pl-4 space-y-1" />,
-                                  ol: ({node, ...props}) => <ol {...props} className="list-decimal pl-4 space-y-1" />,
-                                  blockquote: ({node, ...props}) => <blockquote {...props} className="border-l-2 border-primary/50 pl-4 italic text-muted-foreground" />,
-                                  img: ({node, ...props}) => <img {...props} className="inline-block h-6 w-auto object-contain align-middle mx-0.5 my-0.5" />
+                                  a: ({ ...props }) => <a {...props} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer" />,
+                                  ul: ({ ...props }) => <ul {...props} className="list-disc pl-4 space-y-1" />,
+                                  ol: ({ ...props }) => <ol {...props} className="list-decimal pl-4 space-y-1" />,
+                                  blockquote: ({ ...props }) => <blockquote {...props} className="border-l-2 border-primary/50 pl-4 italic text-muted-foreground" />,
+                                  img: ({ src, alt, width, height, ...props }) => {
+                                    if (typeof src !== "string") return null
+                                    return <Image src={src} alt={alt ?? ""} width={Number(width) || 24} height={Number(height) || 24} unoptimized {...props} className="inline-block h-6 w-auto object-contain align-middle mx-0.5 my-0.5" />
+                                  }
                                 }}
                               >
                                 {thought}
