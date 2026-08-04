@@ -14,7 +14,9 @@ export function Navbar() {
   const navItems = [
     { label: "DASHBOARD", href: "/", icon: Home },
     { label: "POWER RANKINGS", href: "/power-rankings", icon: Trophy },
-    { label: "ROSTERS", href: "/rosters", icon: Users },
+    ...(process.env.NODE_ENV === "development"
+      ? [{ label: "ROSTERS", href: "/rosters", icon: Users }]
+      : []),
     { label: "MY FEED", href: "/my-feed", icon: Bookmark },
     { label: "PUBLIC FEED", href: "/feed", icon: Globe },
   ]
